@@ -1,0 +1,46 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: 1.6rem;
+  line-height: 1.5;
+  text-rendering: optimizeSpeed;
+  color: var(--text-color);
+  overflow-y: overlay;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+// Button
+.button {
+  color: white;
+  background-color: transparent;
+  padding: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  min-width: 80px;
+  min-height: 35px;
+  border: 1px solid white;
+  border-radius: 5px;
+  margin: 0 5px;
+
+  &:hover {
+    transform: scale(1.1);
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+}

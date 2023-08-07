@@ -8,7 +8,10 @@ function App() {
       <BrowserRouter>
         <Routes>
           {publicRoutes.map((route, index) => {
-            const Layout = DefaultLayout;
+            var Layout = DefaultLayout;
+            if (route.layout) {
+              Layout = route.layout;
+            }
             const Page = route.component;
             return (
               <Route
