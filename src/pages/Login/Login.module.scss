@@ -26,7 +26,7 @@
   color: white;
 
   h1 {
-    margin-top: 20px;
+    margin-top: 0px;
     margin-right: 170px;
   }
 
@@ -43,68 +43,98 @@
   }
 }
 
-//  Form
+//  Form 
 
-.form {
+.wrapper {
   width: 50%;
   display: flex;
-  backdrop-filter: blur(3px);
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
 }
 
-.form_login {
-  margin: 30px auto;
-  width: 350px;
+.form {
+  width: 360px;
+  min-height: 100px;
+  margin: 30px;
+  padding: 25px 24px;
   text-align: center;
+  // border: 1px solid white;
+  box-shadow: 0 2px 5px 0 rgba(51, 62, 73, 0.1);
+  align-self: center;
+
+  h1 {
+    margin-bottom: 12px;
+    color: yellow;
+  }
+
+  p {
+    color: #16eb60;
+    font-size: 1.6rem;
+    font-weight: lighter;
+    line-height: 2.4rem;
+  }
 }
 
-.heading_form {
+.spacer {
+  margin-top: 30px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.form-label {
+  text-align: left;
   color: white;
 }
 
-.form_group {
-  text-align: center;
-  margin: 60px 0;
-  display: flex;
-  color: white;
-}
-
-.form_control {
-  font-size: 16px;
-  display: flex;
-  background: transparent;
-  border: none;
-  color: #fff;
+.form-control {
+  height: 40px;
+  border-radius: 4px;
+  border: 1px solid #00ff37;
+  padding: 8px 12px;
   outline: none;
-  border-bottom: 2px solid #fff;
+  font-size: 1.4rem;
+  background-color: transparent;
+  color: white;
+
+  &:hover {
+    border-color: white;
+  }
+}
+
+.form-group.invalid .form-control {
+  border-color: #f33a58;
+}
+
+.form-group.invalid .form-message {
+  color: #f33a58;
+}
+
+.form-message {
+  text-align: left;
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+  padding: 4px 0 0;
+}
+
+.btn_register {
+  padding: 10px;
+  border: none;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 5px;
+  background-color: #d373b3;
+  color: #fff;
   width: 100%;
-  height: 100%;
+  cursor: pointer;
+  margin-top: 12px;
 
-  &::placeholder {
-    color: white;
-  }
-}
-
-.form_label {
-  color: white;
-
-  span {
-    margin-left: 10px;
-  }
-}
-
-.sing_up {
-  color: white;
-  width: 250px;
-  margin: 30px auto;
-  display: flex;
-
-  span {
-    color: white;
-    margin-left: 5px;
-    font-weight: 800;
-
-    &:hover {
-      color: blue;
-    }
+  &:hover {
+    transform: scale(1.05);
+    background-color: #da1397;
   }
 }

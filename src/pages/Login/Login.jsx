@@ -1,16 +1,27 @@
 import className from "classnames/bind";
 import styles from "./Login.module.scss";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
-import Header from "../../layouts/components/Header";
+import HeaderNone from "../../layouts/components/HeaderNone";
+import { useState } from "react";
 
 const cx = className.bind(styles);
 
 function Login() {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [error, setError] = useState();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Call API
+    console.log({ email, password });
+  };
+
   return (
-    <div className={cx("wrapper")}>
+    <div className={cx("app")}>
       {/* Header */}
-      <Header />
+      <HeaderNone />
 
       <div className={cx("photograph")}></div>
       {/* Home */}
@@ -21,39 +32,45 @@ function Login() {
           <h3>To Our Nem Website</h3>
           <p>klasjfklsdajkflasdfdsjfasdkfjaksddfkjljasdklfjksd</p>
         </div>
-        <div className={cx("form")}>
-          <form className={cx("form_login")}>
-            <h2 className={cx("heading_form")}>Sing in</h2>
-            {/* Email */}
-            <div className={cx("form_group")}>
-              <input
-                type="text"
-                className={cx("form_control")}
-                placeholder="Email"
-              />
-            </div>
-            {/* Password */}
-            <div className={cx("form_group")}>
-              <input
-                type="password"
-                className={cx("form_control")}
-                placeholder="Password"
-              />
-            </div>
 
-            {/* Check */}
-            <div className={cx("check")}>
-              <label htmlFor="" className={cx('form_label')}>
-                <input type="checkbox" />
-                <span>Remember me ?</span>
+
+        {/* Form */}
+        <div className={cx("wrapper")}>
+          <form onSubmit={handleSubmit} className={cx("form")}>
+            <h1>Đăng nhập</h1>
+            <p>Chào mừng bạn đến kho album miễn phí</p>
+            <div className={cx("spacer")}></div>
+
+            <div className={cx("form-group")}>
+              <label className={cx("form-label")} htmlFor="email">
+                Email
               </label>
+              <input
+                className={cx("form-control")}
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <span className={cx("form-message")}></span>
             </div>
 
-            {/* Sing up */}
-            <div className={cx("sing_up")}>
-              <p>Dont have an account ?</p>
-              <Link to={'/authentication/register'}><span>Sing up</span></Link>
+            {/* Password */}
+            <div className={cx("form-group")}>
+              <label className={cx("form-label")} htmlFor="password">
+                Mật khẩu
+              </label>
+              <input
+                className={cx("form-control")}
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <span className={cx("form-message")}></span>
             </div>
+
+            <button className={cx("btn_register")}>Login</button>
           </form>
         </div>
       </div>
