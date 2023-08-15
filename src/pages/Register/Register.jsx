@@ -4,34 +4,46 @@ import { Fragment, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import HeaderNone from "../../layouts/components/HeaderNone";
+import { useForm } from "react-hook-form";
 
 const cx = className.bind(styles);
 
 function Register() {
-  const [email, setEmail] = useState();
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
-  const [classs, setClasss] = useState();
-  const [mssv, setMssv] = useState();
-  const [type, setType] = useState("sinhvien");
-  const [error, setError] = useState();
+  const [err, setError] = useState();
   const navigate = useNavigate();
 
-  console.log(type);
+  console.log(err);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Call API
+  // Validate form
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    mode: "all",
+  });
+
+  // const handleSubmitReg = (data) => {
+  //   console.log("data", data);
+  //   // Call API
+  //   axios
+  //     .post("http://localhost:3000/authentication/register", data)
+  //     .then((res) => {
+  //       console.log(res);
+  //       // if (res.data === "Success") {
+  //       //   navigate("/authentication/login");
+  //       // } else {
+  //       //   setError(res.data);
+  //       // }
+  //     })
+  //     .catch((err) => console.log("Loi server"));
+  // };
+
+  const onSubmit = (data) => {
     axios
-      .post("http://localhost:3000/authentication/register", {
-        email,
-        username,
-        password,
-        mssv,
-        classs,
-        type,
-      })
+      .post("http://localhost:3000/authentication/register", data)
       .then((res) => {
+        console.log(res);
         if (res.data === "Success") {
           navigate("/authentication/login");
         } else {
@@ -47,46 +59,10 @@ function Register() {
 
       <div className={cx("photograph")}></div>
 
-      <form className={cx("form")} onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)} className={cx("form")}>
         <h1>Thành viên đăng ký </h1>
 
-        {/* Error */}
-        <span className={cx("form-message", "invalid")}>{error}</span>
-
-        {/* Type */}
-        <div className={cx("form-group")}>
-          <label className={cx("form-label")} htmlFor="type">
-            Type
-          </label>
-          <div className={cx("form_type")}>
-            {/* Student */}
-            <div className={cx("form-group-type")}>
-              <input
-                className={cx("input_type")}
-                type="radio"
-                id="sv"
-                name="type"
-                value="sinhvien"
-                checked={type === "sinhvien"}
-                onChange={(e) => setType(e.target.value)}
-              />
-              <label htmlFor="sv">Sinh viên</label>
-            </div>
-
-            {/* Teacher */}
-            <div className={cx("form-group-type")}>
-              <input
-                className={cx("input_type")}
-                type="radio"
-                id="gv"
-                name="type"
-                value="giaovien"
-                onChange={(e) => setType(e.target.value)}
-              />
-              <label htmlFor="gv">Giáo viên</label>
-            </div>
-          </div>
-        </div>
+        
 
         {/* Email */}
         <div className={cx("form-group")}>
@@ -96,9 +72,12 @@ function Register() {
           <input
             className={cx("form-control")}
             type="email"
-            id="em"
-            onChange={(e) => setEmail(e.target.value)}
+            id="email"
+            {...register("email", {
+              required: "Email is required",
+            })}
           />
+          <span className={cx("form-message")}>{errors.email?.message}</span>
         </div>
 
         {/* Username */}
@@ -110,43 +89,12 @@ function Register() {
             className={cx("form-control")}
             type="text"
             id="username"
-            onChange={(e) => setUsername(e.target.value)}
+            {...register("username", {
+              required: "Username is required",
+            })}
           />
+          <span className={cx("form-message")}>{errors.username?.message}</span>
         </div>
-
-        {/* MSSV */}
-
-        {type === "sinhvien" ? (
-          <>
-            {/* MSSV */}
-            <div className={cx("form-group")}>
-              <label className={cx("form-label")} htmlFor="mssv">
-                MSSV
-              </label>
-              <input
-                className={cx("form-control")}
-                type="text"
-                id="mssv"
-                onChange={(e) => setMssv(e.target.value)}
-              />
-            </div>
-
-            {/* CLass */}
-            <div className={cx("form-group")}>
-              <label className={cx("form-label")} htmlFor="class">
-                Class
-              </label>
-              <input
-                className={cx("form-control")}
-                type="text"
-                id="class"
-                onChange={(e) => setClasss(e.target.value)}
-              />
-            </div>
-          </>
-        ) : (
-          <Fragment></Fragment>
-        )}
 
         {/* Password */}
         <div className={cx("form-group")}>
@@ -157,11 +105,20 @@ function Register() {
             className={cx("form-control")}
             type="password"
             id="password"
-            onChange={(e) => setPassword(e.target.value)}
+            {...register("password", {
+              required: "Password is required",
+            })}
           />
+          <span className={cx("form-message")}>{errors.password?.message}</span>
         </div>
 
-        <button className={cx("btn_register")}>Register</button>
+        {/* Error */}
+        <span className={cx("form-message" , "invalid")}>{err ? err : ""}</span>
+
+
+        <button type="submit" className={cx("btn_register")}>
+          Register
+        </button>
       </form>
     </div>
   );
