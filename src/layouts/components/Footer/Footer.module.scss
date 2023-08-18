@@ -1,0 +1,35 @@
+
+.wrapper {
+    background-color: #00396b;
+    height: 175px;
+    color: white;
+}
+
+.linkFooter{
+    padding-top: 20px;
+    ul {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    a {
+        color: white;
+        font-size: 25px;
+        font-weight: 800;
+    }
+} 
+
+
+
+.end{
+    margin: 0 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    
+}
+
+.lienhe {
+
+}

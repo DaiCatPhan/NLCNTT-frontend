@@ -23,21 +23,6 @@ function Register() {
     mode: "all",
   });
 
-  // const handleSubmitReg = (data) => {
-  //   console.log("data", data);
-  //   // Call API
-  //   axios
-  //     .post("http://localhost:3000/authentication/register", data)
-  //     .then((res) => {
-  //       console.log(res);
-  //       // if (res.data === "Success") {
-  //       //   navigate("/authentication/login");
-  //       // } else {
-  //       //   setError(res.data);
-  //       // }
-  //     })
-  //     .catch((err) => console.log("Loi server"));
-  // };
 
   const onSubmit = (data) => {
     axios
