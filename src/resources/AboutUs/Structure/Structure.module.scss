@@ -1,0 +1,72 @@
+// Structure.jsx
+
+.wrapper {
+}
+
+.contentLeft {
+  background-color: #f9f9f9;
+}
+
+.listLink {
+  margin: auto;
+  width: 370px;
+  margin-top: 50px;
+}
+
+.link {
+  cursor: pointer;
+  padding: 20px 0;
+  margin-bottom: 0;
+  border-bottom: 1px solid rgb(128, 124, 124);
+
+  &:hover {
+    border-left: 10px solid #d6a022;
+    background-color: #ffffff;
+  }
+}
+
+.textLink {
+  font-weight: 700;
+  font-size: 2rem;
+  color: #252525;
+  margin-left: 23px;
+}
+
+.position {
+  margin: 20px 0;
+}
+
+.companyPersonnel {
+  color: #d6a022;
+  font-weight: 750;
+}
+
+.members {
+  display: flex;
+}
+
+// Member.jsx
+
+.member {
+  width: 270px;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.image {
+  height: 230px;
+  width: 230px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.username {
+  font-weight: 700;
+  margin-top: 10px;
+  color: #00396b;
+}
+
+.description {
+  font-size: 2rem;
+  font-weight: 700;
+}

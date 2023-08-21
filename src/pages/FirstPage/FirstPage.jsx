@@ -46,7 +46,16 @@ function FirstPage() {
 
       {/* Container */}
       <div className={cx("main")}>
-        <Row className={cx("mt-5")}>
+        <Row>
+          <div className={cx("introduction")}>
+            <h3 className={cx("introduction-first")}>EXPLORE OUR TOURS</h3>
+            <h1 className={cx("introduction-second")}>
+              New and Most Popular Tours
+            </h1>
+          </div>
+        </Row>
+
+        <Row className={cx("paragraph")}>
           <Col xs={7}>
             <p className={cx("text")}>
               Trường Trung cấp Du lịch & Khách sạn Saigontourist (STHC), là cơ
@@ -84,7 +93,15 @@ function FirstPage() {
         <Row className={cx("imageList")}>
           {imgList.map((img) => (
             <Col xs={4}>
-              <img className={cx("imageTravel")} src={img.url} alt={img.id} />
+              <div className={cx("cardImage")}>
+                {img.url && (
+                  <img
+                    className={cx("imageTravel")}
+                    src={img.url}
+                    alt={img.id}
+                  />
+                )}
+              </div>
             </Col>
           ))}
         </Row>

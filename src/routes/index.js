@@ -8,17 +8,18 @@ import BusinessAreas from "../resources/AboutUs/BusinessAreas";
 import CoreValues from "../resources/AboutUs/CoreValues";
 import History from "../resources/AboutUs/History";
 import Philosophy from "../resources/AboutUs/Philosophy";
+import Contact from "../resources/Contact";
 
 const publicRoutes = [
   // Về chúng tôi
   { path: "/aboutus/co-cau-to-chuc", component: Structure },
   {
     path: "/aboutus/tam-nhin-su-menh-gia-tri-cot-loi",
-    component: BusinessAreas,
+    component: CoreValues,
   },
-  { path: "/aboutus/lich-su-phat-trien", component: CoreValues },
-  { path: "/aboutus/triet-ly-kinh-doanh", component: History },
-  { path: "/aboutus/linh-vuc-kinh-doanh", component: Philosophy },
+  { path: "/aboutus/lich-su-phat-trien", component: History },
+  { path: "/aboutus/triet-ly-kinh-doanh", component: Philosophy },
+  { path: "/aboutus/linh-vuc-kinh-doanh", component: BusinessAreas },
 
   // Dich vụ
   { path: "/service/", component: Login },
@@ -32,8 +33,8 @@ const publicRoutes = [
   // Trách nhiệm
   { path: "/responsibility/", component: Login },
 
-  // Hệ thống
-  { path: "/system/", component: Login },
+  // Liên hệ
+  { path: "/lien-he", component: Contact },
 
   // Authentication
   { path: "/authentication/login", component: Login, layout: NoneLayout },

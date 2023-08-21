@@ -7,9 +7,25 @@
 }
 
 .nav {
-  height: 350px;
-  // background-color: pink;
+  height: 500px;
 }
+
+// Introduction
+.introduction {
+  text-align: center;
+  height: 130px ;
+}
+
+.introduction-first {
+
+}
+
+.introduction-second {
+
+}
+// end Introduction
+
+// Start paragraph
 
 .btn {
   background-color: #d6a022;
@@ -26,20 +42,23 @@
   text-align: center;
 }
 
+.cardImage {
+}
+
+// End paragraph
+
+
 .imageTravel {
   width: 350px;
   height: 300px;
-  object-fit: cover;
   border-radius: 5px;
-  animation: hihi 2.5s ease;
   margin-bottom: 25px;
+  object-fit: cover;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.05) ;
+    transition: 1s;
+  }
 }
 
-@keyframes hihi {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}

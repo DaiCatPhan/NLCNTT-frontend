@@ -15,10 +15,10 @@ function SlideLogo() {
       id: 2,
       url: "https://saigontourist.com.vn/img/application/homepage/new-banner/2.jpg",
     },
-    {
-      id: 3,
-      url: "https://saigontourist.com.vn/img/application/homepage/new-banner/3.jpg",
-    },
+    // {
+    //   id: 3,
+    //   url: "https://saigontourist.com.vn/img/application/homepage/new-banner/3.jpg",
+    // },
     {
       id: 4,
       url: "https://saigontourist.com.vn/img/application/homepage/new-banner/4.jpg",

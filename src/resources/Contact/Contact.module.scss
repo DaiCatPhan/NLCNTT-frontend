@@ -1,0 +1,116 @@
+.wrapper {
+  margin: 50px 50px;
+}
+
+.lienhe {
+}
+
+.textNav {
+  margin-bottom: 20px;
+  font-size: 34px;
+  font-weight: 700;
+}
+
+.title {
+  font-size: 28px;
+  color: #f99b1c;
+  font-weight: 700;
+}
+
+.itemText {
+  display: flex;
+  align-items: center;
+  margin: 10 0;
+
+  p {
+    font-size: 18px;
+    margin-left: 5px;
+    margin-top: 7px;
+  }
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+.formLienHe {
+  text-align: center;
+  
+  p {
+    font-size: 20px;
+  }
+}
+
+// ======================== FORM =======================
+
+.form {
+  width: 99%;
+  min-height: 100px;
+  margin: 30px;
+  padding: 25px 24px;
+  text-align: center;
+  border: 1px solid yellow;
+  box-shadow: 0 2px 5px 0 rgba(51, 62, 73, 0.1);
+  align-self: center;
+}
+
+.spacer {
+  margin-top: 30px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.form-label {
+  text-align: left;
+  font-weight: 700;
+}
+
+.form-control {
+  height: 40px;
+  border-radius: 4px;
+  border: 1px solid #adb1ae;
+  padding: 8px 12px;
+  outline: none;
+  font-size: 1.6rem;
+  // background-color: transparent;
+  // color: white;
+}
+
+.invalid {
+  color: #f33a58;
+}
+
+.form-message {
+  text-align: left;
+  font-size: 1.8rem;
+  line-height: 1.6rem;
+  padding: 4px 0 0;
+  color: #f33a58;
+}
+
+.btn_register {
+  padding: 10px;
+  border: none;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 5px;
+  background-color: rgb(204, 35, 35);
+  color: #fff;
+  width: 100%;
+  cursor: pointer;
+  margin-top: 12px;
+
+  &:hover {
+    transform: scale(1.05);
+    background-color: red;
+  }
+}
+
+.comment {
+  height: 100px;
+}
