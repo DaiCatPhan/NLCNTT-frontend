@@ -15,7 +15,7 @@ function BusinessAreas() {
         <Col xs={4} className={cx("contentLeft")}>
           <SideBar />
         </Col>
-        <Col xs={8}></Col>
+        <Col xs={8}>Busesadjfaksd</Col>
       </Row>
     </div>
   );

@@ -60,10 +60,10 @@ function CoreValues() {
             <div className={cx("itemContent")}>
               <h1 className={cx("heading")}>Giá trị cốt lõi</h1>
               <div className={cx("titleValue")}>
-                <h1>Chính trực</h1>
+                <h1>Chính trực</h1> 
                 <h1>Hợp lực</h1>
                 <h1>Sáng tạo</h1>
-                <h1>Hiếu khách</h1>
+                <h1>Hiếu khách</h1> 
               </div>
               <p className={cx("text")}>
                 Mang đến cho mọi người những cuộc hành trình với nhiều kỉ niệm
