@@ -1,7 +1,7 @@
 import className from "classnames/bind";
 import styles from "./Structure.module.scss";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import { Col, Row } from "antd";
+
 import { Link } from "react-router-dom";
 
 import Member from "./Member";
@@ -13,10 +13,10 @@ function Structure() {
   return (
     <div className={cx("wrapper")}>
       <Row>
-        <Col xs={4} className={cx("contentLeft")}>
+        <Col xs={8} className={cx("contentLeft")}>
           <SideBar />
         </Col>
-        <Col xs={8}>
+        <Col xs={16}>
           <Row>
             <div className={cx("position")}>
               <h1 className={cx("companyPersonnel")}>Ban Tổng Giám Đốc</h1>

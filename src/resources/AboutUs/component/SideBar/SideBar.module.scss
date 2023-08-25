@@ -3,22 +3,21 @@
   width: 370px;
   margin-top: 50px;
 }
- 
-.link {
-  cursor: pointer;
-  padding: 20px 0;
-  margin-bottom: 0;
+
+.itemLink {
   border-bottom: 1px solid rgb(128, 124, 124);
 
   &:hover {
     border-left: 10px solid #d6a022;
+    border-bottom: 1px solid #d6a022;
     background-color: #ffffff;
   }
 }
 
-.textLink {
-  font-weight: 700;
-  font-size: 2rem;
+.text {
+  padding: 20px 0;
+  font-weight: 600;
+  font-size: 20px;
   color: #252525;
-  margin-left: 23px;
+  margin-left: 45px;
 }
