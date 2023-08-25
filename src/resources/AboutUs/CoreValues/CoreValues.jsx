@@ -12,11 +12,11 @@ function CoreValues() {
     <div className={cx("wrapper")}>
       <Row>
         <Col xs={8} className={cx("sideLeft")}>
-          <SideBar />
+          <SideBar /> 
         </Col>
         <Col xs={16}>
           <div className={cx("sideRight")}>
-            <h1 className={cx("heading")}>Tầm nhìn</h1>
+            <h1 className={cx("heading")}>Tầm nhìn </h1>
             <div className={cx("itemContent")}>
               <div className={cx("title")}>
                 <h1>Thương hiệu du lịch hàng đầu tại Việt Nam</h1>
