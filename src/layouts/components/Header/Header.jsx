@@ -3,7 +3,7 @@ import styles from "./Header.module.scss";
 import { Link } from "react-router-dom";
 import Tippy from "@tippyjs/react/headless";
 import "tippy.js/dist/tippy.css"; // optional
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; 
 import {
   faAddressBook,
   faArrowAltCircleDown,

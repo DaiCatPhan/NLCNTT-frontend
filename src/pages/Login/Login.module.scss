@@ -14,10 +14,12 @@
   transform: translate(-50%, -50%);
   width: 75%;
   height: 75%;
-  border: 1px solid white;
+  // border: 1px solid white;
   border-radius: 10px;
-  background: url("../../assets/img/login.jpg") no-repeat center;
-  background-size: cover;
+  // background: url("../../assets/img/login.jpg") no-repeat center;
+  // background-size: cover;
+  background-color: #c5c3c336;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .content {

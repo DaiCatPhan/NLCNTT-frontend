@@ -36,7 +36,7 @@ function FirstPage() {
       url: "https://images.pexels.com/photos/3593923/pexels-photo-3593923.jpeg?auto=compress&cs=tinysrgb&w=600",
     },
   ];
-
+ 
   return (
     <div className={cx("wrapper")}>
       {/* Logo */}

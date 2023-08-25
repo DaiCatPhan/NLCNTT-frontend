@@ -23,7 +23,6 @@ function Register() {
     mode: "all",
   });
 
-
   const onSubmit = (data) => {
     axios
       .post("http://localhost:3000/authentication/register", data)
@@ -46,9 +45,6 @@ function Register() {
 
       <form onSubmit={handleSubmit(onSubmit)} className={cx("form")}>
         <h1>Thành viên đăng ký </h1>
-
-        
-
         {/* Email */}
         <div className={cx("form-group")}>
           <label className={cx("form-label")} htmlFor="email">
@@ -98,8 +94,7 @@ function Register() {
         </div>
 
         {/* Error */}
-        <span className={cx("form-message" , "invalid")}>{err ? err : ""}</span>
-
+        <span className={cx("form-message", "invalid")}>{err ? err : ""}</span>
 
         <button type="submit" className={cx("btn_register")}>
           Register

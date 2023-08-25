@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const cx = className.bind(styles);
 
-function BusinessAreas() {
+function BusinessAreas() { 
   return (
     <div className={cx("wrapper")}>
       <div className={cx("listLink")}>
