@@ -15,7 +15,9 @@ function History() {
         <Col xs={8} className={cx("contentLeft")}>
           <SideBar />
         </Col>
-        <Col xs={16}></Col>
+        <Col xs={16}>
+          <h1>Lich su phat trien</h1>
+        </Col>
       </Row>
     </div>
   );

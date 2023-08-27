@@ -1,0 +1,104 @@
+.wrapper {
+}
+
+.sideLeft {
+  background-color: #f9f9f9;
+}
+
+.sideRight {
+  margin: 30px 15px;
+}
+
+.heading {
+  color: #00396b;
+  font-size: 3.5rem;
+  margin-bottom: 15px;
+}
+
+.itemContent {
+  margin: 50px 0;
+}
+
+.title {
+  border-left: 10px solid #d6a022;
+
+  h1 {
+    font-weight: bold;
+    font-size: 2.5rem;
+    line-height: 130%;
+    color: #686868;
+    margin-bottom: 20px;
+    margin-left: 50px;
+    width: 700px;
+  }
+}
+
+.text {
+  font-size: 2rem;
+}
+
+.image {
+  margin: 25px 0;
+}
+
+.titleValue {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 50px;
+  align-items: center;
+  font-weight: bold;
+  font-size: 2.5rem;
+  line-height: 130%;
+  color: #686868;
+  margin-bottom: 20px;
+  margin-left: 50px;
+  width: 700px;
+}
+
+// Linh vuc kinh doanh
+.businessAreas {
+  display: flex;
+}
+
+.area {
+  position: relative;
+}
+
+.imageBusiness {
+  width: 150px;
+  height: 150px;
+  margin: 0 10px;
+  object-fit: cover;
+  opacity: 0.8;
+  cursor: pointer;
+  border-radius: 5px;
+
+  &:hover {
+    animation: scale 3s ease;
+  }
+}
+
+.nameBusiness {
+  text-align: center;
+  width: 150px;
+  font-size: 25px;
+  font-weight: 700;
+  color: #fff;
+  z-index: 1;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes scale {
+  0% {
+    transform: scale(1);
+  }
+  60% {
+    transform: scale(1.2);
+  }
+  0% {
+    transform: scale(1);
+  }
+}

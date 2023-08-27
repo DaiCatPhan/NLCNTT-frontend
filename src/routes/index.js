@@ -10,7 +10,19 @@ import History from "../resources/AboutUs/History";
 import Philosophy from "../resources/AboutUs/Philosophy";
 import Contact from "../resources/Contact";
 
+// Tour
+import ListTour from "../resources/Tours/ListTour";
+import Tour from "../resources/Tours/Tour";
+
 const publicRoutes = [
+  
+
+  // Tours
+
+  { path: "/tours", component: ListTour },
+  { path: "/tours/:id", component: Tour },
+
+
   // Về chúng tôi
   { path: "/aboutus/co-cau-to-chuc", component: Structure },
   {
@@ -21,17 +33,6 @@ const publicRoutes = [
   { path: "/aboutus/triet-ly-kinh-doanh", component: Philosophy },
   { path: "/aboutus/linh-vuc-kinh-doanh", component: BusinessAreas },
 
-  // Dich vụ
-  { path: "/service/", component: Login },
-
-  // Sự Kiện
-  { path: "/event/", component: Login },
-
-  // Tin tức
-  { path: "/news/", component: Login },
-
-  // Trách nhiệm
-  { path: "/responsibility/", component: Login },
 
   // Liên hệ
   { path: "/lien-he", component: Contact },
