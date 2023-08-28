@@ -1,45 +1,130 @@
 .wrapper {
-  margin: 0 150px;
 }
 
-.rowFirst {
-  margin: 50px 0;
+.figure {
+  width: 100%;
 }
 
-// Left
+.logo {
+  width: 100%;
+  position: relative;
+  margin-bottom: 150px;
+}
 
 .imageTour {
-  height: 400px;
-  width: 500px;
+  width: 100%;
+  height: 500px;
+  text-align: center;
   border-radius: 10px;
 }
 
-// Right
+.logoTitle {
+  width: 100%;
+  text-align: center;
+  z-index: 100;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 60px;
 
-.table {
-  //   border: 1px solid blue;
+  font-weight: 800;
 }
 
-.itemInfo {
-  //   border: 1px solid red;
-  border-bottom: 1px solid #000;
-  margin: 10px 0;
+// Contact Logo
+
+.contactLogo {
+  width: 80%;
+  height: 140px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 10px;
+  position: absolute;
+  top: 98%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  background: linear-gradient(
+    90deg,
+    hsla(333, 100%, 53%, 1) 0%,
+    hsla(33, 94%, 57%, 1) 100%
+  );
 }
 
-.icon {
-  margin-right: 10px;
-  margin-top: 3px;
+.info {
+  display: flex;
+  align-items: center;
+}
+
+.iconTime {
   svg {
-    font-size: 20px;
+    font-size: 25px;
+  }
+  margin-right: 10px;
+}
+
+.infoTime {
+}
+
+.infoTimeTitle {
+  font-size: 23px;
+  color: white;
+}
+
+.infoTimeDesc {
+  font-size: 28px;
+  font-weight: 800;
+  color: white;
+}
+
+.address {
+}
+
+.start {
+}
+
+.buyTicket {
+  // background-color: blue;
+}
+
+.buttonBuyTicket {
+  color: white;
+  padding: 10px 45px;
+  border: none;
+  background-color: blue;
+
+  &:hover {
+    transform: scale(1.1);
   }
 }
 
-.title {
-  font-size: 20px;
-  font-weight: 600;
+// DESC TOUR
+
+.DescTour {
+  margin: 0 auto 60px auto;
+  text-align: center;
+  width: 800px;
 }
 
-.text {
-  font-size: 20px;
-  float: right;
+.lineDescTour {
+  height: 20px;
+  background: linear-gradient(
+    90deg,
+    hsla(17, 95%, 50%, 1) 0%,
+    hsla(42, 94%, 57%, 1) 100%
+  );
+} 
+
+.titleDescTour {
+  font-weight: 800;
+  font-size: 35px;
 }
+
+.pagDescTour {
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+// Tab Tour

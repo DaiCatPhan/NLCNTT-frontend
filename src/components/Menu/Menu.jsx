@@ -18,7 +18,7 @@ function Menu({ children, items = [] }) {
     <Tippy
       // visible
       interactive
-      delay={[0, 500]}
+      delay={[0, 200]}
       render={(attrs) => (
         <div className={cx("menu")} tabIndex="-1" {...attrs}>
           {renderItems()}

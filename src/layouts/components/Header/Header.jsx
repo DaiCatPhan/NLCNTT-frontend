@@ -3,7 +3,7 @@ import styles from "./Header.module.scss";
 import { Link } from "react-router-dom";
 import Tippy from "@tippyjs/react/headless";
 import "tippy.js/dist/tippy.css"; // optional
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAddressBook,
   faArrowAltCircleDown,
@@ -44,6 +44,44 @@ function Header() {
     },
   ];
 
+  const domainInCountry = [
+    {
+      id: 1,
+      url: "",
+      title: "Miền Bắc",
+    },
+
+    {
+      id: 2,
+      url: "",
+      title: "Miền Trung",
+    },
+    {
+      id: 3,
+      url: "",
+      title: "Miền Nam",
+    },
+  ];
+
+  const domainInInternational = [
+    {
+      id: 1,
+      url: "",
+      title: "Châu Á",
+    },
+
+    {
+      id: 2,
+      url: "",
+      title: "Châu Phi",
+    },
+    {
+      id: 3,
+      url: "",
+      title: "Châu Mĩ",
+    },
+  ];
+
   return (
     <header className={cx("header")}>
       {/* Logo */}
@@ -63,6 +101,24 @@ function Header() {
                 <Link>Về chúng tôi</Link>
               </div>
             </Menu>
+          </li>
+
+          {/* Tour quốc tế */}
+          <li className={cx("itemLink")}>
+            <div>
+              <Menu items={domainInInternational}>
+                <Link to={"/"}>Tour quốc tế</Link>
+              </Menu>
+            </div>
+          </li>
+
+          {/* Tour trong nước */}
+          <li className={cx("itemLink")}>
+            <div>
+              <Menu items={domainInCountry}>
+                <Link to={"/"}>Tour nội địa</Link>
+              </Menu>
+            </div>
           </li>
 
           {/* Lien He */}

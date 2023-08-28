@@ -132,3 +132,34 @@
 .articles article:hover img {
   transform: scale(1.5);
 }
+
+// ==========================
+
+.articleA {
+  max-width: 400px;
+  margin: 20px auto;
+  border: 1px solid red;
+  position: relative;
+
+  transition: all ease 2s;
+  &:hover {
+    transform: rotateY(180deg);
+    background-color: blue;
+
+    .textContent {
+    }
+
+    .imageArti > img {
+      
+    }
+  }
+}
+
+.imageArti {
+  width: 100%;
+}
+
+.imageArti > img {
+  width: 100%;
+  height: 400px;
+}
