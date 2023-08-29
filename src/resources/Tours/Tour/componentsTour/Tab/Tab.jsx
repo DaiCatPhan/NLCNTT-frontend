@@ -11,6 +11,7 @@ function Tab({ items }) {
       defaultActiveKey="1"
       style={{
         height: 220,
+        textAlign: "center",
       }}
       items={new Array(4).fill(items).map((item, i) => {
         const id = String(i);

@@ -30,10 +30,6 @@ function SlideLogo() {
       {logo.map((image, index) => (
         <Carousel.Item interval={3000}>
           <img className={cx("image")} src={image.url} alt={image.id} />
-          <Carousel.Caption>
-            <h3>First slide label</h3>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-          </Carousel.Caption>
         </Carousel.Item>
       ))}
     </Carousel>
