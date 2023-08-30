@@ -11,15 +11,18 @@ import Philosophy from "../resources/AboutUs/Philosophy";
 import Contact from "../resources/Contact";
 
 // Tour
-import ListTour from "../resources/Tours/ListTour";
+import ListTourDomestic from "../resources/Tours/ListTourDomestic";
+import ListTourForeign from "../resources/Tours/ListTourForeign";
 import Tour from "../resources/Tours/Tour";
 
 const publicRoutes = [
   
 
-  // Tours
+  // AllTypeTour
 
-  { path: "/tours", component: ListTour },
+  { path: "/tours/Domestic", component: ListTourDomestic },
+  { path: "/tours/Foreign", component: ListTourForeign },
+
   { path: "/tours/:id", component: Tour },
 
 

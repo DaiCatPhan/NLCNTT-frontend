@@ -40,3 +40,42 @@ a {
     cursor: pointer;
   }
 }
+
+// animation
+@keyframes slideLeftToRight {
+  0% {
+    width: 0;
+    background-color: #ff0f7b;
+  }
+
+  50% {
+    background-color: #ffed00;
+  }
+
+  100% {
+    width: 100%;
+    background-color: #00ff87;
+  }
+}
+
+// style
+
+.black {
+  color: black;
+}
+
+.white {
+  color: white;
+}
+
+.red {
+  color: red;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.lowercase {
+  text-transform: lowercase;
+}

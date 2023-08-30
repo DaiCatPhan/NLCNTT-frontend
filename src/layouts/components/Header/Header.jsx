@@ -12,10 +12,17 @@ import {
   faCircleXmark,
 } from "@fortawesome/free-regular-svg-icons";
 import Menu from "../../../components/Menu";
+import { useState } from "react";
 
 const cx = className.bind(styles);
 
 function Header() {
+  const [underline, setUnderline] = useState(false);
+  console.log(underline);
+  const onLickLink = () => {
+    setUnderline(!underline);
+  };
+
   const MENU_ITEMS = [
     {
       id: 1,
@@ -93,39 +100,36 @@ function Header() {
         </ul>
       </div>
 
+      {/*  */}
       <div className={cx("")}>
         <ul className={cx("list_link")}>
           <li className={cx("itemLink")}>
             <Menu items={MENU_ITEMS}>
-              <div>
-                <Link>Về chúng tôi</Link>
-              </div>
+              <Link onClick={onLickLink}>Về chúng tôi</Link>
             </Menu>
+            <div className={cx("lineLink")}></div>
           </li>
 
           {/* Tour quốc tế */}
-          <li className={cx("itemLink")}> 
-            <div>
-              <Menu items={domainInInternational}>
-                <Link to={"/"}>Tour quốc tế</Link>
-              </Menu>
-            </div>
+          <li className={cx("itemLink")}>
+            <Menu items={domainInInternational}>
+              <Link to={"/tours/Foreign"}>Tour quốc tế</Link>
+            </Menu>
+            <div className={cx("lineLink")}></div>
           </li>
 
           {/* Tour trong nước */}
           <li className={cx("itemLink")}>
-            <div>
-              <Menu items={domainInCountry}>
-                <Link to={"/"}>Tour nội địa</Link>
-              </Menu>
-            </div>
+            <Menu items={domainInCountry}>
+              <Link to={"/tours/Domestic"}>Tour nội địa</Link>
+            </Menu>
+            <div className={cx("lineLink")}></div>
           </li>
 
           {/* Lien He */}
           <li className={cx("itemLink")}>
-            <div>
-              <Link to={"/lien-he"}>Liên hệ</Link>
-            </div>
+            <Link to={"/lien-he"}>Liên hệ</Link>
+            <div className={cx("lineLink")}></div>
           </li>
         </ul>
       </div>

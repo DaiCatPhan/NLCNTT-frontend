@@ -6,13 +6,11 @@ import { useState } from "react";
 
 const cx = className.bind(styles);
 
-function Tour() { 
-
+function Tour() {
   const Tour = {
-    name: 'Mũi Sa Vĩ - Bình Liêu - Cát Bà - Hạ Long',
-    duration: '4 NGÀY / 3 ĐÊM',
-
-  }
+    name: "Mũi Sa Vĩ - Bình Liêu - Cát Bà - Hạ Long",
+    duration: "4 NGÀY / 3 ĐÊM",
+  };
 
   const items = [
     {
@@ -40,18 +38,18 @@ function Tour() {
   return (
     <div className={cx("wrapper")}>
       <div className={cx("logo")}>
-        <article>
-          <figure className={cx("figure")}>
-            <img
-              className={cx("imageTour")}
-              src="https://vtourist.com.vn/wp-content/uploads/2022/01/Vinh-Ha-Long_Vtourist.jpg"
-              alt="1"
-            />
-          </figure>
-        </article>
+        <figure className={cx("figure")}>
+          <img
+            className={cx("imageTour")}
+            src="https://vtourist.com.vn/wp-content/uploads/2022/01/Vinh-Ha-Long_Vtourist.jpg"
+            alt="1"
+          />
+        </figure>
         <h1 className={cx("logoTitle")}>
           Mũi Sa Vĩ - Bình Liêu - Cát Bà - Hạ Long
         </h1>
+
+        {/* description */}
 
         <div className={cx("contactLogo")}>
           <div className={cx("info")}>
@@ -125,9 +123,7 @@ function Tour() {
       </div>
       <hr />
 
-      <div className={cx("TabTour")}>
-        <Tab items={items} />
-      </div>
+      <Tab items={items} />
     </div>
   );
 }

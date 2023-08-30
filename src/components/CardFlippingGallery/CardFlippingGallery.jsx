@@ -1,6 +1,6 @@
 import className from "classnames/bind";
 import styles from "./CardFlippingGallery.module.scss";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const cx = className.bind(styles);
 
@@ -10,7 +10,7 @@ function CardFlippingGallery() {
       <div className={cx("card")}>
         <div className={cx("card__side")}>
           <img
-            src="https://demoda.vn/wp-content/uploads/2022/01/hinh-nen-desktop-1-800x533.jpg"
+            src="https://vtourist.com.vn/wp-content/uploads/2023/02/mexico.jpg"
             alt="Universe 01"
           />
           <div className={cx("title")}>
@@ -19,10 +19,7 @@ function CardFlippingGallery() {
           </div>
         </div>
         <div className={cx("card__side", "card__side--back")}>
-          <img
-            src="https://vapa.vn/wp-content/uploads/2022/12/hinh-nen-dep-hd-001.jpg"
-            alt="Universe 02"
-          />
+          <div className={cx("figure")}></div>
           <div className={cx("titleBack")}>
             <h2>Tham quan mexico</h2>
             <h3>
@@ -31,9 +28,11 @@ function CardFlippingGallery() {
               ngô hình tròn dẹt được nướng trên chảo đất sét, bên trên phủ nấm,
               bông bí, ớt đỏ khô, thịt heo xay, bột bắp cháy trộn lẫn..
             </h3>
-            <Link>
-              <button>Xem ngay</button>
-            </Link>
+            <div className={cx("btn")}>
+              <Link>
+                <button>Xem ngay</button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
