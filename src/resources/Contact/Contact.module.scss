@@ -1,8 +1,45 @@
 .wrapper {
-  margin: 50px 50px;
 }
 
 .lienhe {
+  margin: 0 30px;
+}
+
+.figure {
+  width: 100%;
+  position: relative;
+}
+
+.logo {
+  width: 100%;
+  object-fit: cover;
+  height: 235px;
+}
+
+.titleContact {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50% , -50%);
+  text-align: center;
+   
+  h1 {
+    color: white;
+  font-size: 5rem;
+  font-weight: 850;
+  }
+
+  p {
+    height: 3px ;
+    width: 250px;
+    background-color: red;
+  }
+}
+
+// body Content
+
+.bodyContent {
+  margin: 50px 0;
 }
 
 .textNav {
@@ -35,8 +72,7 @@
 }
 
 .formLienHe {
-  text-align: center;
-  
+
   p {
     font-size: 20px;
   }

@@ -54,3 +54,67 @@
   margin-left: 50px;
   width: 700px;
 }
+
+// ==================== RIGHT =====================
+.contentRight {
+  margin: 50px 0;
+}
+
+.historyTitle {
+  color: #00396b;
+  font-weight: 700;
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+
+// Carousel
+
+.carousel {
+  height: 450px;
+  width: 850px;
+  border: 1px solid red;
+
+}
+
+.blur {
+  ::after {
+    content: "fasdfasdfas";
+    background: rgba(0, 0, 0, 0.281);
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.carouselItem {
+  // backdrop-filter: blur(130px);
+}
+
+.itemYear {
+}
+
+.imageCarouse {
+  width: 850px;
+}
+
+// ITEM
+
+.itemYear {
+  position: relative;
+  .year {
+    color: #f7f779;
+    font-weight: 800;
+    font-size: 4.5rem;
+    margin-bottom: 150px;
+  }
+
+  .contentYear {
+    font-size: 2rem;
+    border-left: 10px solid #f7f779;
+    font-weight: 700;
+    color: white;
+  }
+}

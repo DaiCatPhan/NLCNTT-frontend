@@ -6,17 +6,13 @@ const cx = className.bind(styles);
 
 function Tab({ items }) {
   return (
-    <div className={cx('wrapper')}>
+    <div className={cx("wrapper")}>
       <Tabs
-      className={cx('tabs')}
+        centered
+        tabBarGutter={150}
+        tabBarStyle={{ fontWeight: "700" }}
         size="large"
         defaultActiveKey="1"
-        style={
-          {
-            // height: 220,
-            // textAlign: "center",
-          }
-        }
         items={new Array(4).fill(items).map((item, i) => {
           const id = String(i);
           return {

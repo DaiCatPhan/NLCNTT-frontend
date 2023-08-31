@@ -4,7 +4,11 @@ import styles from "./Item.module.scss";
 const cx = className.bind(styles);
 
 function Item() {
-  return <h1>Chuong Trinh Tour</h1>;
+  return (
+    <div className={cx("wrapper")}>
+      <h1>Item</h1>
+    </div>
+  );
 }
 
 export default Item;

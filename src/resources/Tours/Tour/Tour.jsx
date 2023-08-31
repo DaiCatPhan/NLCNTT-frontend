@@ -1,7 +1,9 @@
 import className from "classnames/bind";
 import styles from "./Tour.module.scss";
 import Tab from "./componentsTour/Tab";
+import ProcessTour from "./componentsTour/ProcessTour";
 import Item from "./componentsTour/Item";
+import Details from "./componentsTour/Details";
 import { useState } from "react";
 
 const cx = className.bind(styles);
@@ -16,21 +18,21 @@ function Tour() {
     {
       key: "1",
       label: "Chương trình Tour",
-      children: <Item />,
+      children: <ProcessTour />,
     },
     {
       key: "2",
-      label: "Qui định",
-      children: <Item />,
+      label: "Thông tin chi tiết",
+      children: <Details />,
     },
     {
       key: "3",
-      label: "Bảng giá chi tiết",
+      label: "Visa",
       children: <Item />,
     },
     {
       key: "4",
-      label: "Nhận xét",
+      label: "Đánh giá",
       children: <Item />,
     },
   ];
@@ -107,7 +109,6 @@ function Tour() {
           </div>
         </div>
       </div>
-
       <div className={cx("DescTour")}>
         <h2>4 NGÀY 3 ĐÊM</h2>
         <h1 className={cx("titleDescTour")}>
@@ -122,8 +123,7 @@ function Tour() {
         </p>
       </div>
       <hr />
-
-      <Tab items={items} />
+      <Tab items={items} />;
     </div>
   );
 }
