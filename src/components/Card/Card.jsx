@@ -2,11 +2,11 @@ import className from "classnames/bind";
 import styles from "./Card.module.scss"; 
 
 const cx = className.bind(styles);
-
+ 
 function Card({ data }) {
   return (
     <div className={cx("wrapper")}>
-      <article>
+      <article className={cx('article')}>
         <figure className={cx("figure")}>
           <img
             className={cx("imageArticle")}

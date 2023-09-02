@@ -73,24 +73,20 @@
   height: 450px;
   width: 850px;
   border: 1px solid red;
-
+  position: relative;
 }
 
-.blur {
-  ::after {
-    content: "fasdfasdfas";
-    background: rgba(0, 0, 0, 0.281);
-    background-size: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
+.carousel::after {
+  content: "";
+  position: absolute;
+  background: rgba(0, 0, 0, 0.397);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .carouselItem {
-  // backdrop-filter: blur(130px);
 }
 
 .itemYear {
@@ -104,6 +100,8 @@
 
 .itemYear {
   position: relative;
+  z-index: 10000;
+
   .year {
     color: #f7f779;
     font-weight: 800;

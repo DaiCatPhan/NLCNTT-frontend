@@ -58,24 +58,38 @@
 // Linh vuc kinh doanh
 .businessAreas {
   display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 .area {
   position: relative;
+  max-width: 160px;
+
+  &:hover {
+    animation: scale 3s ease;
+    box-shadow: 0 0 10px #00fffc;
+  }
+}
+
+.area::after {
+  content: "";
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.377);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 5px;
 }
 
 .imageBusiness {
-  width: 150px;
+  width: 100%;
   height: 150px;
-  margin: 0 10px;
   object-fit: cover;
   opacity: 0.8;
   cursor: pointer;
   border-radius: 5px;
-
-  &:hover {
-    animation: scale 3s ease;
-  }
 }
 
 .nameBusiness {

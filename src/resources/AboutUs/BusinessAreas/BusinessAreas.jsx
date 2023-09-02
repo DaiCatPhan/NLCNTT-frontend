@@ -77,7 +77,7 @@ function BusinessAreas() {
                   alt=""
                 />
                 <span className={cx("nameBusiness")}>Giải trí</span>
-              </div>
+              </div> 
             </div>
           </div>
         </Col>

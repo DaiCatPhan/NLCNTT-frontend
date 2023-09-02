@@ -5,6 +5,7 @@ import { Col, Row } from "antd";
 
 import SlideLogo from "../../components/SlideLogo";
 import Card from "../../components/Card";
+import CardFlippingGallery from "../../components/CardFlippingGallery";
 const cx = className.bind(styles);
 
 function FirstPage() {
@@ -40,7 +41,7 @@ function FirstPage() {
       id: "1",
       title: "FOREST",
       url: "https://img.freepik.com/free-photo/beautiful-aerial-shot-fronalpstock-mountains-switzerland-beautiful-pink-blue-sky_181624-9315.jpg?w=900&t=st=1687123407~exp=1687124007~hmac=15a1b5a4d3a5af66dfba67bdcd577f769f813bf06fc8b5e50f32f6503099bbd8",
-      des: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.Praesent in mauris eu tortor porttitor accumsan. Lorem ipsumdolor sit amet, consectetuer adipiscing elit. Praesent inmauris eu tortor porttitor accumsan.",
+      des: "Lorem ipsum dolor sit amet, consecteLorem ipsum dolor sit amet, consecteLorem ipsum dolor sit amet, consecteLorem ipsum dolor sit amet, consecteLorem ipsum dolor sit amet, consectetuer adipiscing elit.Praesent in mauris eu tortor porttitor accumsan. Lorem ipsumdolor sit amet, consectetuer adipiscing elit. Praesent inmauris eu tortor porttitor accumsan.",
     },
     {
       id: "2",
@@ -72,25 +73,25 @@ function FirstPage() {
       url: "https://img.freepik.com/free-photo/empty-wood-chair-table-outdoor-patio-with-beautiful-tropical-beach-sea_74190-9961.jpg?w=1800&t=st=1687169720~exp=1687170320~hmac=0a77994214a9019510f28af43dab452ada527e96585d6e7f563a09995598851e",
       des: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.Praesent in mauris eu tortor porttitor accumsan. Lorem ipsumdolor sit amet, consectetuer adipiscing elit. Praesent inmauris eu tortor porttitor accumsan.",
     },
-    {
-      id: "7",
-      title: "MOUNTAIN",
-      url: "https://img.freepik.com/free-photo/view-mountains-landscape-huesca_1398-5217.jpg?w=2000&t=st=1687169991~exp=1687170591~hmac=aa445998f8b6570cab3abc9d68853ab80ba944475fcbc05c70c6061f967ab9f7",
-      des: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.Praesent in mauris eu tortor porttitor accumsan. Lorem ipsumdolor sit amet, consectetuer adipiscing elit. Praesent inmauris eu tortor porttitor accumsan.",
-    },
+    // {
+    //   id: "7",
+    //   title: "MOUNTAIN",
+    //   url: "https://img.freepik.com/free-photo/view-mountains-landscape-huesca_1398-5217.jpg?w=2000&t=st=1687169991~exp=1687170591~hmac=aa445998f8b6570cab3abc9d68853ab80ba944475fcbc05c70c6061f967ab9f7",
+    //   des: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.Praesent in mauris eu tortor porttitor accumsan. Lorem ipsumdolor sit amet, consectetuer adipiscing elit. Praesent inmauris eu tortor porttitor accumsan.",
+    // },
 
-    {
-      id: "8",
-      title: "MOUNTAIN",
-      url: "https://img.freepik.com/free-photo/beautiful-shot-snowy-hill-surrounded-by-mountains-with-light-pink-sky_181624-4102.jpg?w=2000&t=st=1687169963~exp=1687170563~hmac=b811dc16315ec7776b847588539208c1d57e43df80f7319aeb9b55ed7322784b",
-      des: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.Praesent in mauris eu tortor porttitor accumsan. Lorem ipsumdolor sit amet, consectetuer adipiscing elit. Praesent inmauris eu tortor porttitor accumsan.",
-    },
-    {
-      id: "9",
-      title: "BEACH",
-      url: "https://img.freepik.com/free-photo/beautiful_1203-2633.jpg?w=2000&t=st=1687169925~exp=1687170525~hmac=4e1fdddf8ca048eaa100d431639d165f115cd16cea95feff591fbecdc3b28d4c",
-      des: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.Praesent in mauris eu tortor porttitor accumsan. Lorem ipsumdolor sit amet, consectetuer adipiscing elit. Praesent inmauris eu tortor porttitor accumsan.",
-    },
+    // {
+    //   id: "8",
+    //   title: "MOUNTAIN",
+    //   url: "https://img.freepik.com/free-photo/beautiful-shot-snowy-hill-surrounded-by-mountains-with-light-pink-sky_181624-4102.jpg?w=2000&t=st=1687169963~exp=1687170563~hmac=b811dc16315ec7776b847588539208c1d57e43df80f7319aeb9b55ed7322784b",
+    //   des: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.Praesent in mauris eu tortor porttitor accumsan. Lorem ipsumdolor sit amet, consectetuer adipiscing elit. Praesent inmauris eu tortor porttitor accumsan.",
+    // },
+    // {
+    //   id: "9",
+    //   title: "BEACH",
+    //   url: "https://img.freepik.com/free-photo/beautiful_1203-2633.jpg?w=2000&t=st=1687169925~exp=1687170525~hmac=4e1fdddf8ca048eaa100d431639d165f115cd16cea95feff591fbecdc3b28d4c",
+    //   des: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.Praesent in mauris eu tortor porttitor accumsan. Lorem ipsumdolor sit amet, consectetuer adipiscing elit. Praesent inmauris eu tortor porttitor accumsan.",
+    // },
   ];
 
   return (
@@ -114,18 +115,42 @@ function FirstPage() {
 
       {/* Container */}
       <div className={cx("main")}>
-        <Row>
-          <div className={cx("introduction")}>
-            <h3 className={cx("introduction-first")}>EXPLORE OUR TOURS</h3>
-            <h1 className={cx("introduction-second")}>
-              New and Most Popular Tours
+        
+        <div className={cx("statement")}>
+          <div className={cx("titleStatement")}>
+            <h1>
+              Khác Biệt Mang Tên <span>VTOURIST</span>
             </h1>
-            <div className={cx("lineIntro")}></div>
           </div>
-        </Row> 
+          <div className={cx("description_Statement")}>
+            <p>
+              Chúng tôi cam kết mang đến những chuyến du lịch Mỹ khác biệt, đẳng
+              cấp, độc đáo mà chỉ có tại VTourist.
+            </p>
+          </div>
+          <div className={cx("cardsStatement")}>
+            <div className={cx("itemCard_Statement")}>
+              <CardFlippingGallery />
+            </div>
+            <div className={cx("itemCard_Statement")}>
+              <CardFlippingGallery />
+            </div>
+            <div className={cx("itemCard_Statement")}>
+              <CardFlippingGallery />
+            </div>
+          </div>
+        </div>
 
-        <Row className={cx("paragraph")}>
-          <Col span={10}>
+        <div className={cx("introduction")}>
+          <h3 className={cx("introduction-first")}>EXPLORE OUR TOURS</h3>
+          <h1 className={cx("introduction-second")}>
+            New and Most Popular Tours
+          </h1>
+          <div className={cx("lineIntro")}></div>
+        </div>
+
+        <div className={cx("paragraph")}>
+          <div className={cx("textParagraph")}>
             <p className={cx("text")}>
               Trường Trung cấp Du lịch & Khách sạn Saigontourist (STHC), là cơ
               sở đào tạo nghề du lịch uy tín hàng đầu tại Việt Nam, không chỉ
@@ -145,19 +170,17 @@ function FirstPage() {
             </p>
 
             <button className={cx("button", "btn")}>Xem thêm</button>
-          </Col>
-          <Col>
-            <div className={cx("video")}>
-              {/* <video controls>
+          </div>
+          <div className={cx("video")}>
+            {/* <video controls>
                 <source src="https://youtu.be/go_9xztCLp4" type="video/mp4" />
               </video> */}
-              <video width="750" height="500" controls>
-                <source src="https://youtu.be/go_9xztCLp4" type="video/mp4" />
-              </video>
-            </div>
-          </Col>
-        </Row>
- 
+            <video width="750" height="500" controls>
+              <source src="https://youtu.be/go_9xztCLp4" type="video/mp4" />
+            </video>
+          </div>
+        </div>
+
         <div className={cx("cardList")}>
           <span className={cx("background")}>
             <span className={cx("centering")}>
@@ -168,6 +191,14 @@ function FirstPage() {
               </section>
             </span>
           </span>
+        </div>
+
+        <div className={cx("")}>
+          <div className={cx(" ")}>
+            <div className={cx("")}></div>
+            <div className={cx("")}></div>
+            <div className={cx("")}></div>
+          </div>
         </div>
       </div>
     </div>
