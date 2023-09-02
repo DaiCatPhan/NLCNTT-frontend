@@ -44,26 +44,27 @@
   background-color: rgba(0, 0, 0, 0.062);
 }
 
-.titleStatement {
-  h1 {
-    padding: 30px;
-    font-size: 6.5rem;
+.headingStatement {
+  font-size: 6.5rem;
+  padding: 30px;
+  cursor: pointer;
+  .sp1 {
     font-weight: 400;
     color: #002768;
     cursor: pointer;
+  }
+  .sp2 {
+    font-weight: 530;
+    color: red;
+  }
 
-    span {
-      font-weight: 530;
+  &:hover {
+    .sp1 {
       color: red;
     }
 
-    &:hover {
-      h1 {
-        color: red;
-      }
-      span {
-        color: #002768;
-      }
+    .sp2 {
+      color: #002768;
     }
   }
 }
@@ -78,17 +79,17 @@
   gap: 40px;
 }
 
-.statement::after {
-  content: "";
-  display: block;
-  position: absolute;
-  // background-color: red;
-  opacity: 0.2;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-}
+// .statement::after {
+//   content: "";
+//   display: block;
+//   position: absolute;
+//   // background-color: red;
+//   opacity: 0.2;
+//   width: 100%;
+//   height: 100%;
+//   left: 0;
+//   top: 0;
+// }
 
 // Introduction =====================================
 .introduction {

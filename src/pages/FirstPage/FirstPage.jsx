@@ -115,11 +115,11 @@ function FirstPage() {
 
       {/* Container */}
       <div className={cx("main")}>
-        
         <div className={cx("statement")}>
           <div className={cx("titleStatement")}>
-            <h1>
-              Khác Biệt Mang Tên <span>VTOURIST</span>
+            <h1 className={cx('headingStatement')}>
+              <span className={cx("sp1")}>Khác Biệt Mang Tên</span>{" "}
+              <span className={cx("sp2")}>VTOURIST</span>
             </h1>
           </div>
           <div className={cx("description_Statement")}>
