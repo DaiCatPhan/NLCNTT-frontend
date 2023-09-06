@@ -10,12 +10,17 @@ import History from "../resources/AboutUs/History";
 import Philosophy from "../resources/AboutUs/Philosophy";
 import Contact from "../resources/Contact";
 
+import HomeAdmin from "../admin/HomeAdmin";
+
 // Tour
 import ListTourDomestic from "../resources/Tours/ListTourDomestic";
 import ListTourForeign from "../resources/Tours/ListTourForeign";
 import Tour from "../resources/Tours/Tour";
 
 const publicRoutes = [
+
+  { path: "/homeadmin", component: HomeAdmin, layout: NoneLayout },
+
   
 
   // AllTypeTour
@@ -47,6 +52,9 @@ const publicRoutes = [
   { path: "/", component: FirstPage },
 ];
 
-const privateRoutes = [];
+const privateRoutes = [
+  // { path: "/homeadmin", component: HomeAdmin, layout: NoneLayout },
+
+];
 
 export { publicRoutes, privateRoutes };

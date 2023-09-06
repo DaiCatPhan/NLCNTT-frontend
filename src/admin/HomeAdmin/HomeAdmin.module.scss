@@ -1,0 +1,38 @@
+.wrapper {
+  border: 1px solid red;
+}
+
+.header {
+  width: 100%;
+  height: 85px;
+  background-color: rgb(54, 5, 110);
+  position: relative;
+}
+
+.container {
+  width: 100%;
+}
+
+.mainContainer {
+  border: 1px solid red;
+  margin: 10px 20px;
+  display: grid;
+  grid-template-columns: 300px auto;
+  grid-template-rows: 1000px 1000px;
+  column-gap: 20px;
+}
+
+.navbar {
+  background-color: yellow;
+  border-radius: 10px;
+  width: 300px;
+  height: 100%;
+  position: relative;
+}
+
+.content {
+  margin-left: 2px;
+  border: 1px solid black;
+  background-color: aqua;
+  height: 100%;
+}
