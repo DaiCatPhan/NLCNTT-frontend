@@ -6,9 +6,13 @@ import { Col, Row } from "antd";
 import SlideLogo from "../../components/SlideLogo";
 import Card from "../../components/Card";
 import CardFlippingGallery from "../../components/CardFlippingGallery";
+import { useEffect } from "react";
 const cx = className.bind(styles);
 
 function FirstPage() {
+
+  
+
   const imgList = [
     {
       id: "anh1",
@@ -115,41 +119,44 @@ function FirstPage() {
 
       {/* Container */}
       <div className={cx("main")}>
-        <div className={cx("statement")}>
+        <section id="statement" className={cx("statement")}>
           <div className={cx("titleStatement")}>
-            <h1 className={cx('headingStatement')}>
+            <h1 className={cx("headingStatement")}>
               <span className={cx("sp1")}>Khác Biệt Mang Tên</span>{" "}
               <span className={cx("sp2")}>VTOURIST</span>
             </h1>
           </div>
+
           <div className={cx("description_Statement")}>
             <p>
-              Chúng tôi cam kết mang đến những chuyến du lịch Mỹ khác biệt, đẳng
-              cấp, độc đáo mà chỉ có tại VTourist.
+              Chúng tôi cam kết mang đến những chuyến{" "}
+              <b>du lịch Mỹ khác biệt</b>, đẳng cấp, độc đáo mà{" "}
+              <p>chỉ có tại VTourist</p>.
             </p>
           </div>
+
           <div className={cx("cardsStatement")}>
             <div className={cx("itemCard_Statement")}>
-              <CardFlippingGallery />
+              <CardFlippingGallery url={"/src/assets/firstpages/anh1.jpg"} />
             </div>
             <div className={cx("itemCard_Statement")}>
-              <CardFlippingGallery />
+              <CardFlippingGallery url={"/src/assets/firstpages/anh2.jpg"} />
             </div>
             <div className={cx("itemCard_Statement")}>
-              <CardFlippingGallery />
+              <CardFlippingGallery url={"/src/assets/firstpages/anh3.jpg"} />
             </div>
           </div>
-        </div>
+        </section>
 
-        <div className={cx("introduction")}>
+        <section id="introduction" className={cx("introduction")}>
           <h3 className={cx("introduction-first")}>EXPLORE OUR TOURS</h3>
           <h1 className={cx("introduction-second")}>
             New and Most Popular Tours
           </h1>
           <div className={cx("lineIntro")}></div>
-        </div>
+        </section>
 
-        <div className={cx("paragraph")}>
+        <section id="paragraph" className={cx("paragraph")}>
           <div className={cx("textParagraph")}>
             <p className={cx("text")}>
               Trường Trung cấp Du lịch & Khách sạn Saigontourist (STHC), là cơ
@@ -179,28 +186,27 @@ function FirstPage() {
               <source src="https://youtu.be/go_9xztCLp4" type="video/mp4" />
             </video>
           </div>
-        </div>
+        </section>
 
-        <div className={cx("cardList")}>
-          <span className={cx("background")}>
-            <span className={cx("centering")}>
-              <section className={cx("articles")}>
-                {imgTravel.map((img, index) => (
-                  <Card data={img} />
-                ))}
-              </section>
-            </span>
-          </span>
-        </div>
-
-        <div className={cx("")}>
-          <div className={cx(" ")}>
-            <div className={cx("")}></div>
-            <div className={cx("")}></div>
-            <div className={cx("")}></div>
+        <section id="cardList" className={cx("cardList")}>
+          <div className={cx("girdCardList")}>
+            {imgTravel.map((img, index) => (
+              <Card data={img} />
+            ))}
           </div>
-        </div>
+        </section>
       </div>
+
+      <a href="#" className={cx("onTop")}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="1em"
+          viewBox="0 0 384 512"
+        >
+          {" "}
+          <path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z" />
+        </svg>
+      </a>
     </div>
   );
 }

@@ -4,15 +4,13 @@ import { Link } from "react-router-dom";
 
 const cx = className.bind(styles);
 
-function CardFlippingGallery() {
+function CardFlippingGallery({ url }) {
+  console.log(url);
   return (
     <div className={cx("wrapper")}>
       <div className={cx("card")}>
         <div className={cx("card__side")}>
-          <img
-            src="https://vtourist.com.vn/wp-content/uploads/2023/02/mexico.jpg"
-            alt="Universe 01"
-          />
+          <img src={url} alt="Universe 01" />
           <div className={cx("title")}>
             <h2>Tham quan mexico</h2>
             <h3>mot hanh trinh 2 quoc gia chi co tai vinfase</h3>

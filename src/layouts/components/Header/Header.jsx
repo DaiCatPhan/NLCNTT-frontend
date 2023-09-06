@@ -12,17 +12,11 @@ import {
   faCircleXmark,
 } from "@fortawesome/free-regular-svg-icons";
 import Menu from "../../../components/Menu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const cx = className.bind(styles);
 
 function Header() {
-  const [underline, setUnderline] = useState(false);
-  console.log(underline);
-  const onLickLink = () => {
-    setUnderline(!underline);
-  };
-
   const MENU_ITEMS = [
     {
       id: 1,
@@ -101,13 +95,13 @@ function Header() {
       </div>
 
       {/*  */}
-      <div className={cx("")}>
+      <div className={cx("navLink")}>
         <ul className={cx("list_link")}>
-          <li className={cx("itemLink")}>
+          <li className={cx("itemLink", "")}>
             <Menu items={MENU_ITEMS}>
-              <Link onClick={onLickLink}>Về chúng tôi</Link>
+              <Link>Về chúng tôi</Link>
             </Menu>
-            <div className={cx("lineLink")}></div>
+            <div className={cx("underlineLink")}></div>
           </li>
 
           {/* Tour quốc tế */}
@@ -115,7 +109,7 @@ function Header() {
             <Menu items={domainInInternational}>
               <Link to={"/tours/Foreign"}>Tour quốc tế</Link>
             </Menu>
-            <div className={cx("lineLink")}></div>
+            <div className={cx(" ")}></div>
           </li>
 
           {/* Tour trong nước */}
@@ -123,13 +117,13 @@ function Header() {
             <Menu items={domainInCountry}>
               <Link to={"/tours/Domestic"}>Tour nội địa</Link>
             </Menu>
-            <div className={cx("lineLink")}></div>
+            <div className={cx(" ")}></div>
           </li>
 
           {/* Lien He */}
           <li className={cx("itemLink")}>
             <Link to={"/lien-he"}>Liên hệ</Link>
-            <div className={cx("lineLink")}></div>
+            <div className={cx(" ")}></div>
           </li>
         </ul>
       </div>

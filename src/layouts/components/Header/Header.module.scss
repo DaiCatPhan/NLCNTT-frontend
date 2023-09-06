@@ -16,6 +16,7 @@
 .itemLink {
   position: relative;
   margin: 0 20px;
+  padding: 10px 5px;
 
   a {
     font-size: 20px;
@@ -24,12 +25,25 @@
     padding: 18px 0;
   }
 
-  // &:hover {
-  //   .lineLink {
-  //     display: block;
-  //     animation: slideLeftToRight 0.3s ease-in forwards;
-  //   }
-  // }
+  &:hover a {
+    color: rgba(255, 255, 255, 0.555);
+  }
+}
+
+.itemLink:hover .underlineLink {
+  opacity: 1;
+}
+
+.underlineLink {
+  width: 95%;
+  text-align: center;
+  margin: 0 auto;
+  height: 2px;
+  background-color: #00ff87;
+  position: absolute;
+  bottom: 0;
+  animation: slideLeftToRight 0.3s ease-in forwards;
+  opacity: 0;
 }
 
 .lineLink {
@@ -38,6 +52,9 @@
   height: 2px;
   bottom: -14px;
   width: 100%;
+}
+
+.animationSlideLeftToRight {
   animation: slideLeftToRight 0.3s ease-in forwards;
 }
 

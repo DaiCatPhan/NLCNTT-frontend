@@ -8,7 +8,7 @@ function MenuItemHeader({ data }) {
   return (
     <div className={cx("wrapper")}>
       <h3 className ={cx('title')}>
-        <Link to={data.url}>{data.title}</Link>
+        <Link to={data.url}>{data.title}</Link> 
       </h3>
     </div>
   );
