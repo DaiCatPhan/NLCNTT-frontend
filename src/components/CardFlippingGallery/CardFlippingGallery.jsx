@@ -1,14 +1,35 @@
 import className from "classnames/bind";
 import styles from "./CardFlippingGallery.module.scss";
 import { Link } from "react-router-dom";
+import { useEffect, useRef } from "react";
 
 const cx = className.bind(styles);
 
 function CardFlippingGallery({ url }) {
-  console.log(url);
+  const cardRef = useRef();
+
+  useEffect(() => {
+    let callback = (entries, observer) => {
+      entries.forEach((entry) => {
+        console.log("entry", entry);
+        if (entry.isIntersecting) {
+          entry.target.classList.add(cx("active"));
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(callback, {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0,
+    });
+
+    const target = cardRef.current;
+    observer.observe(target);
+  }, []);
   return (
     <div className={cx("wrapper")}>
-      <div className={cx("card")}>
+      <div ref={cardRef} className={cx("card")}>
         <div className={cx("card__side")}>
           <img src={url} alt="Universe 01" />
           <div className={cx("title")}>

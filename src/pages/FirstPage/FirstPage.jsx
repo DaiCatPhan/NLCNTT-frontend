@@ -6,13 +6,10 @@ import { Col, Row } from "antd";
 import SlideLogo from "../../components/SlideLogo";
 import Card from "../../components/Card";
 import CardFlippingGallery from "../../components/CardFlippingGallery";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 const cx = className.bind(styles);
 
 function FirstPage() {
-
-  
-
   const imgList = [
     {
       id: "anh1",

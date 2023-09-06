@@ -1,6 +1,6 @@
 import className from "classnames/bind";
 import styles from "./Header.module.scss";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Tippy from "@tippyjs/react/headless";
 import "tippy.js/dist/tippy.css"; // optional
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,6 +17,9 @@ import { useEffect, useState } from "react";
 const cx = className.bind(styles);
 
 function Header() {
+  const location = useLocation(); // lấy đường dẫn hiện tại
+  const url = location.pathname;
+
   const MENU_ITEMS = [
     {
       id: 1,
@@ -83,15 +86,13 @@ function Header() {
     },
   ];
 
+  
+
   return (
     <header className={cx("header")}>
       {/* Logo */}
       <div className={cx("logo")}>
-        <ul className={cx("list_link")}>
-          <li className={cx("itemLink")}>
-            <Link to={"/"}>Home</Link>
-          </li>
-        </ul>
+        <Link to={"/"}>Home</Link>
       </div>
 
       {/*  */}
@@ -99,31 +100,55 @@ function Header() {
         <ul className={cx("list_link")}>
           <li className={cx("itemLink", "")}>
             <Menu items={MENU_ITEMS}>
-              <Link>Về chúng tôi</Link>
+              <Link
+                className={cx("link", {
+                  active: url.includes("/aboutus"),
+                })}
+                to={"/aboutus/co-cau-to-chuc"}
+              >
+                Về chúng tôi
+              </Link>
             </Menu>
-            <div className={cx("underlineLink")}></div>
           </li>
 
           {/* Tour quốc tế */}
           <li className={cx("itemLink")}>
             <Menu items={domainInInternational}>
-              <Link to={"/tours/Foreign"}>Tour quốc tế</Link>
+              <Link
+                className={cx("link", {
+                  active: url.includes("/tours/Foreign"),
+                })}
+                to={"/tours/Foreign"}
+              >
+                Tour quốc tế
+              </Link>
             </Menu>
-            <div className={cx(" ")}></div>
           </li>
 
           {/* Tour trong nước */}
           <li className={cx("itemLink")}>
             <Menu items={domainInCountry}>
-              <Link to={"/tours/Domestic"}>Tour nội địa</Link>
+              <Link
+                className={cx("link", {
+                  active: url.includes("/tours/Domestic"),
+                })}
+                to={"/tours/Domestic"}
+              >
+                Tour nội địa
+              </Link>
             </Menu>
-            <div className={cx(" ")}></div>
           </li>
 
           {/* Lien He */}
           <li className={cx("itemLink")}>
-            <Link to={"/lien-he"}>Liên hệ</Link>
-            <div className={cx(" ")}></div>
+            <Link
+              className={cx("link", {
+                active: url.includes("/lien-he"),
+              })}
+              to={"/lien-he"}
+            >
+              Liên hệ
+            </Link>
           </li>
         </ul>
       </div>

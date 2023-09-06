@@ -20,6 +20,14 @@
   cursor: pointer;
   transition: 0.65s ease-in-out;
   transform-style: preserve-3d;
+  transform: translateY(20%);
+  opacity: 0;
+}
+
+.card.active {
+  transform: translateY(0);
+  opacity: 1;
+  transition-delay: 0.3s;
 }
 
 .card:hover {

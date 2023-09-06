@@ -3,9 +3,23 @@
   height: 80px;
   background: rgba(0, 38, 72, 0.8);
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.logo {
+  border: 1px solid red;
+   
+}
+
+.logo > a {
+  color: white;
+  font-size: 25px;
+}
+
+.navLink {
+  border: 1px solid red;
 }
 
 .list_link {
@@ -18,32 +32,20 @@
   margin: 0 20px;
   padding: 10px 5px;
 
-  a {
-    font-size: 20px;
-    font-weight: 700;
-    color: #fff;
-    padding: 18px 0;
-  }
-
   &:hover a {
     color: rgba(255, 255, 255, 0.555);
   }
 }
 
-.itemLink:hover .underlineLink {
-  opacity: 1;
+.link {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  padding: 20px 0;
 }
 
-.underlineLink {
-  width: 95%;
-  text-align: center;
-  margin: 0 auto;
-  height: 2px;
-  background-color: #00ff87;
-  position: absolute;
-  bottom: 0;
-  animation: slideLeftToRight 0.3s ease-in forwards;
-  opacity: 0;
+.link.active {
+  border-bottom: 1px solid #00ff87;
 }
 
 .lineLink {
@@ -78,16 +80,13 @@
 }
 
 .buttonauthen {
-  margin-right: 30px;
+  border: 1px solid red;
 }
 
 .btn_red {
   border: 1px solid red;
   color: white;
   background-color: red;
-
-  &:hover {
-  }
 }
 
 .btn_log {

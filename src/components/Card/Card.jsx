@@ -1,12 +1,15 @@
 import className from "classnames/bind";
-import styles from "./Card.module.scss"; 
+import styles from "./Card.module.scss";
+import { useRef, useEffect } from "react";
 
 const cx = className.bind(styles);
- 
+
 function Card({ data }) {
+  
+
   return (
     <div className={cx("wrapper")}>
-      <article className={cx('article')}>
+      <article   className={cx("article")}>
         <figure className={cx("figure")}>
           <img
             className={cx("imageArticle")}
