@@ -1,7 +1,10 @@
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import FirstPage from "../pages/FirstPage";
+
+// Layout
 import NoneLayout from "../layouts/NoneLayout";
+import AdminLayout from "../layouts/AdminLayout";
 
 import Structure from "../resources/AboutUs/Structure";
 import BusinessAreas from "../resources/AboutUs/BusinessAreas";
@@ -19,7 +22,7 @@ import Tour from "../resources/Tours/Tour";
 
 const publicRoutes = [
 
-  { path: "/homeadmin", component: HomeAdmin, layout: NoneLayout },
+  // { path: "/homeadmin", component: HomeAdmin, layout: NoneLayout },
 
   
 
@@ -53,7 +56,7 @@ const publicRoutes = [
 ];
 
 const privateRoutes = [
-  // { path: "/homeadmin", component: HomeAdmin, layout: NoneLayout },
+  { path: "/homeadmin", component: HomeAdmin, layout: AdminLayout },
 
 ];
 

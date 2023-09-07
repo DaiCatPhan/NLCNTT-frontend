@@ -8,7 +8,7 @@ function NavBarAdmin() {
   return (
     <div className={cx("wrapper")}>
       <ul className={cx("menu")}>
-        <li className={cx("item")}>
+        <li className={cx("item", "active")}>
           <Link>
             <div className={cx("item_left")}>
               <svg
