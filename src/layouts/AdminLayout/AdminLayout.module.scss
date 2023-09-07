@@ -3,95 +3,17 @@
   height: 100vh;
 }
 
-.menu {
-  width: 280px;
+.header {
+  height: 80px;
+  border: 1px solid blue;
+}
+
+.main {
+  display: flex;
+}
+
+.content {
   border: 1px solid red;
-  padding: 20px;
-  background-color: rgb(42, 36, 77, 0.2);
-  border-radius: 20px;
-}
-
-.menu ul {
-  position: relative;
-}
-
-.itemMenu > a {
-  color: black;
-  font-weight: 600;
-}
-
-.itemMenu > ul a {
-  color: #757474;
-}
-
-.menu ul .itemMenu {
-  padding: 10px;
-  margin-bottom: 30px;
-  position: relative;
-  transition: 0.5s;
-  transition-delay: 1s;
-}
-
-.menu ul .itemMenu svg {
-  width: 30px;
-  margin-right: 15px;
-  font-size: 20px;
-  text-align: center;
-}
-.menu ul .itemMenu svg:nth-child(3),
-.menu ul .itemMenu svg:nth-child(2) {
-  position: absolute;
-  right: 0;
-  transition: 0.5s;
-  opacity: 0.5;
-  font-size: 15px;
-}
-
-.itemMenu .iconRight {
-  opacity: 0;
-}
-
-.menu > ul .itemMenu::before {
-  content: "";
-  height: 100%;
-  width: 40px;
-  position: absolute;
-  z-index: -1;
-  background-color: #312857;
-  top: 0;
-  left: 5px;
-  border-radius: 30px;
-}
-
-// .itemMenu.active > ul {
-//   display: none;
-// }
-
-.menu ul .itemMenu li {
-  margin-bottom: unset;
-  margin-top: 10px;
-  margin-left: 30px;
-  position: relative;
-  opacity: 0;
-  animation: showchild 1s ease-in forwards;
-}
-
-@keyframes showchild {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-.menu ul .itemMenu li::before {
-  position: absolute;
-  content: "";
-  width: 5px;
-  height: 5px;
-  background-color: #dd789a;
-  left: -38px;
-  top: 50%;
-  z-index: 1;
+  min-height: 100vh;
+  width: 100%;
 }
