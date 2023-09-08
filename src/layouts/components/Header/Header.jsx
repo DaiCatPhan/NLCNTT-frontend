@@ -86,13 +86,11 @@ function Header() {
     },
   ];
 
-  
-
   return (
     <header className={cx("header")}>
       {/* Logo */}
       <div className={cx("logo")}>
-        <Link to={"/"}>Home</Link>
+        <Link to={"/"}>Travel</Link>
       </div>
 
       {/*  */}

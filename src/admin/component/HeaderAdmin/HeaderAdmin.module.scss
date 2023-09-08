@@ -1,0 +1,106 @@
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Oswald&family=Rubik+Iso&display=swap");
+
+:root {
+  --primary: #625bfe;
+  --text: #0f192d;
+  --text-gray: #5a678c;
+  --gray: #c0bcff;
+  --error: #e3452f;
+}
+
+.header {
+  height: 70px;
+  width: 100%;
+  background-color: var(--primary);
+  position: relative;
+}
+
+.navHeader {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 100px;
+}
+
+.logo a {
+  font-family: "Rubik Iso", cursive;
+  color: white;
+}
+
+.info .iconUser {
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 3px solid white;
+}
+
+.info .iconNoti,
+.info .iconMes {
+  color: white;
+  height: 40px;
+  width: 40px;
+  margin: 0 15px;
+  font-weight: 600;
+}
+
+.info .iconNoti {
+}
+
+// ========= FORM =======
+
+.formInfo {
+  position: absolute;
+  right: 10px;
+  top: 88px;
+  min-width: 240px;
+  border: 1px solid var(--text-gray);
+  border-radius: 10px;
+  opacity: 1;
+  transition: 1s;
+  transform: translate(110% , 0);
+}
+
+.formInfo.active {
+    transform: translate(0 , 0);
+}
+
+.infoUser {
+  text-align: start;
+  margin-left: 17px;
+
+
+  .name {
+    color: var(--text);
+  }
+  .email {
+    color: var(--gray);
+  }
+}
+
+.items ul {
+  padding: 0;
+}
+
+.items ul li {
+  padding: 10px;
+}
+
+.items ul li a {
+  color: black;
+  font-size: 18px;
+
+  svg {
+    margin-right: 10px;
+  }
+}
+
+.items ul li:nth-child(2) {
+  border-bottom: 1px solid var(--gray);
+}
+
+.items ul li:nth-child(4) {
+  border-bottom: 1px solid var(--gray);
+}
