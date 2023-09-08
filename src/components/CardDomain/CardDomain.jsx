@@ -11,7 +11,7 @@ function CardDomain({ tour }) {
           <div className={cx("contactPrice")}>Giá liên hệ</div>
           <img
             className={cx("imageArticle")}
-            src={tour.urlTour}
+            src={tour.image}
             alt={tour.id}
             title="Preview"
           />
@@ -19,12 +19,12 @@ function CardDomain({ tour }) {
         </figure>
         <div className={cx("articlePreview")}>
           <div className={cx("cardbody")}>
-            <h2 className={cx("black", "uppercase")}>{tour.nameTour}</h2>
-            <p>{tour.nameTour}</p>
+            <h2 className={cx("black", "uppercase")}>{tour.name}</h2>
+            <p>{tour.content}</p>
             <div className={cx("line")}></div>
             <div className={cx("duration")}>
               <img src="/src/assets/icons/time.svg" alt="" />
-              <span>{tour.durationTour}</span>
+              <span>{tour.duration}</span>
             </div>
           </div>
         </div>

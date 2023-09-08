@@ -8,13 +8,16 @@ const cx = className.bind(styles);
 
 function ListTourDomestic() {
   const [tours, setTours] = useState([]);
-
   useEffect(() => {
     axios
-      .get("http://localhost:3000/tour/getToursDomestic")
+      .get(`http://localhost:3000/api/v1/tour/getTours`, {
+        params: {
+          type: "nội địa",
+        },
+      })
       .then((tours) => {
-        if (tours.data.err == 2) {
-          setTours(tours.data.mes);
+        if (tours.data.mes == "Success") {
+          setTours(tours.data.data);
         }
       })
       .catch((err) => {
