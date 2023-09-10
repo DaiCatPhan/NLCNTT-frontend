@@ -1,0 +1,26 @@
+.sidebar {
+  width: 280px;
+  min-height: calc(100vh - 70px);
+  border: 1px solid red;
+}
+
+.menu {
+  padding: 0;
+}
+
+.menu li {
+  position: relative;
+  border-bottom: 1px solid black;
+}
+
+.menu li a {
+  display: block;
+  padding: 10px;
+  border: 1px solid red;
+}
+.menu li a span:nth-child(1) svg {
+    margin-left: 20px;
+}
+.menu li a span:nth-child(2) {
+  margin-left: 20px;
+}

@@ -2,7 +2,7 @@ import className from "classnames/bind";
 import styles from "./AdminLayout.module.scss";
 import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import NavBarAdmin from "../../admin/component/NavBarAdmin";
+import NavBarAdmin2 from "../../admin/component/NavBarAdmin3";
 import HeaderAdmin from "../../admin/component/HeaderAdmin";
 
 const cx = className.bind(styles);
@@ -15,9 +15,9 @@ function NoneLayout({ children }) {
       </header>
       <div className={cx("main")}>
         <div>
-          <NavBarAdmin />
+          <NavBarAdmin2 />
         </div>
-        {/* <div className={cx("content")}>{children}</div> */}
+        <div className={cx("content")}>{children}</div>
       </div>
     </div>
   );

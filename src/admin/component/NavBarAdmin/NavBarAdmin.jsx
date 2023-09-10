@@ -23,7 +23,7 @@ function NavBarAdmin() {
     <div className={cx("wrapper")}>
       <div className={cx("menu")}>
         <ul className={cx("listMenu")}>
-          <li className={cx("itemMenu" )}>
+          <li className={cx("itemMenu")}>
             <Link>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -152,9 +152,8 @@ function NavBarAdmin() {
                 <li>List User</li>
               </Link>
               <Link>
-                <li>Edit product</li>
+                <li>Create User</li>
               </Link>
-              <Link></Link>
             </ul>
           </li>
 

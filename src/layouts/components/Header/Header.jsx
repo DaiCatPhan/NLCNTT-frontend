@@ -18,6 +18,7 @@ const cx = className.bind(styles);
 
 function Header() {
   const location = useLocation(); // lấy đường dẫn hiện tại
+  console.log(location);
   const url = location.pathname;
 
   const MENU_ITEMS = [
@@ -87,83 +88,98 @@ function Header() {
   ];
 
   return (
-    <header className={cx("header")}>
-      {/* Logo */}
-      <div className={cx("logo")}>
-        <Link to={"/"}>Travel</Link>
+    <divc className={cx("wrapepr")}>
+      <div className={cx("bgHeading")}>
+        <div className={cx("heading")}>
+          <div>daicatphan@gmail.com</div>
+          <div>0328 472 724</div>
+          <div>117 Nguyễn Lâm, P.6, Quận 10 ,Trụ sở</div>
+        </div>
       </div>
 
-      {/*  */}
-      <div className={cx("navLink")}>
-        <ul className={cx("list_link")}>
-          <li className={cx("itemLink", "")}>
-            <Menu items={MENU_ITEMS}>
+      <header className={cx("header")}>
+        {/* Logo */}
+        <div className={cx("logo")}>
+          <Link to={"/"}>
+            <img
+              src="https://vtourist.com.vn/wp-content/uploads/2022/07/LOGO.jpg"
+              alt=""
+            />
+          </Link>
+        </div>
+
+        {/*  */}
+        <div className={cx("navLink")}>
+          <ul className={cx("list_link")}>
+            <li className={cx("itemLink")}>
+              <Menu items={MENU_ITEMS}>
+                <Link
+                  className={cx("link", {
+                    active: url.includes("/aboutus"),
+                  })}
+                  to={"/aboutus/co-cau-to-chuc"}
+                >
+                  Về chúng tôi
+                </Link>
+              </Menu>
+            </li>
+
+            {/* Tour quốc tế */}
+            <li className={cx("itemLink")}>
+              <Menu items={domainInInternational}>
+                <Link
+                  className={cx("link", {
+                    active: url.includes("/tours/Foreign"),
+                  })}
+                  to={"/tours/Foreign"}
+                >
+                  Tour quốc tế
+                </Link>
+              </Menu>
+            </li>
+
+            {/* Tour trong nước */}
+            <li className={cx("itemLink")}>
+              <Menu items={domainInCountry}>
+                <Link
+                  className={cx("link", {
+                    active: url.includes("/tours/Domestic"),
+                  })}
+                  to={"/tours/Domestic"}
+                >
+                  Tour nội địa
+                </Link>
+              </Menu>
+            </li>
+
+            {/* Lien He */}
+            <li className={cx("itemLink")}>
               <Link
                 className={cx("link", {
-                  active: url.includes("/aboutus"),
+                  active: url.includes("/lien-he"),
                 })}
-                to={"/aboutus/co-cau-to-chuc"}
+                to={"/lien-he"}
               >
-                Về chúng tôi
+                Liên hệ
               </Link>
-            </Menu>
-          </li>
+            </li>
+          </ul>
+        </div>
 
-          {/* Tour quốc tế */}
-          <li className={cx("itemLink")}>
-            <Menu items={domainInInternational}>
-              <Link
-                className={cx("link", {
-                  active: url.includes("/tours/Foreign"),
-                })}
-                to={"/tours/Foreign"}
-              >
-                Tour quốc tế
-              </Link>
-            </Menu>
-          </li>
+        {/* Link */}
 
-          {/* Tour trong nước */}
-          <li className={cx("itemLink")}>
-            <Menu items={domainInCountry}>
-              <Link
-                className={cx("link", {
-                  active: url.includes("/tours/Domestic"),
-                })}
-                to={"/tours/Domestic"}
-              >
-                Tour nội địa
-              </Link>
-            </Menu>
-          </li>
+        {/* Button */}
+        <div className={cx("buttonauthen")}>
+          {/* <Link to={"/authentication/register"}>
+            <button className={cx("button", "btn_red")}>Register</button>
+          </Link> */}
 
-          {/* Lien He */}
-          <li className={cx("itemLink")}>
-            <Link
-              className={cx("link", {
-                active: url.includes("/lien-he"),
-              })}
-              to={"/lien-he"}
-            >
-              Liên hệ
-            </Link>
-          </li>
-        </ul>
-      </div>
-
-      {/* Link */}
-
-      {/* Button */}
-      <div className={cx("buttonauthen")}>
-        <Link to={"/authentication/register"}>
-          <button className={cx("button", "btn_red")}>Register</button>
-        </Link>
-
-        <Link to={"/authentication/login"}>
-          <button className={cx("button", "btn_log")}>Login</button>
-        </Link>
-      </div>
-    </header>
+          <Link to={"/authentication/login"}>
+            <button className={cx("btn_log")}>Login</button>
+          </Link>
+        </div>
+      </header>
+    </divc>
   );
 }
 

@@ -2,6 +2,15 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import FirstPage from "../pages/FirstPage";
 
+// ADMIN ==================================================
+import HomeAdmin from "../admin/resoursesAdmin/HomeAdmin";
+import Dashboard from "../admin/resoursesAdmin/Dashboard";
+import ListUser from "../admin/resoursesAdmin/ManageUser/ListUser";
+import UpdateUser from "../admin/resoursesAdmin/ManageUser/UpdateUser";
+import ListTour from "../admin/resoursesAdmin/ManageTour/ListTour";
+import UpdateTour from "../admin/resoursesAdmin/ManageTour/UpdateTour";
+
+// ========================================================
 // Layout
 import NoneLayout from "../layouts/NoneLayout";
 import AdminLayout from "../layouts/AdminLayout";
@@ -13,26 +22,18 @@ import History from "../resources/AboutUs/History";
 import Philosophy from "../resources/AboutUs/Philosophy";
 import Contact from "../resources/Contact";
 
-import HomeAdmin from "../admin/HomeAdmin";
-
 // Tour
 import ListTourDomestic from "../resources/Tours/ListTourDomestic";
 import ListTourForeign from "../resources/Tours/ListTourForeign";
 import Tour from "../resources/Tours/Tour";
 
 const publicRoutes = [
-
-  // { path: "/homeadmin", component: HomeAdmin, layout: NoneLayout },
-
-  
-
   // AllTypeTour
 
   { path: "/tours/Domestic", component: ListTourDomestic },
   { path: "/tours/Foreign", component: ListTourForeign },
 
   { path: "/tours/:id", component: Tour },
-
 
   // Về chúng tôi
   { path: "/aboutus/co-cau-to-chuc", component: Structure },
@@ -43,7 +44,6 @@ const publicRoutes = [
   { path: "/aboutus/lich-su-phat-trien", component: History },
   { path: "/aboutus/triet-ly-kinh-doanh", component: Philosophy },
   { path: "/aboutus/linh-vuc-kinh-doanh", component: BusinessAreas },
-
 
   // Liên hệ
   { path: "/lien-he", component: Contact },
@@ -57,7 +57,11 @@ const publicRoutes = [
 
 const privateRoutes = [
   { path: "/homeadmin", component: HomeAdmin, layout: AdminLayout },
-
+  { path: "/dashboard", component: Dashboard, layout: AdminLayout },
+  { path: "/user-listUser", component: ListUser, layout: AdminLayout },
+  { path: "/user-updateUser/:id", component: UpdateUser, layout: AdminLayout },
+  { path: "/tour-listTour", component: ListTour, layout: AdminLayout },
+  { path: "/tour-updateTour/:id", component: UpdateTour, layout: AdminLayout },
 ];
 
 export { publicRoutes, privateRoutes };

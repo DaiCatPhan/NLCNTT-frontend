@@ -14,7 +14,7 @@ function HeaderAdmin() {
   return (
     <div className={cx("wrapper")}>
       <header className={cx("header")}>
-        <div className={cx("navHeader")}>
+        <div className={cx("navHeader")}> 
           <div className={cx("logo")}>
             <Link to={"/homeAdmin"}>
               <h1>Travel</h1>
@@ -25,7 +25,7 @@ function HeaderAdmin() {
               <img
                 className={cx("iconMes")}
                 src="/src/assets/icons/message.svg"
-                alt=""
+                alt="" 
               />
             </span>
             <span>
