@@ -1,15 +1,16 @@
 import className from "classnames/bind";
 import styles from "./FirstPage.module.scss";
-
+import { motion } from "framer-motion";
 import { Col, Row } from "antd";
 
+import OnTop from "../../components/OnTop";
 import SlideLogo from "../../components/SlideLogo";
 import Card from "../../components/Card";
 import CardFlippingGallery from "../../components/CardFlippingGallery";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 const cx = className.bind(styles);
 
-function FirstPage() {
+function FirstPage() { 
   const imgList = [
     {
       id: "anh1",
@@ -74,26 +75,50 @@ function FirstPage() {
       url: "https://img.freepik.com/free-photo/empty-wood-chair-table-outdoor-patio-with-beautiful-tropical-beach-sea_74190-9961.jpg?w=1800&t=st=1687169720~exp=1687170320~hmac=0a77994214a9019510f28af43dab452ada527e96585d6e7f563a09995598851e",
       des: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.Praesent in mauris eu tortor porttitor accumsan. Lorem ipsumdolor sit amet, consectetuer adipiscing elit. Praesent inmauris eu tortor porttitor accumsan.",
     },
-    // {
-    //   id: "7",
-    //   title: "MOUNTAIN",
-    //   url: "https://img.freepik.com/free-photo/view-mountains-landscape-huesca_1398-5217.jpg?w=2000&t=st=1687169991~exp=1687170591~hmac=aa445998f8b6570cab3abc9d68853ab80ba944475fcbc05c70c6061f967ab9f7",
-    //   des: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.Praesent in mauris eu tortor porttitor accumsan. Lorem ipsumdolor sit amet, consectetuer adipiscing elit. Praesent inmauris eu tortor porttitor accumsan.",
-    // },
-
-    // {
-    //   id: "8",
-    //   title: "MOUNTAIN",
-    //   url: "https://img.freepik.com/free-photo/beautiful-shot-snowy-hill-surrounded-by-mountains-with-light-pink-sky_181624-4102.jpg?w=2000&t=st=1687169963~exp=1687170563~hmac=b811dc16315ec7776b847588539208c1d57e43df80f7319aeb9b55ed7322784b",
-    //   des: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.Praesent in mauris eu tortor porttitor accumsan. Lorem ipsumdolor sit amet, consectetuer adipiscing elit. Praesent inmauris eu tortor porttitor accumsan.",
-    // },
-    // {
-    //   id: "9",
-    //   title: "BEACH",
-    //   url: "https://img.freepik.com/free-photo/beautiful_1203-2633.jpg?w=2000&t=st=1687169925~exp=1687170525~hmac=4e1fdddf8ca048eaa100d431639d165f115cd16cea95feff591fbecdc3b28d4c",
-    //   des: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.Praesent in mauris eu tortor porttitor accumsan. Lorem ipsumdolor sit amet, consectetuer adipiscing elit. Praesent inmauris eu tortor porttitor accumsan.",
-    // },
   ];
+
+  const textRef = useRef();
+  const videoRef = useRef();
+
+  useEffect(() => {
+    let callback = (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          console.log(entry);
+          entry.target.classList.add(cx("active"));
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(callback, {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0,
+    });
+
+    const target1 = textRef.current;
+    observer.observe(target1);
+  }, []);
+
+  useEffect(() => {
+    let callback = (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          console.log(entry);
+          entry.target.classList.add(cx("active"));
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(callback, {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0,
+    });
+
+    const videoRef1 = videoRef.current;
+    observer.observe(videoRef1);
+  }, []);
 
   return (
     <div className={cx("wrapper")}>
@@ -125,11 +150,11 @@ function FirstPage() {
           </div>
 
           <div className={cx("description_Statement")}>
-            <p>
+            <span>
               Chúng tôi cam kết mang đến những chuyến{" "}
               <b>du lịch Mỹ khác biệt</b>, đẳng cấp, độc đáo mà{" "}
               <p>chỉ có tại VTourist</p>.
-            </p>
+            </span>
           </div>
 
           <div className={cx("cardsStatement")}>
@@ -146,40 +171,51 @@ function FirstPage() {
         </section>
 
         <section id="introduction" className={cx("introduction")}>
-          <h3 className={cx("introduction-first")}>EXPLORE OUR TOURS</h3>
-          <h1 className={cx("introduction-second")}>
-            New and Most Popular Tours
-          </h1>
-          <div className={cx("lineIntro")}></div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0, translateY: -80 }}
+            whileInView={{ opacity: 1, scale: 1, y: 80 }}
+            transition={{ duration: 1 }}
+            viewport={{ once: true }}
+          >
+            <div className={cx("intro")}>
+              <h3 className={cx("introduction-first")}>EXPLORE OUR TOURS</h3>
+              <h1 className={cx("introduction-second")}>
+                New and Most Popular Tours
+              </h1>
+              <div className={cx("lineIntro")}></div>
+            </div>
+          </motion.div>
         </section>
 
         <section id="paragraph" className={cx("paragraph")}>
-          <div className={cx("textParagraph")}>
+          <div ref={textRef} className={cx("textParagraph")}>
             <p className={cx("text")}>
-              Trường Trung cấp Du lịch & Khách sạn Saigontourist (STHC), là cơ
-              sở đào tạo nghề du lịch uy tín hàng đầu tại Việt Nam, không chỉ
-              đào tạo cho hệ thống Saigontourist Group mà còn cho cả nguồn nhân
-              lực du lịch Tp. HCM và cả nước, thông qua các chương trình đào tạo
-              tại Trường, theo nhu cầu của các doanh nghiệp, các địa phương...
+              Trường Trung cấp Du lịch & Khách sạn Saigontourist , là cơ sở đào
+              tạo nghề du lịch uy tín hàng đầu tại Việt Nam, không chỉ đào tạo
+              cho hệ thống Saigontourist Group mà còn cho cả nguồn nhân lực du
+              lịch Tp. HCM và cả nước, thông qua các chương trình đào tạo tại
+              Trường, theo nhu cầu của các doanh nghiệp, các địa phương...
               Trường luôn liên kết với các khách sạn 4-5 sao trong hệ thống
             </p>
-            <br />
             <p className={cx("text")}>
-              Trường Trung cấp Du lịch & Khách sạn Saigontourist (STHC), là cơ
-              sở đào tạo nghề du lịch uy tín hàng đầu tại Việt Nam, không chỉ
-              đào tạo cho hệ thống Saigontourist Group mà còn cho cả nguồn nhân
-              lực du lịch Tp. HCM và cả nước, thông qua các chương trình đào tạo
-              tại Trường, theo nhu cầu của các doanh nghiệp, các địa phương...
+              Trường Trung cấp Du lịch & Khách sạn Saigontourist , là cơ sở đào
+              tạo nghề du lịch uy tín hàng đầu tại Việt Nam, không chỉ đào tạo
+              cho hệ thống Saigontourist Group mà còn cho cả nguồn nhân lực du
+              lịch Tp. HCM và cả nước, thông qua các chương trình đào tạo tại
+              Trường, theo nhu cầu của các doanh nghiệp, các địa phương...
               Trường luôn liên kết với các khách sạn 4-5 sao trong hệ thống
             </p>
 
             <button className={cx("button", "btn")}>Xem thêm</button>
           </div>
-          <div className={cx("video")}>
-            {/* <video controls>
-                <source src="https://youtu.be/go_9xztCLp4" type="video/mp4" />
-              </video> */}
-            <video width="750" height="500" controls>
+          <div>
+            <video
+              ref={videoRef}
+              className={cx("video")}
+              width="750"
+              height="500"
+              controls
+            >
               <source src="https://youtu.be/go_9xztCLp4" type="video/mp4" />
             </video>
           </div>
@@ -188,34 +224,13 @@ function FirstPage() {
         <section id="cardList" className={cx("cardList")}>
           <div className={cx("girdCardList")}>
             {imgTravel.map((img, index) => (
-              <Card data={img} />
+              <Card key={img.id} data={img} />
             ))}
           </div>
         </section>
       </div>
 
-      <a href="#" className={cx("onTop")}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="icon icon-tabler icon-tabler-arrow-big-up-filled"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          strokeWidth="2"
-          stroke="currentColor"
-          fill="none"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          color="white"
-        >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path
-            d="M10.586 3l-6.586 6.586a2 2 0 0 0 -.434 2.18l.068 .145a2 2 0 0 0 1.78 1.089h2.586v7a2 2 0 0 0 2 2h4l.15 -.005a2 2 0 0 0 1.85 -1.995l-.001 -7h2.587a2 2 0 0 0 1.414 -3.414l-6.586 -6.586a2 2 0 0 0 -2.828 0z"
-            stroke-width="0"
-            fill="currentColor"
-          ></path>
-        </svg>
-      </a>
+      <OnTop />
     </div>
   );
 }

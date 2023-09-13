@@ -4,9 +4,13 @@ import FirstPage from "../pages/FirstPage";
 
 // ADMIN ==================================================
 import HomeAdmin from "../admin/resoursesAdmin/HomeAdmin";
+
 import Dashboard from "../admin/resoursesAdmin/Dashboard";
+
 import ListUser from "../admin/resoursesAdmin/ManageUser/ListUser";
 import UpdateUser from "../admin/resoursesAdmin/ManageUser/UpdateUser";
+import CreateUser from "../admin/resoursesAdmin/ManageUser/CreateUser";
+
 import ListTour from "../admin/resoursesAdmin/ManageTour/ListTour";
 import UpdateTour from "../admin/resoursesAdmin/ManageTour/UpdateTour";
 
@@ -59,6 +63,7 @@ const privateRoutes = [
   { path: "/homeadmin", component: HomeAdmin, layout: AdminLayout },
   { path: "/dashboard", component: Dashboard, layout: AdminLayout },
   { path: "/user-listUser", component: ListUser, layout: AdminLayout },
+  { path: "/user-createUser", component: CreateUser, layout: AdminLayout },
   { path: "/user-updateUser/:id", component: UpdateUser, layout: AdminLayout },
   { path: "/tour-listTour", component: ListTour, layout: AdminLayout },
   { path: "/tour-updateTour/:id", component: UpdateTour, layout: AdminLayout },

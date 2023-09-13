@@ -18,7 +18,6 @@ const cx = className.bind(styles);
 
 function Header() {
   const location = useLocation(); // lấy đường dẫn hiện tại
-  console.log(location);
   const url = location.pathname;
 
   const MENU_ITEMS = [
@@ -88,7 +87,7 @@ function Header() {
   ];
 
   return (
-    <divc className={cx("wrapepr")}>
+    <div className={cx("wrapepr")}>
       <div className={cx("bgHeading")}>
         <div className={cx("heading")}>
           <div>daicatphan@gmail.com</div>
@@ -179,7 +178,7 @@ function Header() {
           </Link>
         </div>
       </header>
-    </divc>
+    </div>
   );
 }
 

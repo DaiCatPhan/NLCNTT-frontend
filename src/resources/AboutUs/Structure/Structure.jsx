@@ -19,7 +19,22 @@ function Structure() {
         <Col xs={16}>
           <Row>
             <div className={cx("position")}>
-              <h1 className={cx("companyPersonnel")}>Ban Tổng Giám Đốc</h1>
+              <h1 className={cx("companyPersonnel")}>Chủ tịch</h1>
+              <div className={cx("members")}>
+                <Member
+                  url={
+                    "https://scontent.fsgn5-11.fna.fbcdn.net/v/t39.30808-6/371792714_1728959110885660_5503769153923947505_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=52f669&_nc_ohc=gIpBhpsKIJ8AX8zgNjz&_nc_ht=scontent.fsgn5-11.fna&oh=00_AfB-i0cVDpaXiNPM7fHCT16tED4zzmbkahfHJrVlDTZP7A&oe=6505837F"
+                  }
+                  username={"Dương Nhã Vy"}
+                  position={"Chủ tịch hội đồng quản trị"}
+                />
+              </div>
+            </div>
+          </Row>
+
+          <Row>
+            <div className={cx("position")}>
+              <h1 className={cx("companyPersonnel")}>Ban Giám Đốc</h1>
               <div className={cx("members")}>
                 <Member
                   url={"/src/assets/aboutus/image3.jpg"}

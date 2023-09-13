@@ -1,0 +1,19 @@
+// onTop
+.onTop {
+  position: fixed;
+  background-color: yellow;
+  bottom: 15px;
+  right: 15px;
+  border-radius: 10px;
+
+  svg {
+    height: 50px;
+    width: 60px;
+    padding: 5px;
+    color: red;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}

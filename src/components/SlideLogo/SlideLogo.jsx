@@ -28,7 +28,7 @@ function SlideLogo() {
   return (
     <Carousel>
       {logo.map((image, index) => (
-        <Carousel.Item interval={3000}>
+        <Carousel.Item interval={3000} key={image.id}>
           <img className={cx("image")} src={image.url} alt={image.id} />
         </Carousel.Item>
       ))}

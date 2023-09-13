@@ -1,23 +1,47 @@
 import className from "classnames/bind";
 import styles from "./ListUser.module.scss";
 import { Link } from "react-router-dom";
-import axios from "axios";
-
+import axios from "../../../../services/customize-axios";
 const cx = className.bind(styles);
 import { SearchOutlined } from "@ant-design/icons";
 import React, { useEffect, useRef, useState } from "react";
 import { Button, Input, Space, Table } from "antd";
+import { IconEdit, IconTrashX } from "@tabler/icons-react";
+
+import ModalAddNewUser from "../component/ModalAddNewUser";
+import ModalEditUser from "../component/ModalEditUser";
+import ModalDeleteUser from "../component/ModalDeleteUser";
 
 function ListUser() {
-  const [tableParams, setTableParams] = useState({
-    pagination: {
-      current: 1, // 2 3
-      pageSize: 3, // 10 3
-    },
-  });
-  const [totalPage, setTotalPage] = useState(0);
+  const [isShowModalAddNew, setIsShowModalAddNew] = useState(false);
+  const [isShowModalEditUser, setIsShowModalEditUser] = useState(false);
+  const [isShowModalDeleteUser, setIsShowModalDeleteUser] = useState(false);
 
-  const [userData, setUserData] = useState([]);
+  const [dataEditUser, setDataEdituser] = useState({});
+  const [dataDeleteUser, setDataDeleteUser] = useState({});
+
+  const handleAddUser = () => {
+    setIsShowModalAddNew(true);
+  };
+  const handleEditUser = (userEdit) => {
+    setIsShowModalEditUser(true);
+    setDataEdituser(userEdit);
+  };
+
+  const handleDeleteUser = (userDelete) => {
+    setIsShowModalDeleteUser(true);
+    setDataDeleteUser(userDelete);
+  };
+
+  const handleClose = () => {
+    setIsShowModalAddNew(false);
+    setIsShowModalEditUser(false);
+    setIsShowModalDeleteUser(false);
+  };
+
+  // =============  Sort  ==================
+
+  // ============= Search ==================
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
@@ -120,34 +144,86 @@ function ListUser() {
     render: (text) => (searchedColumn === dataIndex ? text : text),
   });
 
+  // ============== End Search =================
+
+  const [tableParams, setTableParams] = useState({
+    pagination: {
+      current: 1, // 2 3
+      pageSize: 6, // 10 3
+    },
+  });
+  const [totalPage, setTotalPage] = useState(0);
+  const [userData, setUserData] = useState([]);
+
   const handleTableChange = (pagination) => {
     setTableParams({ pagination });
   };
 
   const columns = [
     {
-      title: "Name",
+      title: "Họ và tên",
       dataIndex: "name",
       key: "name",
       ...getColumnSearchProps("name"),
     },
     {
-      title: "phone",
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+      ...getColumnSearchProps("email"),
+    },
+    {
+      title: "Phone",
       dataIndex: "phone",
       key: "phone",
       ...getColumnSearchProps("phone"),
+    },
+    {
+      title: "Giới tính",
+      dataIndex: "gender",
+      key: "gender",
+      ...getColumnSearchProps("gender"),
+    },
+    {
+      title: "Chức vụ",
+      dataIndex: "role",
+      key: "role",
+      ...getColumnSearchProps("role"),
+    },
+    {
+      title: "Thao tác",
+      key: "thaotac",
+      render: (record) => {
+        return (
+          <>
+            <IconEdit
+              className="mx-3"
+              size={26}
+              color="green"
+              onClick={() => handleEditUser(record)}
+            />
+            <Link>
+              <IconTrashX
+                className="mx-3"
+                size={26}
+                color="red"
+                onClick={() => handleDeleteUser(record)}
+              />
+            </Link>
+          </>
+        );
+      },
     },
   ];
 
   const getUsers = () => {
     axios
-      .get(`http://localhost:3000/api/v1/staff/getListPaginationStaff`, {
+      .get(`/api/v1/staff/getListPaginationStaff`, {
         params: {
           offset:
             (tableParams.pagination.current - 1) *
             tableParams.pagination.pageSize,
-          limit:
-            tableParams.pagination.pageSize,
+          limit: tableParams.pagination.pageSize,
         },
       })
       .then((res) => {
@@ -155,10 +231,12 @@ function ListUser() {
         const dataColumn = res?.data?.rows?.map((user) => {
           return {
             id: user.id,
-            email: user.email,
-            phone: user.phone,
-            key: user.id,
             name: user.name,
+            phone: user.phone,
+            gender: user.gender,
+            role: user.role,
+            email: user.email,
+            key: user.id,
           };
         });
         setTotalPage(res?.data?.count || 0);
@@ -168,18 +246,18 @@ function ListUser() {
         console.log(err);
       });
   };
+
   useEffect(() => {
     getUsers();
   }, [tableParams]);
 
-  const onSelectChange = (newSelectedRowKeys) => {
-    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
-    setSelectedRowKeys(newSelectedRowKeys);
-  };
-
   return (
     <div className={cx("wrapper")}>
-      <div className="m-5">
+      <div className="m-5   ">
+        <button className={cx("addBtn")} onClick={handleAddUser}>
+          + Add User
+        </button>
+
         <Table
           pagination={{
             pageSize: tableParams.pagination.pageSize,
@@ -190,6 +268,27 @@ function ListUser() {
           onChange={handleTableChange}
           columns={columns}
           dataSource={userData}
+          bordered
+        />
+
+        <ModalAddNewUser
+          show={isShowModalAddNew}
+          handleClose={handleClose}
+          handleUpdateListUser={getUsers}
+        />
+
+        <ModalEditUser
+          show={isShowModalEditUser}
+          handleClose={handleClose}
+          dataUserEdit={dataEditUser}
+          handleUpdateListUser={getUsers}
+        />
+
+        <ModalDeleteUser
+          show={isShowModalDeleteUser}
+          handleClose={handleClose}
+          dataDeleteUser={dataDeleteUser}
+          handleUpdateListUser={getUsers}
         />
       </div>
     </div>
