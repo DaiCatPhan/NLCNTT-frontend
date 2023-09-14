@@ -6,7 +6,14 @@ const cx = className.bind(styles);
 import { SearchOutlined } from "@ant-design/icons";
 import React, { useEffect, useRef, useState } from "react";
 import { Button, Input, Space, Table } from "antd";
-import { IconEdit, IconTrashX } from "@tabler/icons-react";
+import {
+  IconEdit,
+  IconTrashX,
+  IconCirclePlus,
+  IconFileDownload,
+  IconFileExport,
+} from "@tabler/icons-react";
+import { CSVLink, CSVDownload } from "react-csv";
 
 import ModalAddNewUser from "../component/ModalAddNewUser";
 import ModalEditUser from "../component/ModalEditUser";
@@ -41,7 +48,7 @@ function ListUser() {
 
   // =============  Sort  ==================
 
-  // ============= Search ==================
+  // ============= Search ======================
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
@@ -161,33 +168,52 @@ function ListUser() {
 
   const columns = [
     {
+      title: "ID",
+      dataIndex: "id",
+      key: "id",
+      sorter: {
+        compare: (a, b) => a.id - b.id,
+      },
+
+      ...getColumnSearchProps("id"),
+    },
+    {
       title: "Họ và tên",
       dataIndex: "name",
       key: "name",
+
       ...getColumnSearchProps("name"),
     },
     {
       title: "Email",
       dataIndex: "email",
       key: "email",
+
       ...getColumnSearchProps("email"),
     },
     {
       title: "Phone",
       dataIndex: "phone",
       key: "phone",
+
       ...getColumnSearchProps("phone"),
     },
     {
       title: "Giới tính",
       dataIndex: "gender",
       key: "gender",
+      sorter: {
+        compare: (a, b) => a.gender.length - b.gender.length,
+      },
       ...getColumnSearchProps("gender"),
     },
     {
       title: "Chức vụ",
       dataIndex: "role",
       key: "role",
+      sorter: {
+        compare: (a, b) => a.role.length - b.role.length,
+      },
       ...getColumnSearchProps("role"),
     },
     {
@@ -196,12 +222,14 @@ function ListUser() {
       render: (record) => {
         return (
           <>
-            <IconEdit
-              className="mx-3"
-              size={26}
-              color="green"
-              onClick={() => handleEditUser(record)}
-            />
+            <Link>
+              <IconEdit
+                className="mx-3 "
+                size={26}
+                color="green"
+                onClick={() => handleEditUser(record)}
+              />
+            </Link>
             <Link>
               <IconTrashX
                 className="mx-3"
@@ -254,9 +282,26 @@ function ListUser() {
   return (
     <div className={cx("wrapper")}>
       <div className="m-5   ">
-        <button className={cx("addBtn")} onClick={handleAddUser}>
-          + Add User
-        </button>
+        <div className={cx("btn_function")}>
+          <div className={cx("csv")}>
+            <label htmlFor="import" className="btn btn-primary py-1 fs-5">
+              <IconFileExport /> Import
+            </label>
+            <input type="file" id="import" className="d-none" />
+            <CSVLink
+              data={userData}
+              filename={"user.csv"}
+              className="btn btn-warning py-1 px-3 fs-5 mx-3 text-white"
+              target="_blank"
+            >
+              <IconFileDownload /> Export
+            </CSVLink>
+          </div>
+
+          <button className={cx("addBtn")} onClick={handleAddUser}>
+            <IconCirclePlus /> Add User
+          </button>
+        </div>
 
         <Table
           pagination={{

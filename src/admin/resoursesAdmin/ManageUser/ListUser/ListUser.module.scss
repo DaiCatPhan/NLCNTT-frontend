@@ -1,10 +1,15 @@
+.btn_function {
+  display: flex;
+  border: 1px solid red;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .addBtn {
   padding: 5px;
   border: 1px solid blue;
   border-radius: 10px;
-  margin-bottom: 5px;
   font-size: 15px;
-  float: right;
   color: blue;
   font-weight: 600;
   background-color: transparent;
