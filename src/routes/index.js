@@ -69,4 +69,4 @@ const privateRoutes = [
   { path: "/tour-updateTour/:id", component: UpdateTour, layout: AdminLayout },
 ];
 
-export { publicRoutes, privateRoutes };
+export { publicRoutes, privateRoutes }; 

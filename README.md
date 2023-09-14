@@ -22,9 +22,15 @@ useEffect(() => {
 
 }, []);
 
-
 # class
+
 import className from "classnames/bind";
 import styles from "./ModalAddNewUser.module.scss";
 const cx = className.bind(styles);
 
+// chuc năng logout
+const handleLogOut = () => {
+localStorage.removeItem('token');
+navigate('/homeadmin');
+toast.success('Log out success')
+}

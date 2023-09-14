@@ -2,11 +2,20 @@ import className from "classnames/bind";
 import styles from "./HeaderAdmin.module.scss";
 import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
 import { IconUser } from "@tabler/icons-react";
+import { useNavigate } from "react-router-dom";
 const cx = className.bind(styles);
 
 function HeaderAdmin() {
   const [isShowFormInfo, setIsShowFormInfo] = useState(false);
+  const navigate = useNavigate();
+  const handleLogOut = () => {
+    localStorage.removeItem("token");
+    navigate("/dashboard");
+    toast.success("Log out success");
+  };
+
   const handleIsShowFormInfo = () => {
     setIsShowFormInfo(!isShowFormInfo);
   };
@@ -47,7 +56,7 @@ function HeaderAdmin() {
         </div>
 
         {/* Form */}
-        {/* <div className={cx("formInfo", { active: isShowFormInfo })}>
+        <div className={cx("formInfo", { active: isShowFormInfo })}>
           <div className={cx("infoUser")}>
             <p className={cx("name")}>Phan Dai cat</p>
             <p className={cx("email")}>daicat@gmail.com</p>
@@ -81,13 +90,13 @@ function HeaderAdmin() {
               </li>
 
               <li>
-                <Link>
-                  <IconUser /> My profile
+                <Link onClick={handleLogOut}>
+                  <IconUser /> Log out
                 </Link>
               </li>
             </ul>
           </div>
-        </div> */}
+        </div>
       </header>
     </div>
   );

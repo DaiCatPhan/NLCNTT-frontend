@@ -14,10 +14,12 @@ import {
   IconFileExport,
 } from "@tabler/icons-react";
 import { CSVLink, CSVDownload } from "react-csv";
+import Papa from "papaparse";
 
 import ModalAddNewUser from "../component/ModalAddNewUser";
 import ModalEditUser from "../component/ModalEditUser";
 import ModalDeleteUser from "../component/ModalDeleteUser";
+import { toast } from "react-toastify";
 
 function ListUser() {
   const [isShowModalAddNew, setIsShowModalAddNew] = useState(false);
@@ -170,7 +172,7 @@ function ListUser() {
     {
       title: "ID",
       dataIndex: "id",
-      key: "id",
+      // key: "id",
       sorter: {
         compare: (a, b) => a.id - b.id,
       },
@@ -180,28 +182,28 @@ function ListUser() {
     {
       title: "Họ và tên",
       dataIndex: "name",
-      key: "name",
+      // key: "name",
 
       ...getColumnSearchProps("name"),
     },
     {
       title: "Email",
       dataIndex: "email",
-      key: "email",
+      // key: "email",
 
       ...getColumnSearchProps("email"),
     },
     {
       title: "Phone",
       dataIndex: "phone",
-      key: "phone",
+      // key: "phone",
 
       ...getColumnSearchProps("phone"),
     },
     {
       title: "Giới tính",
       dataIndex: "gender",
-      key: "gender",
+      // key: "gender",
       sorter: {
         compare: (a, b) => a.gender.length - b.gender.length,
       },
@@ -210,7 +212,7 @@ function ListUser() {
     {
       title: "Chức vụ",
       dataIndex: "role",
-      key: "role",
+      // key: "role",
       sorter: {
         compare: (a, b) => a.role.length - b.role.length,
       },
@@ -218,7 +220,7 @@ function ListUser() {
     },
     {
       title: "Thao tác",
-      key: "thaotac",
+      // key: "thaotac",
       render: (record) => {
         return (
           <>
@@ -279,6 +281,63 @@ function ListUser() {
     getUsers();
   }, [tableParams]);
 
+  // ========= Import CSV ================
+  const handleImportCSV = (e) => {
+    if (e.target && e.target.files && e.target.files[0]) {
+      let file = e.target.files[0]; // file có kiểu là file object
+      console.log("file >>> ", file);
+
+      if (file.type != "text/csv") {
+        toast.error("Upload accept csv file !");
+        return;
+      }
+
+      // Parse local CSV file
+      Papa.parse(file, {
+        // header: true,
+        complete: function (results) {
+          let rawCSV = results.data;
+          if (rawCSV.length > 0) {
+            if (rawCSV[0] && rawCSV[0].length === 5) {
+              // check 5 là số trường trong dữ liệu , người nhập k được dư hoặc thiếu trong file CSV
+              if (
+                rawCSV[0][0] !== "name" ||
+                rawCSV[0][1] !== "phone" ||
+                rawCSV[0][2] !== "gender" ||
+                rawCSV[0][3] !== "role" ||
+                rawCSV[0][4] !== "email"
+              ) {
+                // check xem các trường (tiêu đề) trong file CSV có đúng với dữ liệu trong database k
+                toast.error("Wrong fomat Header CSV file !!!");
+              } else {
+                let result = []; // Kết quả cuối cùng kakaka . hãy kêu api rồi lưu vào dữ liệu là xong
+                rawCSV.map((item, index) => {
+                  if (index > 0 && item.length == 5) {
+                    let obj = {};
+                    obj.name = item[0];
+                    obj.phone = item[1];
+                    obj.gender = item[2];
+                    obj.role = item[3];
+                    obj.email = item[4];
+                    result.push(obj);
+                  }
+                });
+
+                console.log("Check >>> result ", result);
+                // Gọi API lưu vào database -> Gọi lại hàm để reload lại danh sách hiện ok !
+                toast.success("Import data thành công hihi >>>");
+              }
+            } else {
+              toast.error("Wrong fomat CSV file !!!");
+            }
+          } else {
+            toast.error("Not found data on CSV file !!!");
+          }
+        },
+      });
+    }
+  };
+
   return (
     <div className={cx("wrapper")}>
       <div className="m-5   ">
@@ -287,7 +346,12 @@ function ListUser() {
             <label htmlFor="import" className="btn btn-primary py-1 fs-5">
               <IconFileExport /> Import
             </label>
-            <input type="file" id="import" className="d-none" />
+            <input
+              type="file"
+              id="import"
+              className="d-none"
+              onChange={(e) => handleImportCSV(e)}
+            />
             <CSVLink
               data={userData}
               filename={"user.csv"}
