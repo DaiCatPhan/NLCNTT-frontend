@@ -56,7 +56,7 @@ function HeaderAdmin() {
         </div>
 
         {/* Form */}
-        <div className={cx("formInfo", { active: isShowFormInfo })}>
+        {/* <div className={cx("formInfo", { active: isShowFormInfo })}>
           <div className={cx("infoUser")}>
             <p className={cx("name")}>Phan Dai cat</p>
             <p className={cx("email")}>daicat@gmail.com</p>
@@ -96,7 +96,7 @@ function HeaderAdmin() {
               </li>
             </ul>
           </div>
-        </div>
+        </div> */}
       </header>
     </div>
   );

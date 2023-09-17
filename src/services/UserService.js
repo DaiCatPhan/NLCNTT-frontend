@@ -1,30 +1,21 @@
 import axios from "./customize-axios";
 
-function fetchAllUser() {
-  return axios.get(`/api/v1/staff/getListPaginationStaff`, { offset, limit });
-}
-
-const postCreareUser = ({ name, phone, gender, role, email, password }) => {
-  return axios.post("/api/v1/staff/createStaff", {
-    name,
-    phone,
-    gender,
-    role,
-    email,
-    password,
+const fetchAllUser = (page, limit) => {
+  return axios.get("/api/v1/staff/read", {
+    params: { page: page, limit: limit },
   });
 };
 
-const updateUser = ([id, data]) => {
-  return axios.put(`/api/v1/staff/updateStaff/${id}`, data);
+const createUser = (dataCreate) => {
+  return axios.post("/api/v1/staff/create", dataCreate);
 };
 
-const deleteUser = (id) => {
-  return axios.delete(`/api/v1/staff/deleteStaff/${id}`);
+const updateUser = (dataUpdate) => {
+  return axios.put("/api/v1/staff/update", dataUpdate);
 };
 
-const loginApi = ({ email, password }) => {
-  return axios.post("/api/v1/authentication/login", { email, password });
+const deleteUser = (user) => {
+  return axios.delete("/api/v1/staff/delete", { data: { id: user.id } });
 };
 
-export { fetchAllUser, postCreareUser, updateUser, deleteUser, loginApi };
+export default { fetchAllUser, createUser, updateUser, deleteUser };

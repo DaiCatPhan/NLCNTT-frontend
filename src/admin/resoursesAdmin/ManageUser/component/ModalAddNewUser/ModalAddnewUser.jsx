@@ -3,10 +3,10 @@ import styles from "./ModalAddNewUser.module.scss";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import Form from "react-bootstrap/Form";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
-import { postCreareUser } from "../../../../../services/UserService";
+import UserService from "../../../../../services/UserService";
 
 const cx = className.bind(styles);
 
@@ -18,39 +18,71 @@ function ModalAddNewUser(props) {
   const [role, setRole] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errCreate, setErrCreate] = useState("");
+  const navigate = useNavigate();
 
-  const handleSave = async () => {
+  const validateFormUpdateUser = () => {
+    if (!email) {
+      toast.error("Thiếu dữ liệu trường email");
+      return false;
+    }
+    let regEmail =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    if (!regEmail.test(email)) {
+      toast.error("Email không hợp lệ !!!");
+      return false;
+    }
+    if (!name) {
+      toast.error("Thiếu dữ liệu trường name");
+      return false;
+    }
+    if (!phone) {
+      toast.error("Thiếu dữ liệu trường phone");
+      return false;
+    }
+    if (!gender) {
+      toast.error("Thiếu dữ liệu trường gender");
+      return false;
+    }
+    if (!role) {
+      toast.error("Thiếu dữ liệu trường role");
+      return false;
+    }
+    if (!password) {
+      toast.error("Thiếu dữ liệu trường password");
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleUpdateUser = async () => {
+    // validate
+    let validate = validateFormUpdateUser();
+    if (!validate) {
+      return;
+    }
+    // tao bien
+    let dataNewUser = { name, phone, gender, role, email, password };
     try {
-      const res = await postCreareUser({
-        name,
-        phone,
-        gender,
-        role,
-        email,
-        password,
-      });
-      console.log(res);
-      if (res && res.data.code == 201) {
+      let response = await UserService.createUser(dataNewUser);
+
+      if (response && response.data.EC === 0) {
+        toast.success(response.data.EM);
         handleClose();
+
         setName("");
         setPhone("");
         setGender("");
         setRole("");
         setEmail("");
         setPassword("");
-        setErrCreate("");
 
-        toast.success("Tạo tài khoản thành công");
-        handleUpdateListUser();
+        handleUpdateListUser(); // reset databasse
       } else {
-        // Error
-        console.log("loi", res);
-        setErrCreate(res.data.mes);
+        toast.error(response.data.EM);
       }
     } catch (err) {
-      console.log(err);
-      setErrCreate(err.response.data.mes);
+      console.log(">>> err", err);
     }
   };
   return (
@@ -69,7 +101,20 @@ function ModalAddNewUser(props) {
           <div className={cx("modalAddUser")}>
             <div className={cx("form")}>
               <form>
-                <div className="form-group">
+                {/* Email */}
+                <div className="form-group input-group-lg">
+                  <label htmlFor="exampleInputEmail1">Email address</label>
+                  <input
+                    type="email"
+                    required
+                    className="form-control"
+                    id="exampleInputEmail1"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                {/* username */}
+                <div className="form-group input-group-lg ">
                   <label>User name</label>
                   <input
                     type="text"
@@ -78,7 +123,8 @@ function ModalAddNewUser(props) {
                     onChange={(e) => setName(e.target.value)}
                   />
                 </div>
-                <div className="form-group">
+                {/* Phone */}
+                <div className="form-group input-group-lg">
                   <label>Phone</label>
                   <input
                     type="text"
@@ -88,34 +134,37 @@ function ModalAddNewUser(props) {
                   />
                 </div>
 
-                <div className="form-check form-check-inline">
-                  <input
-                    className="form-check-input "
-                    type="radio"
-                    value="nam"
-                    id="male"
-                    name="gander"
-                    onChange={(e) => setGender(e.target.value)}
-                  />
-                  <label className="form-check-label  " htmlFor="male">
-                    Nam
-                  </label>
+                {/* Gender */}
+                <div>
+                  <div className="form-check form-check-inline ">
+                    <input
+                      className="form-check-input "
+                      type="radio"
+                      value="nam"
+                      id="male"
+                      name="gander"
+                      onChange={(e) => setGender(e.target.value)}
+                    />
+                    <label className="form-check-label  " htmlFor="male">
+                      Nam
+                    </label>
+                  </div>
+                  <div className="form-check form-check-inline">
+                    <input
+                      className="form-check-input  "
+                      type="radio"
+                      id="female"
+                      value="nữ"
+                      name="gander"
+                      onChange={(e) => setGender(e.target.value)}
+                    />
+                    <label className="form-check-label  " htmlFor="female">
+                      Nữ
+                    </label>
+                  </div>
                 </div>
-                <div className="form-check form-check-inline">
-                  <input
-                    className="form-check-input  "
-                    type="radio"
-                    id="female"
-                    value="nữ"
-                    name="gander"
-                    onChange={(e) => setGender(e.target.value)}
-                  />
-                  <label className="form-check-label  " htmlFor="female">
-                    Nữ
-                  </label>
-                </div>
-
-                <div className="form-group ">
+                {/* Chuc vu */}
+                <div className="form-group input-group-lg">
                   <label>Chức vụ</label>
                   <select
                     className="form-control w-25"
@@ -123,23 +172,14 @@ function ModalAddNewUser(props) {
                     onChange={(e) => setRole(e.target.value)}
                   >
                     <option>Choose...</option>
-                    <option value={"Hướng dẫn viên"}>Hướng dẫn viên</option>
-                    <option value={"Tài xế"}>Tài xế</option>
-                    <option value={"Phụ xe"}>Phụ xe</option>
+                    <option value={"huongdanvien"}>Hướng dẫn viên</option>
+                    <option value={"taixe"}>Tài xế</option>
+                    <option value={"phuxe"}>Phụ xe</option>
                   </select>
                 </div>
 
-                <div className="form-group">
-                  <label htmlFor="exampleInputEmail1">Email address</label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    id="exampleInputEmail1"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-                <div className="form-group">
+                {/* Password */}
+                <div className="form-group input-group-lg">
                   <label htmlFor="exampleInputPassword1">Password</label>
                   <input
                     type="password"
@@ -150,7 +190,6 @@ function ModalAddNewUser(props) {
                   />
                 </div>
               </form>
-              {errCreate && <div className="text-center red">{errCreate} </div>}
             </div>
           </div>
         </Modal.Body>
@@ -159,7 +198,7 @@ function ModalAddNewUser(props) {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleSave}>
+          <Button variant="primary" onClick={handleUpdateUser}>
             Save Changes
           </Button>
         </Modal.Footer>

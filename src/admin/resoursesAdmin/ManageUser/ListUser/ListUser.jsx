@@ -2,10 +2,10 @@ import className from "classnames/bind";
 import styles from "./ListUser.module.scss";
 import { Link } from "react-router-dom";
 import axios from "../../../../services/customize-axios";
-const cx = className.bind(styles);
 import { SearchOutlined } from "@ant-design/icons";
 import React, { useEffect, useRef, useState } from "react";
 import { Button, Input, Space, Table } from "antd";
+import { toast } from "react-toastify";
 import {
   IconEdit,
   IconTrashX,
@@ -19,7 +19,10 @@ import Papa from "papaparse";
 import ModalAddNewUser from "../component/ModalAddNewUser";
 import ModalEditUser from "../component/ModalEditUser";
 import ModalDeleteUser from "../component/ModalDeleteUser";
-import { toast } from "react-toastify";
+
+import UserService from "../../../../services/UserService";
+
+const cx = className.bind(styles);
 
 function ListUser() {
   const [isShowModalAddNew, setIsShowModalAddNew] = useState(false);
@@ -47,8 +50,6 @@ function ListUser() {
     setIsShowModalEditUser(false);
     setIsShowModalDeleteUser(false);
   };
-
-  // =============  Sort  ==================
 
   // ============= Search ======================
   const [searchText, setSearchText] = useState("");
@@ -153,19 +154,29 @@ function ListUser() {
     render: (text) => (searchedColumn === dataIndex ? text : text),
   });
 
-  // ============== End Search =================
-
-  const [tableParams, setTableParams] = useState({
-    pagination: {
-      current: 1, // 2 3
-      pageSize: 6, // 10 3
-    },
-  });
   const [totalPage, setTotalPage] = useState(0);
   const [userData, setUserData] = useState([]);
 
+  const [tableParams, setTableParams] = useState({
+    pagination: {
+      current: 1,
+      pageSize: 3,
+    },
+  });
+
   const handleTableChange = (pagination) => {
     setTableParams({ pagination });
+  };
+
+  const getUsers = async () => {
+    let res = await UserService.fetchAllUser(
+      tableParams.pagination.current,
+      tableParams.pagination.pageSize
+    );
+    if (res && res.data && res.data.EC === 0) {
+      setTotalPage(res?.data?.DT?.totalRows);
+      setUserData(res?.data?.DT?.users);
+    }
   };
 
   const columns = [
@@ -246,97 +257,65 @@ function ListUser() {
     },
   ];
 
-  const getUsers = () => {
-    axios
-      .get(`/api/v1/staff/getListPaginationStaff`, {
-        params: {
-          offset:
-            (tableParams.pagination.current - 1) *
-            tableParams.pagination.pageSize,
-          limit: tableParams.pagination.pageSize,
-        },
-      })
-      .then((res) => {
-        console.log(res);
-        const dataColumn = res?.data?.rows?.map((user) => {
-          return {
-            id: user.id,
-            name: user.name,
-            phone: user.phone,
-            gender: user.gender,
-            role: user.role,
-            email: user.email,
-            key: user.id,
-          };
-        });
-        setTotalPage(res?.data?.count || 0);
-        setUserData(dataColumn);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
   useEffect(() => {
     getUsers();
   }, [tableParams]);
 
   // ========= Import CSV ================
-  const handleImportCSV = (e) => {
-    if (e.target && e.target.files && e.target.files[0]) {
-      let file = e.target.files[0]; // file có kiểu là file object
-      console.log("file >>> ", file);
+  // const handleImportCSV = (e) => {
+  //   if (e.target && e.target.files && e.target.files[0]) {
+  //     let file = e.target.files[0]; // file có kiểu là file object
 
-      if (file.type != "text/csv") {
-        toast.error("Upload accept csv file !");
-        return;
-      }
+  //     if (file.type != "text/csv") {
+  //       toast.error("Upload accept csv file !");
+  //       return;
+  //     }
 
-      // Parse local CSV file
-      Papa.parse(file, {
-        // header: true,
-        complete: function (results) {
-          let rawCSV = results.data;
-          if (rawCSV.length > 0) {
-            if (rawCSV[0] && rawCSV[0].length === 5) {
-              // check 5 là số trường trong dữ liệu , người nhập k được dư hoặc thiếu trong file CSV
-              if (
-                rawCSV[0][0] !== "name" ||
-                rawCSV[0][1] !== "phone" ||
-                rawCSV[0][2] !== "gender" ||
-                rawCSV[0][3] !== "role" ||
-                rawCSV[0][4] !== "email"
-              ) {
-                // check xem các trường (tiêu đề) trong file CSV có đúng với dữ liệu trong database k
-                toast.error("Wrong fomat Header CSV file !!!");
-              } else {
-                let result = []; // Kết quả cuối cùng kakaka . hãy kêu api rồi lưu vào dữ liệu là xong
-                rawCSV.map((item, index) => {
-                  if (index > 0 && item.length == 5) {
-                    let obj = {};
-                    obj.name = item[0];
-                    obj.phone = item[1];
-                    obj.gender = item[2];
-                    obj.role = item[3];
-                    obj.email = item[4];
-                    result.push(obj);
-                  }
-                });
+  //     // Parse local CSV file
+  //     Papa.parse(file, {
+  //       // header: true,
+  //       complete: function (results) {
+  //         let rawCSV = results.data;
+  //         if (rawCSV.length > 0) {
+  //           if (rawCSV[0] && rawCSV[0].length === 5) {
+  //             // check 5 là số trường trong dữ liệu , người nhập k được dư hoặc thiếu trong file CSV
+  //             if (
+  //               rawCSV[0][0] !== "name" ||
+  //               rawCSV[0][1] !== "phone" ||
+  //               rawCSV[0][2] !== "gender" ||
+  //               rawCSV[0][3] !== "role" ||
+  //               rawCSV[0][4] !== "email"
+  //             ) {
+  //               // check xem các trường (tiêu đề) trong file CSV có đúng với dữ liệu trong database k
+  //               toast.error("Wrong fomat Header CSV file !!!");
+  //             } else {
+  //               let result = []; // Kết quả cuối cùng kakaka . hãy kêu api rồi lưu vào dữ liệu là xong
+  //               rawCSV.map((item, index) => {
+  //                 if (index > 0 && item.length == 5) {
+  //                   let obj = {};
+  //                   obj.name = item[0];
+  //                   obj.phone = item[1];
+  //                   obj.gender = item[2];
+  //                   obj.role = item[3];
+  //                   obj.email = item[4];
+  //                   result.push(obj);
+  //                 }
+  //               });
 
-                console.log("Check >>> result ", result);
-                // Gọi API lưu vào database -> Gọi lại hàm để reload lại danh sách hiện ok !
-                toast.success("Import data thành công hihi >>>");
-              }
-            } else {
-              toast.error("Wrong fomat CSV file !!!");
-            }
-          } else {
-            toast.error("Not found data on CSV file !!!");
-          }
-        },
-      });
-    }
-  };
+  //               console.log("Check >>> result ", result);
+  //               // Gọi API lưu vào database -> Gọi lại hàm để reload lại danh sách hiện ok !
+  //               toast.success("Import data thành công hihi >>>");
+  //             }
+  //           } else {
+  //             toast.error("Wrong fomat CSV file !!!");
+  //           }
+  //         } else {
+  //           toast.error("Not found data on CSV file !!!");
+  //         }
+  //       },
+  //     });
+  //   }
+  // };
 
   return (
     <div className={cx("wrapper")}>
@@ -372,7 +351,7 @@ function ListUser() {
             pageSize: tableParams.pagination.pageSize,
             total: totalPage,
             showSizeChanger: true,
-            pageSizeOptions: ["3", "6", "9", "12"],
+            pageSizeOptions: ["1", "2", "3", "6", "9", "12"],
           }}
           onChange={handleTableChange}
           columns={columns}

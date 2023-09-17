@@ -4,16 +4,18 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
-import { deleteUser } from "../../../../../services/UserService";
+import UserService from "../../../../../services/UserService";
 
 const cx = className.bind(styles);
 
 function ModalDeleteUser(props) {
   const { show, handleClose, dataDeleteUser, handleUpdateListUser } = props;
+
   const handleDeleteUser = async () => {
     try {
-      const UserDeleted = await deleteUser(dataDeleteUser.id);
-      if (UserDeleted && +UserDeleted.status == 204) {
+      let response = await UserService.deleteUser(dataDeleteUser);
+      console.log(">>> res sau khi delete", response);
+      if (response && +response.data.EC == 0) {
         handleClose();
         handleUpdateListUser();
         toast.success("Xóa tài khoản thành công");

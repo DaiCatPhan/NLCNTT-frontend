@@ -4,66 +4,61 @@ import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
-import { updateUser } from "../../../../../services/UserService";
+import UserService from "../../../../../services/UserService";
 import axios from "../../../../../services/customize-axios";
 
 const cx = className.bind(styles);
 
 function ModalEditUser(props) {
   const { show, handleClose, dataUserEdit, handleUpdateListUser } = props;
+  const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [gender, setGender] = useState("");
   const [role, setRole] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    if (show) {
+      setId(dataUserEdit.id);
+      setName(dataUserEdit.name);
+      setPhone(dataUserEdit.phone);
+      setGender(dataUserEdit.gender);
+      setRole(dataUserEdit.role);
+      setEmail(dataUserEdit.email);
+    }
+  }, [dataUserEdit]);
 
   const handleEditUser = async () => {
     try {
-      const EditUser = await updateUser([
-        dataUserEdit.id,
-        {
-          name,
-          phone,
-          gender,
-          role,
-          email,
-          password,
-        },
-      ]);
-
-      if (EditUser.data.code == 2) {
+      const reqUserEdit = { name, phone, gender, role, email, id };
+      const response = await UserService.updateUser(reqUserEdit);
+      if (response && response.data.EC === 0) {
         handleClose();
         setName("");
         setPhone("");
         setGender("");
         setRole("");
         setEmail("");
-        setPassword("");
-
+        toast.success(response.data.EM);
         handleUpdateListUser();
-        toast.success("Update tài khoản thành công");
+      } else {
+        toast.error(response.data.EM);
       }
     } catch (err) {
-      console.log(err);
+      console.log(">> err", err);
     }
   };
 
-  useEffect(() => {
-    // khi modal mo ra thi mới xử lí
-    if (show) {
-      setName(dataUserEdit.name);
-      setPhone(dataUserEdit.phone);
-      setGender(dataUserEdit.gender);
-      setRole(dataUserEdit.role);
-      setEmail(dataUserEdit.email);
-      setPassword(dataUserEdit.password);
-    }
-  }, [dataUserEdit]);
-
   return (
     <div className={cx("wrapper")}>
-      <Modal show={show} onHide={handleClose}>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        size="md"
+        backdrop="static"
+        keyboard={false}
+      >
         <Modal.Header closeButton>
           <Modal.Title>Edit a User</Modal.Title>
         </Modal.Header>
@@ -77,7 +72,7 @@ function ModalEditUser(props) {
                   <input
                     type="text"
                     className="form-control"
-                    value={name || ""}
+                    value={name}
                     onChange={(e) => setName(e.target.value)}
                   />
                 </div>
@@ -86,7 +81,7 @@ function ModalEditUser(props) {
                   <input
                     type="text"
                     className="form-control"
-                    value={phone || ""}
+                    value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                   />
                 </div>
@@ -97,7 +92,7 @@ function ModalEditUser(props) {
                     type="radio"
                     value="nam"
                     id="male"
-                    name="gander"
+                    name="gender"
                     checked={gender === "nam"}
                     onChange={(e) => setGender(e.target.value)}
                   />
@@ -111,7 +106,7 @@ function ModalEditUser(props) {
                     type="radio"
                     id="female"
                     value="nữ"
-                    name="gander"
+                    name="gender"
                     checked={gender === "nữ"}
                     onChange={(e) => setGender(e.target.value)}
                   />
@@ -124,13 +119,12 @@ function ModalEditUser(props) {
                   <label>Chức vụ</label>
                   <select
                     className="form-control w-25"
-                    value={role || ""}
+                    value={role}
                     onChange={(e) => setRole(e.target.value)}
                   >
-                    <option>Choose...</option>
-                    <option value={"Hướng dẫn viên"}>Hướng dẫn viên</option>
-                    <option value={"Tài xế"}>Tài xế</option>
-                    <option value={"Phụ xe"}>Phụ xe</option>
+                    <option value={"huongdanvien"}>Hướng dẫn viên</option>
+                    <option value={"taixe"}>Tài xế</option>
+                    <option value={"phuxe"}>Phụ xe</option>
                   </select>
                 </div>
 
@@ -142,16 +136,6 @@ function ModalEditUser(props) {
                     id="exampleInputEmail1"
                     value={email || ""}
                     onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="exampleInputPassword1">Password</label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    id="exampleInputPassword1"
-                    value={password || ""}
-                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
               </form>
