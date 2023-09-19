@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 
 import HeaderNone from "../../layouts/components/HeaderNone";
-import { registerApi } from "../../services/AuthenticationService";
+import AuthenticationService from "../../services/AuthenticationService";
 
 const cx = className.bind(styles);
 
@@ -64,7 +64,13 @@ function Register() {
     e.preventDefault();
     let checkIsValidate = isValidInputs();
     if (checkIsValidate === true) {
-      const res = await registerApi({ email, name, phone, gender, password });
+      const res = await AuthenticationService.registerApi({
+        email,
+        name,
+        phone,
+        gender,
+        password,
+      });
       if (res && +res.data.EC === 0) {
         toast.success(res.data.EM);
         setTimeout(() => {

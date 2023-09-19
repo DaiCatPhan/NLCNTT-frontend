@@ -7,10 +7,8 @@ import { IconEyeOff, IconEye } from "@tabler/icons-react";
 import { toast } from "react-toastify";
 import { SyncOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-
 import HeaderNone from "../../layouts/components/HeaderNone";
-import { loginApi } from "../../services/AuthenticationService";
-
+import AuthenticationService from "../../services/AuthenticationService";
 const cx = className.bind(styles);
 
 function Login() {
@@ -32,14 +30,15 @@ function Login() {
       return;
     }
 
-    const res = await loginApi({ valueLogin, password });
+    const res = await AuthenticationService.loginApi({ valueLogin, password });
     if (res && res.data && +res.data.EC === 0) {
-      console.log("res >> ", res);
+      console.log("resData >> ", res);
       // success
       toast.success("Đăng nhập thành công !!!");
-    }
-
-    if (res && res.data && +res.data.EC !== 0) {
+      setTimeout(() => {
+        navigate("/homeadmin");
+      }, 1000);
+    } else {
       toast.error(res.data.EM);
     }
   };

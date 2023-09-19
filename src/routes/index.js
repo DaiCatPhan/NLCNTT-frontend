@@ -55,9 +55,8 @@ const publicRoutes = [
   { path: "/authentication/register", component: Register, layout: NoneLayout },
   // Home
   { path: "/", component: FirstPage },
-];
 
-const privateRoutes = [
+  //========================================================== ADMIN ===================================================
   { path: "/homeadmin", component: HomeAdmin, layout: AdminLayout },
   { path: "/dashboard", component: Dashboard, layout: AdminLayout },
   { path: "/user-listUser", component: ListUser, layout: AdminLayout },
@@ -65,4 +64,4 @@ const privateRoutes = [
   { path: "/tour-updateTour/:id", component: UpdateTour, layout: AdminLayout },
 ];
 
-export { publicRoutes, privateRoutes };
+export { publicRoutes };

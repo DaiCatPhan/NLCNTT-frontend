@@ -19,4 +19,4 @@ const getProfile = async () => {
   return getUser;
 };
 
-export { registerApi, loginApi, getProfile };
+export default { registerApi, loginApi, getProfile };
