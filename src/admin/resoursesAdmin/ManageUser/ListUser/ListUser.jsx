@@ -174,8 +174,24 @@ function ListUser() {
       tableParams.pagination.pageSize
     );
     if (res && res.data && res.data.EC === 0) {
-      setTotalPage(res?.data?.DT?.totalRows);
-      setUserData(res?.data?.DT?.users);
+      const resDataUser = res.data.DT.users;
+      const resDataTotalPage = res.data.DT.totalRows;
+      const resDataUserCopy = resDataUser.map((user, index) => {
+        return {
+          id: user.id,
+          name: user.name,
+          phone: user.phone,
+          gender: user.gender,
+          role: user.role,
+          email: user.email,
+          key: user.id,
+          createdAt: user.createdAt,
+          updatedAt: user.updatedAt,
+        };
+      });
+
+      setTotalPage(resDataTotalPage);
+      setUserData(resDataUserCopy);
     }
   };
 
