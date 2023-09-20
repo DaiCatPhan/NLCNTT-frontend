@@ -3,6 +3,7 @@ import { publicRoutes } from "./routes";
 import DefaultLayout from "./layouts/DefaultLayout";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import FetchProfleProtected from "./components/FetchProfleProtected";
 function App() {
   return (
     <div>
@@ -20,7 +21,9 @@ function App() {
                 path={route.path}
                 element={
                   <Layout>
-                    <Page />
+                    <FetchProfleProtected>
+                      <Page />
+                    </FetchProfleProtected>
                   </Layout>
                 }
               ></Route>

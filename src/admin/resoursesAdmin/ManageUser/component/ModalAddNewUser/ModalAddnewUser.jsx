@@ -52,6 +52,11 @@ function ModalAddNewUser(props) {
       return false;
     }
 
+    if (password.length < 5) {
+      toast.error("Password phải có ít nhất 5 ký tự !!!");
+      return false;
+    }
+
     return true;
   };
 

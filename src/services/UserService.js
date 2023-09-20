@@ -1,4 +1,4 @@
-import axios from "./customize-axios";
+import axios from "./customize-axios.js";
 
 const fetchAllUser = (page, limit) => {
   return axios.get("/api/v1/staff/read", {

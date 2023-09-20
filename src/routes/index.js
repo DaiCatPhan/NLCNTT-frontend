@@ -30,6 +30,15 @@ import ListTourForeign from "../resources/Tours/ListTourForeign";
 import Tour from "../resources/Tours/Tour";
 
 const publicRoutes = [
+  //========================================================== ADMIN ===================================================
+  { path: "/homeadmin", component: HomeAdmin, layout: AdminLayout },
+  { path: "/dashboard", component: Dashboard, layout: AdminLayout },
+  { path: "/user-listUser", component: ListUser, layout: AdminLayout },
+  { path: "/tour-listTour", component: ListTour, layout: AdminLayout },
+  { path: "/tour-updateTour/:id", component: UpdateTour, layout: AdminLayout },
+
+  //=========================================================== END ADMIN =================================================
+
   // AllTypeTour
 
   { path: "/tours/Domestic", component: ListTourDomestic },
@@ -55,13 +64,6 @@ const publicRoutes = [
   { path: "/authentication/register", component: Register, layout: NoneLayout },
   // Home
   { path: "/", component: FirstPage },
-
-  //========================================================== ADMIN ===================================================
-  { path: "/homeadmin", component: HomeAdmin, layout: AdminLayout },
-  { path: "/dashboard", component: Dashboard, layout: AdminLayout },
-  { path: "/user-listUser", component: ListUser, layout: AdminLayout },
-  { path: "/tour-listTour", component: ListTour, layout: AdminLayout },
-  { path: "/tour-updateTour/:id", component: UpdateTour, layout: AdminLayout },
 ];
 
 export { publicRoutes };

@@ -9,6 +9,7 @@ import { SyncOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import HeaderNone from "../../layouts/components/HeaderNone";
 import AuthenticationService from "../../services/AuthenticationService";
+import { useDispatch } from "react-redux";
 const cx = className.bind(styles);
 
 function Login() {
@@ -16,6 +17,7 @@ function Login() {
   const [valueLogin, setValueLogin] = useState("");
   const [isShowPassWord, setIsShowPassword] = useState(false);
   const [loadingIcon, setloadingIcon] = useState(false);
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -35,9 +37,7 @@ function Login() {
       console.log("resData >> ", res);
       // success
       toast.success("Đăng nhập thành công !!!");
-      setTimeout(() => {
-        navigate("/homeadmin");
-      }, 1000);
+      navigate("/homeadmin");
     } else {
       toast.error(res.data.EM);
     }

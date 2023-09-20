@@ -21,10 +21,12 @@ import ModalEditUser from "../component/ModalEditUser";
 import ModalDeleteUser from "../component/ModalDeleteUser";
 
 import UserService from "../../../../services/UserService";
+import useAuth from "../../../../hook/useAuth";
 
 const cx = className.bind(styles);
 
 function ListUser() {
+  const { isLogged, role, profile } = useAuth();
   const [isShowModalAddNew, setIsShowModalAddNew] = useState(false);
   const [isShowModalEditUser, setIsShowModalEditUser] = useState(false);
   const [isShowModalDeleteUser, setIsShowModalDeleteUser] = useState(false);
@@ -395,6 +397,7 @@ function ListUser() {
           handleUpdateListUser={getUsers}
         />
       </div>
+      <div className="mt-3 px-2">{profile?.email}</div>
     </div>
   );
 }

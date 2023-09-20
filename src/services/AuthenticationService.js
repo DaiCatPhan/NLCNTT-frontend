@@ -4,6 +4,10 @@ const loginApi = ({ valueLogin, password }) => {
   return axios.post("/api/v1/authentication/login", { valueLogin, password });
 };
 
+const logoutApi = () => {
+  return axios.get("/api/v1/authentication/logout");
+};
+
 const registerApi = ({ email, name, phone, gender, password }) => {
   return axios.post("/api/v1/authentication/register ", {
     email,
@@ -19,4 +23,4 @@ const getProfile = async () => {
   return getUser;
 };
 
-export default { registerApi, loginApi, getProfile };
+export default { registerApi, loginApi, getProfile, logoutApi };
