@@ -8,5 +8,5 @@ export default function useAuth() {
   const profile = profileLogin.userData;
   const role = profile?.role;
 
-  return { isLogged, role, profile };
-}
+  return { isLogged, role, profile };  
+} 

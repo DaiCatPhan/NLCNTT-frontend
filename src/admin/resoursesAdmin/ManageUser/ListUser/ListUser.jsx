@@ -398,6 +398,7 @@ function ListUser() {
         />
       </div>
       <div className="mt-3 px-2">{profile?.email}</div>
+      <div className="mt-3 px-2">{role}</div>
     </div>
   );
 }

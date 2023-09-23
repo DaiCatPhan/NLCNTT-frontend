@@ -14,7 +14,7 @@ const registerApi = ({ email, name, phone, gender, password }) => {
     name,
     phone,
     gender,
-    password,
+    password, 
   });
 };
 

@@ -1,6 +1,7 @@
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import FirstPage from "../pages/FirstPage";
+import NotFoundPage from "../admin/component/NotFoundPage";
 
 // ADMIN ==================================================
 import HomeAdmin from "../admin/resoursesAdmin/HomeAdmin";
@@ -64,6 +65,8 @@ const publicRoutes = [
   { path: "/authentication/register", component: Register, layout: NoneLayout },
   // Home
   { path: "/", component: FirstPage },
+  //
+  { path: "/:slug", component: NotFoundPage, layout: NoneLayout },
 ];
 
 export { publicRoutes };

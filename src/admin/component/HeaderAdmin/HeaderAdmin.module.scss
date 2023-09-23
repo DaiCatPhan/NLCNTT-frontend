@@ -54,14 +54,16 @@
 
 .formInfo {
   position: absolute;
-  right: 10px;
-  top: 88px;
+  right: 3px;
+  top: 72px;
   min-width: 240px;
   border: 1px solid var(--text-gray);
   border-radius: 10px;
   opacity: 1;
-  transition: 1s;
+  transition: 0.5s;
   transform: translate(110%, 0);
+  background-color: pink;
+  z-index: 1;
 }
 
 .formInfo.active {

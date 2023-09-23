@@ -25,22 +25,6 @@ a {
   text-decoration: none;
 }
 
-// Button
-.button {
-  font-size: 15px;
-  font-weight: 700;
-  min-width: 80px;
-  min-height: 35px;
-  border-radius: 5px;
-  margin: 0 5px;
-
-  &:hover {
-    transform: scale(1.1);
-    transition: all 0.3s;
-    cursor: pointer;
-  }
-}
-
 // animation
 @keyframes slideLeftToRight {
   0% {

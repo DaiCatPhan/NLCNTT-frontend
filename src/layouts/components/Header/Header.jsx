@@ -11,14 +11,30 @@ import {
   faCheckCircle,
   faCircleXmark,
 } from "@fortawesome/free-regular-svg-icons";
-import Menu from "../../../components/Menu";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+
+import { logout } from "../../../redux/reducers/userSlice";
+import Menu from "../../../components/Menu";
+import useAuth from "../../../hook/useAuth";
+import AuthenticationService from "../../../services/AuthenticationService";
 
 const cx = className.bind(styles);
 
 function Header() {
   const location = useLocation(); // lấy đường dẫn hiện tại
   const url = location.pathname;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { isLogged, role, profile } = useAuth();
+
+  async function handleClickLogout() {
+    const res = await AuthenticationService.logoutApi();
+    dispatch(logout());
+    navigate("/authentication/login");
+  }
 
   const MENU_ITEMS = [
     {
@@ -169,13 +185,25 @@ function Header() {
 
         {/* Button */}
         <div className={cx("buttonauthen")}>
-          {/* <Link to={"/authentication/register"}>
-            <button className={cx("button", "btn_red")}>Register</button>
-          </Link> */}
+          {!isLogged ? (
+            <>
+              <Link to={"/authentication/register"}>
+                <button className={cx("btn_reg")}>Register</button>
+              </Link>
 
-          <Link to={"/authentication/login"}>
-            <button className={cx("btn_log")}>Login</button>
-          </Link>
+              <Link to={"/authentication/login"}>
+                <button className={cx("btn_log")}>Login</button>
+              </Link>
+            </>
+          ) : (
+            <>
+              {profile && <p>{profile.name}</p>}
+
+              <button onClick={handleClickLogout} className={cx("btn_out")}>
+                Logout
+              </button>
+            </>
+          )}
         </div>
       </header>
     </div>

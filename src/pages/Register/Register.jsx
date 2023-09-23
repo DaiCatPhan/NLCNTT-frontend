@@ -20,6 +20,8 @@ function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  console.log({ email, name, phone, gender, password, confirmPassword });
+
   const isValidInputs = () => {
     if (!email) {
       toast.error("Nhập thiếu dữ liệu email !!!");
@@ -88,170 +90,163 @@ function Register() {
 
       <div className={cx("photograph")}></div>
 
-      <motion.div
-      // initial={{ opacity: 0, scale: 0, translateY: 8 }}
-      // whileInView={{ opacity: 1, scale: 1, y: 80 }}
-      // transition={{ duration: 1 }}
-      // viewport={{ once: true }}
-      >
-        <form onSubmit={(e) => handleSubmit(e)} className={cx("form")}>
-          <h1>Thành viên đăng ký </h1>
-          {/* Email */}
-          <div className={cx("form-group")}>
-            <label className={cx("form-label", "text-warning")} htmlFor="email">
-              Email: <span> (ex: NguyenVanA12345@gmai.com)</span>
-            </label>
-            <input
-              className={cx(
-                "form-control",
-                "bg-transparent",
-                "py-2",
-                "fs-3",
-                "text-white",
-                "mt-1"
-              )}
-              type="email"
-              placeholder="Email "
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          {/* Username */}
-          <div className={cx("form-group")}>
-            <label className={cx("form-label", "text-warning")}>Username</label>
-            <input
-              className={cx(
-                "form-control",
-                "bg-transparent",
-                "py-2",
-                "fs-3",
-                "text-white",
-                "mt-1"
-              )}
-              type="text"
-              placeholder="Username"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-          </div>
+      <form onSubmit={(e) => handleSubmit(e)} className={cx("form")}>
+        <h1>Thành viên đăng ký </h1>
+        {/* Email */}
+        <div className={cx("form-group")}>
+          <label className={cx("form-label", "text-warning")} htmlFor="email">
+            Email: <span> (ex: NguyenVanA12345@gmai.com)</span>
+          </label>
+          <input
+            className={cx(
+              "form-control",
+              "bg-transparent",
+              "py-2",
+              "fs-3",
+              "text-white",
+              "mt-1"
+            )}
+            type="email"
+            placeholder="Email "
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        {/* Username */}
+        <div className={cx("form-group")}>
+          <label className={cx("form-label", "text-warning")}>Username</label>
+          <input
+            className={cx(
+              "form-control",
+              "bg-transparent",
+              "py-2",
+              "fs-3",
+              "text-white",
+              "mt-1"
+            )}
+            type="text"
+            placeholder="Username"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </div>
 
-          <div className="my-3">
-            <span className="text-warning  ">Giới tính: </span>
-            <div className="form-check form-check-inline mx-4">
-              <input
-                className="form-check-input"
-                type="radio"
-                name="gender"
-                id="nam"
-                value="nam"
-                onChange={(e) => setGender(e.target.value)}
-              />
-              <label className="form-check-label text-white" htmlFor="nam">
-                Nam
-              </label>
-            </div>
-            <div className="form-check form-check-inline">
-              <input
-                className="form-check-input"
-                type="radio"
-                name="gender"
-                id="nu"
-                value="nữ"
-                onChange={(e) => setGender(e.target.value)}
-              />
-              <label className="form-check-label text-white" htmlFor="nu">
-                Nữ
-              </label>
-            </div>
-          </div>
-          {/* SDT */}
-          <div className={cx("form-group")}>
-            <label className={cx("form-label", "text-warning")}>
-              Số điện thoại
-            </label>
+        <div className="my-3">
+          <span className="text-warning  ">Giới tính: </span>
+          <div className="form-check form-check-inline mx-4">
             <input
-              className={cx(
-                "form-control",
-                "bg-transparent",
-                "py-2",
-                "fs-3",
-                "text-white",
-                "mt-1"
-              )}
-              type="text"
-              placeholder="SDT"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              required
+              className="form-check-input"
+              type="radio"
+              name="gender"
+              id="nam"
+              value="nam"
+              onChange={(e) => setGender(e.target.value)}
             />
-          </div>
-          {/* Password */}
-          <div className={cx("form-group")}>
-            <label
-              className={cx("form-label", "text-warning")}
-              htmlFor="password"
-            >
-              Password
+            <label className="form-check-label text-white" htmlFor="nam">
+              Nam
             </label>
-            <input
-              className={cx(
-                "form-control",
-                "bg-transparent",
-                "py-2",
-                "fs-3",
-                "text-white",
-                "mt-1"
-              )}
-              type="password"
-              placeholder="Password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
           </div>
-          {/* Re-Password */}
-          <div className={cx("form-group")}>
-            <label
-              className={cx("form-label", "text-warning ")}
-              htmlFor="password"
-            >
-              Confirm Password
+          <div className="form-check form-check-inline">
+            <input
+              className="form-check-input"
+              type="radio"
+              name="gender"
+              id="nu"
+              value="nữ"
+              onChange={(e) => setGender(e.target.value)}
+            />
+            <label className="form-check-label text-white" htmlFor="nu">
+              Nữ
             </label>
-            <input
-              className={cx(
-                "form-control",
-                "bg-transparent",
-                "py-2",
-                "fs-3",
-                "text-white",
-                "mt-1"
-              )}
-              type="password"
-              placeholder="Confirm password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-            />
           </div>
-          <button
-            type="submit"
-            className={cx("btn_register", {
-              "bg-success":
-                email && name && phone && password && confirmPassword && gender,
-            })}
-            disabled={
-              email && name && phone && password && confirmPassword && gender
-                ? false
-                : true
-            }
+        </div>
+        {/* SDT */}
+        <div className={cx("form-group")}>
+          <label className={cx("form-label", "text-warning")}>
+            Số điện thoại
+          </label>
+          <input
+            className={cx(
+              "form-control",
+              "bg-transparent",
+              "py-2",
+              "fs-3",
+              "text-white",
+              "mt-1"
+            )}
+            type="text"
+            placeholder="SDT"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            required
+          />
+        </div>
+        {/* Password */}
+        <div className={cx("form-group")}>
+          <label
+            className={cx("form-label", "text-warning")}
+            htmlFor="password"
           >
-            Register
-          </button>
-        </form>
-      </motion.div>
+            Password
+          </label>
+          <input
+            className={cx(
+              "form-control",
+              "bg-transparent",
+              "py-2",
+              "fs-3",
+              "text-white",
+              "mt-1"
+            )}
+            type="password"
+            placeholder="Password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        {/* Re-Password */}
+        <div className={cx("form-group")}>
+          <label
+            className={cx("form-label", "text-warning ")}
+            htmlFor="password"
+          >
+            Confirm Password
+          </label>
+          <input
+            className={cx(
+              "form-control",
+              "bg-transparent",
+              "py-2",
+              "fs-3",
+              "text-white",
+              "mt-1"
+            )}
+            type="password"
+            placeholder="Confirm password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          className={cx("btn_register", {
+            "bg-success":
+              email && name && phone && password && confirmPassword && gender,
+          })}
+          disabled={
+            email && name && phone && password && confirmPassword && gender
+              ? false
+              : true
+          }
+        >
+          Register
+        </button>
+      </form>
     </div>
   );
 }

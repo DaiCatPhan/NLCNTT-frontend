@@ -10,7 +10,7 @@ import CardFlippingGallery from "../../components/CardFlippingGallery";
 import { useEffect, useRef, useState } from "react";
 const cx = className.bind(styles);
 
-function FirstPage() { 
+function FirstPage() {
   const imgList = [
     {
       id: "anh1",
@@ -104,7 +104,6 @@ function FirstPage() {
     let callback = (entries, observer) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          console.log(entry);
           entry.target.classList.add(cx("active"));
         }
       });
@@ -226,6 +225,45 @@ function FirstPage() {
             {imgTravel.map((img, index) => (
               <Card key={img.id} data={img} />
             ))}
+          </div>
+        </section>
+
+        <section id="memories" className={cx("memories")}>
+          <div className={cx("bgMemories")}>
+            <div className={cx("content")}>
+              <h1>
+                NHỮNG GÌ ĐỘNG LẠI{" "}
+                <span className={cx("text-danger")}>SAU CHUYẾN ĐI</span>
+              </h1>
+              <p>
+                Phản hồi của quý khách hàng là sự đảm bảo về
+                <b> chất lượng dịch vụ</b>, <b>đẳng cấp </b>và <b>uy tín</b> của{" "}
+                <b>VTourist</b>
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. At
+                pariatur assumenda ab fuga non similique molestiae iste expedita
+                qui ullam ex tenetur, sunt exercitationem perferendis, quod,
+                voluptatibus accusantium facilis laudantium!
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="remember">
+          <h1>KHOẢNH KHẮC ĐÁNG NHỚ</h1>
+          <p>
+            Mỗi hành trình là một câu chuyện. VTourist luôn lữu giữ những kỷ
+            niệm quý giá khi được đồng hành cùng du khách.
+          </p>
+          <div className={cx("card")}></div>
+          <div className={cx("")}>
+            <h1>CLICK NGAY BAY ĐI MỸ</h1>
+            <p>Để được giải đáp thắc mắc sớm nhất, LIÊN HỆ NGAY:</p>
+            <div>
+              <button>Message</button>
+              <button>Hotline</button>
+            </div>
           </div>
         </section>
       </div>

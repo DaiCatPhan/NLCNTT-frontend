@@ -7,7 +7,7 @@ import FetchProfleProtected from "./components/FetchProfleProtected";
 function App() {
   return (
     <div>
-      <BrowserRouter>
+      <BrowserRouter> 
         <Routes>
           {publicRoutes.map((route, index) => {
             var Layout = DefaultLayout;
