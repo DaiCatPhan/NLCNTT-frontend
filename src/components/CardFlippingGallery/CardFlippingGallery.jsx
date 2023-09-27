@@ -9,7 +9,7 @@ function CardFlippingGallery({ url }) {
   const cardRef = useRef();
 
   useEffect(() => {
-    let callback = (entries, observer) => {
+    let callback = (entries, observer) => { 
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add(cx("active"));
