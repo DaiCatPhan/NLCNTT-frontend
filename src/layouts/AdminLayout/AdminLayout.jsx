@@ -8,15 +8,22 @@ import useAuth from "../../hook/useAuth";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import NavBarAdmin2 from "../../admin/component/NavBarAdmin3";
+import NavBarAdmin from "../../admin/component/NavBarAdmin";
 import HeaderAdmin from "../../admin/component/HeaderAdmin";
 import NotPermissionPage from "../../admin/component/NotPermissionPage";
 
 function AdminLayout({ children }) {
   const navigate = useNavigate();
   const { isLogged, role, profile } = useAuth();
+
+  console.log(">> isLogin", isLogged);
+  console.log(">> role", role);
+
+  if (!isLogged) {
+    return <NotPermissionPage />;
+  }
+
   if (role && role !== "admin") {
-    // check k phải là admin thì chuyển trang bạn k có quyền
     return <NotPermissionPage />;
   }
 
@@ -27,7 +34,7 @@ function AdminLayout({ children }) {
       </header>
       <div className={cx("main")}>
         <div>
-          <NavBarAdmin2 />
+          <NavBarAdmin />
         </div>
         <div className={cx("content")}>{children}</div>
       </div>

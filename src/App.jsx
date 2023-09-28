@@ -3,11 +3,12 @@ import { publicRoutes } from "./routes";
 import DefaultLayout from "./layouts/DefaultLayout";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import OnTop from "./components/OnTop";
 import FetchProfleProtected from "./components/FetchProfleProtected";
 function App() {
   return (
     <div>
-      <BrowserRouter> 
+      <BrowserRouter>
         <Routes>
           {publicRoutes.map((route, index) => {
             var Layout = DefaultLayout;
@@ -43,6 +44,8 @@ function App() {
         pauseOnHover
         theme="light"
       />
+
+      <OnTop />
     </div>
   );
 }

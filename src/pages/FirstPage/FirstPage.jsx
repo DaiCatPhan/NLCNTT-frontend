@@ -3,7 +3,6 @@ import styles from "./FirstPage.module.scss";
 import { motion } from "framer-motion";
 import { Col, Row } from "antd";
 
-import OnTop from "../../components/OnTop";
 import SlideLogo from "../../components/SlideLogo";
 import Card from "../../components/Card";
 import CardFlippingGallery from "../../components/CardFlippingGallery";
@@ -298,8 +297,6 @@ function FirstPage() {
           </div>
         </section>
       </div>
-
-      <OnTop />
     </div>
   );
 }

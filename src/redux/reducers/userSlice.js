@@ -9,12 +9,12 @@ const initialState = {
   },
 };
 
-const userSlice = createSlice({  
+const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
     toggleLogin(state, payload) {
-      console.log("payload", payload);
+      console.log("payload Redux >>> ", payload);
       // user/toggleLogin
       state.isLogined = true;
       state.userData = {

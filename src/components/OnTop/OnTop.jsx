@@ -16,7 +16,7 @@ function OnTop() {
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", haneleScroll);
+    window.addEventListener("scroll", haneleScroll); 
   }, []);
 
   return (

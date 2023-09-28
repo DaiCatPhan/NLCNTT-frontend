@@ -9,6 +9,9 @@ import { SyncOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import HeaderNone from "../../layouts/components/HeaderNone";
 import AuthenticationService from "../../services/AuthenticationService";
+import useAuth from "../../hook/useAuth";
+import { useDispatch } from "react-redux";
+import { toggleLogin } from "../../redux/reducers/userSlice";
 
 const cx = className.bind(styles);
 
@@ -17,32 +20,50 @@ function Login() {
   const [valueLogin, setValueLogin] = useState("");
   const [isShowPassWord, setIsShowPassword] = useState(false);
   const [loadingIcon, setloadingIcon] = useState(false);
-
   const navigate = useNavigate();
+  const { isLogged, role, profile } = useAuth();
+  const dispatch = useDispatch();
 
   const handleLoginSDTorEmail = async (e) => {
-    e.preventDefault();
-    if (!valueLogin) {
-      toast.error("Vui lòng nhập Email or SDT !!!");
-      return;
-    }
-    if (!password) {
-      toast.error("Vui lòng nhập mật khẩu");
-      return;
-    }
-
-    const res = await AuthenticationService.loginApi({ valueLogin, password });
-    if (res && res.data && +res.data.EC === 0) {
-      const roleUser = res.data.DT.tokentData.role;
-
-      toast.success("Đăng nhập thành công !!!");
-      if (roleUser === "admin") {
-        navigate("/homeadmin");
-      } else {
-        navigate("/");
+    try {
+      e.preventDefault();
+      if (!valueLogin) {
+        toast.error("Vui lòng nhập Email or SDT !!!");
+        return;
       }
-    } else {
-      toast.error(res.data.EM);
+      if (!password) {
+        toast.error("Vui lòng nhập mật khẩu");
+        return;
+      }
+
+      const res = await AuthenticationService.loginApi({
+        valueLogin,
+        password,
+      });
+      if (res?.data?.EC == 0) {
+        const dataUser = res.data?.DT?.tokentData;
+        const roleUser = dataUser?.role;
+
+        console.log(">> res bug", dataUser);
+        dispatch(
+          toggleLogin({
+            name: dataUser.name,
+            email: dataUser.email,
+            role: dataUser.role,
+          })
+        );
+
+        toast.success("Đăng nhập thành công !!!");
+        if (roleUser === "admin") {
+          navigate("/homeadmin");
+        } else {
+          navigate("/");
+        }
+      } else {
+        toast.error(res.data.EM);
+      }
+    } catch (err) {
+      console.log("err ", err);
     }
   };
 

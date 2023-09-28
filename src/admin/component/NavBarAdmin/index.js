@@ -1,1 +1,1 @@
-export {default} from './NavBarAdmin'
+export { default } from "./NavBarAdmin";
