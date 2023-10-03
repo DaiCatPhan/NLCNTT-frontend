@@ -1,7 +1,7 @@
 import axios from "./customize-axios";
 
-const loginApi = ({ valueLogin, password }) => {
-  return axios.post("/api/v1/authentication/login", { valueLogin, password });
+const loginApi = ({ email, password }) => {
+  return axios.post("/api/v1/authentication/login", { email, password });
 };
 
 const logoutApi = () => {
@@ -14,7 +14,7 @@ const registerApi = ({ email, name, phone, gender, password }) => {
     name,
     phone,
     gender,
-    password, 
+    password,
   });
 };
 

@@ -6,6 +6,8 @@ import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
 import UserService from "../../../../../services/UserService";
 import axios from "../../../../../services/customize-axios";
+import { IconPlus } from "@tabler/icons-react";
+import { IconBackspaceFilled } from "@tabler/icons-react";
 
 const cx = className.bind(styles);
 
@@ -17,6 +19,8 @@ function ModalEditUser(props) {
   const [gender, setGender] = useState("");
   const [role, setRole] = useState("");
   const [email, setEmail] = useState("");
+  const [image, setImage] = useState("");
+  console.log("image >>>", image);
 
   useEffect(() => {
     if (show) {
@@ -26,21 +30,63 @@ function ModalEditUser(props) {
       setGender(dataUserEdit.gender);
       setRole(dataUserEdit.role);
       setEmail(dataUserEdit.email);
+      setImage(dataUserEdit.image);
     }
   }, [dataUserEdit]);
 
+  const checkValidate = (reqUserEdit) => {
+    if (!reqUserEdit.email.trim()) {
+      toast.error("Nhập thiếu trường email !!!");
+      return false;
+    }
+
+    if (!reqUserEdit.name.trim()) {
+      toast.error("Nhập thiếu trường name !!!");
+      return false;
+    }
+
+    if (!reqUserEdit.phone.trim()) {
+      toast.error("Nhập thiếu trường phone !!!");
+      console.log("Rong");
+      return false;
+    }
+
+    if (!reqUserEdit.gender) {
+      toast.error("Nhập thiếu trường gender !!!");
+      return false;
+    }
+
+    if (!reqUserEdit.role) {
+      toast.error("Nhập thiếu trường role !!!");
+      return false;
+    }
+
+    return true;
+  };
+
   const handleEditUser = async () => {
     try {
-      const reqUserEdit = { name, phone, gender, role, email, id };
+      const reqUserEdit = { name, phone, gender, role, email, id, image };
+
+      const checkData = checkValidate(reqUserEdit);
+
+      console.log(">data", reqUserEdit);
+
+      if (checkData === false) {
+        return;
+      }
+
       const response = await UserService.updateUser(reqUserEdit);
       if (response && response.data.EC === 0) {
-        handleClose();
         setName("");
         setPhone("");
         setGender("");
         setRole("");
         setEmail("");
+        setId("");
+        setImage("");
         toast.success(response.data.EM);
+        handleClose();
         handleUpdateListUser();
       } else {
         toast.error(response.data.EM);
@@ -48,6 +94,13 @@ function ModalEditUser(props) {
     } catch (err) {
       console.log(">> err", err);
     }
+  };
+
+  const handleImage = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setImage(URL.createObjectURL(e.target.files[0]));
+    }
+    handleUpdateListUser();
   };
 
   return (
@@ -67,8 +120,21 @@ function ModalEditUser(props) {
           <div className={cx("modalAddUser")}>
             <div className={cx("form")}>
               <form>
+                {/* Email */}
                 <div className="form-group">
-                  <label>User name</label>
+                  <label htmlFor="exampleInputEmail1">Email </label>
+                  <input
+                    type="email"
+                    className="form-control"
+                    id="exampleInputEmail1"
+                    value={email || ""}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+
+                {/* Username */}
+                <div className="form-group">
+                  <label>Họ và tên</label>
                   <input
                     type="text"
                     className="form-control"
@@ -76,8 +142,10 @@ function ModalEditUser(props) {
                     onChange={(e) => setName(e.target.value)}
                   />
                 </div>
+
+                {/* Phone */}
                 <div className="form-group">
-                  <label>Phone</label>
+                  <label>Số điện thoại</label>
                   <input
                     type="text"
                     className="form-control"
@@ -86,14 +154,15 @@ function ModalEditUser(props) {
                   />
                 </div>
 
+                {/* Gioi tinh */}
                 <div className="form-check form-check-inline">
                   <input
                     className="form-check-input "
                     type="radio"
-                    value="nam"
+                    value="male"
                     id="male"
                     name="gender"
-                    checked={gender === "nam"}
+                    checked={gender === "male"}
                     onChange={(e) => setGender(e.target.value)}
                   />
                   <label className="form-check-label  " htmlFor="male">
@@ -105,9 +174,9 @@ function ModalEditUser(props) {
                     className="form-check-input  "
                     type="radio"
                     id="female"
-                    value="nữ"
+                    value="female"
                     name="gender"
-                    checked={gender === "nữ"}
+                    checked={gender === "female"}
                     onChange={(e) => setGender(e.target.value)}
                   />
                   <label className="form-check-label  " htmlFor="female">
@@ -115,6 +184,7 @@ function ModalEditUser(props) {
                   </label>
                 </div>
 
+                {/* Chuc vu */}
                 <div className="form-group ">
                   <label>Chức vụ</label>
                   <select
@@ -128,15 +198,27 @@ function ModalEditUser(props) {
                   </select>
                 </div>
 
-                <div className="form-group">
-                  <label htmlFor="exampleInputEmail1">Email address</label>
+                {/* Image */}
+                <div className="form-group my-3">
+                  <p>Ảnh đại diện</p>
+                  <label htmlFor="image">
+                    <span className={cx("imageBorder")}>
+                      <IconPlus height={60} width={50} color="green" />
+                    </span>
+                  </label>
                   <input
-                    type="email"
-                    className="form-control"
-                    id="exampleInputEmail1"
-                    value={email || ""}
-                    onChange={(e) => setEmail(e.target.value)}
+                    type="file"
+                    className="form-control d-none"
+                    id="image"
+                    onChange={handleImage}
                   />
+
+                  <img
+                    src={image ? image : "src/assets/imageNotFound.jpg"}
+                    alt="not found"
+                    className={cx("imageInfo")}
+                  />
+                  <IconBackspaceFilled />
                 </div>
               </form>
             </div>

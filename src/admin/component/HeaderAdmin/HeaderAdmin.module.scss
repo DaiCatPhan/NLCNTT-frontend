@@ -59,15 +59,16 @@
   min-width: 240px;
   border: 1px solid var(--text-gray);
   border-radius: 10px;
-  opacity: 1;
-  transition: 0.5s;
-  transform: translate(110%, 0);
+  opacity: 0;
+  transition: 1s;
   background-color: pink;
   z-index: 1;
+  display: none;
 }
 
 .formInfo.active {
-  transform: translate(0, 0);
+  display: block;
+  opacity: 1;
 }
 
 .infoUser {

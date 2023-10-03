@@ -17,18 +17,20 @@ const cx = className.bind(styles);
 
 function Login() {
   const [password, setPassword] = useState("");
-  const [valueLogin, setValueLogin] = useState("");
+  const [email, setEmail] = useState("");
   const [isShowPassWord, setIsShowPassword] = useState(false);
   const [loadingIcon, setloadingIcon] = useState(false);
   const navigate = useNavigate();
   const { isLogged, role, profile } = useAuth();
   const dispatch = useDispatch();
 
+  console.log({ email, password });
+
   const handleLoginSDTorEmail = async (e) => {
     try {
       e.preventDefault();
-      if (!valueLogin) {
-        toast.error("Vui lòng nhập Email or SDT !!!");
+      if (!email) {
+        toast.error("Vui lòng nhập Email  !!!");
         return;
       }
       if (!password) {
@@ -37,7 +39,7 @@ function Login() {
       }
 
       const res = await AuthenticationService.loginApi({
-        valueLogin,
+        email,
         password,
       });
       if (res?.data?.EC == 0) {
@@ -89,8 +91,8 @@ function Login() {
               placeholder="Email address or number phone"
               className={cx("form-control")}
               type="email"
-              value={valueLogin}
-              onChange={(e) => setValueLogin(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
@@ -118,8 +120,8 @@ function Login() {
             </div>
           </div>
           <button
-            className={cx("btn_register", { active: valueLogin && password })}
-            disabled={valueLogin && password ? false : true}
+            className={cx("btn_register", { active: email && password })}
+            disabled={email && password ? false : true}
             onClick={(e) => handleLoginSDTorEmail(e)}
           >
             {loadingIcon && (

@@ -32,7 +32,7 @@ function HeaderAdmin() {
       <header className={cx("header")}>
         <div className={cx("navHeader")}>
           <div className={cx("logo")}>
-            <Link to={"/homeAdmin"}>
+            <Link to={"/homeAdmin"}> 
               <h1>Travel</h1>
             </Link>
           </div>

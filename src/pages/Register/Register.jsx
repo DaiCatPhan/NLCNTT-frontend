@@ -15,12 +15,11 @@ function Register() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
   const [gender, setGender] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  console.log({ email, name, phone, gender, password, confirmPassword });
+  console.log({ email, name, gender, password, confirmPassword });
 
   const isValidInputs = () => {
     if (!email) {
@@ -41,18 +40,22 @@ function Register() {
       toast.error("Nhập thiếu dữ liệu giới tính !!!");
       return false;
     }
-    if (!phone) {
-      toast.error("Nhập thiếu dữ liệu phone !!!");
-      return false;
-    }
+
     if (!password) {
       toast.error("Nhập thiếu dữ liệu password !!!");
       return false;
     }
+
+    if(password.length < 5){
+      toast.error("Password phải có ít nhất 5 ký tự !!!");
+      return false;
+    }
+
     if (!confirmPassword) {
       toast.error("Nhập thiếu dữ liệu confirm password !!!");
       return false;
     }
+
 
     if (password != confirmPassword) {
       toast.error("password và confirm password không giống nhau !!!");
@@ -66,10 +69,9 @@ function Register() {
     e.preventDefault();
     let checkIsValidate = isValidInputs();
     if (checkIsValidate === true) {
-      const res = await AuthenticationService.registerApi({
+      const res = await AuthenticationService.registerApi({ 
         email,
         name,
-        phone,
         gender,
         password,
       });
@@ -162,27 +164,7 @@ function Register() {
             </label>
           </div>
         </div>
-        {/* SDT */}
-        <div className={cx("form-group")}>
-          <label className={cx("form-label", "text-warning")}>
-            Số điện thoại
-          </label>
-          <input
-            className={cx(
-              "form-control",
-              "bg-transparent",
-              "py-2",
-              "fs-3",
-              "text-white",
-              "mt-1"
-            )}
-            type="text"
-            placeholder="SDT"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            required
-          />
-        </div>
+
         {/* Password */}
         <div className={cx("form-group")}>
           <label
@@ -236,10 +218,10 @@ function Register() {
           type="submit"
           className={cx("btn_register", {
             "bg-success":
-              email && name && phone && password && confirmPassword && gender,
+              email && name && password && confirmPassword && gender,
           })}
           disabled={
-            email && name && phone && password && confirmPassword && gender
+            email && name && password && confirmPassword && gender
               ? false
               : true
           }

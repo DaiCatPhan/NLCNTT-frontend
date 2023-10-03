@@ -187,6 +187,7 @@ function ListUser() {
           role: user.role,
           email: user.email,
           key: user.id,
+          image: user.image,
           createdAt: user.createdAt,
           updatedAt: user.updatedAt,
         };

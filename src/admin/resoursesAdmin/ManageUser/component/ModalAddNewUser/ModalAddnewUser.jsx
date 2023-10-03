@@ -145,7 +145,7 @@ function ModalAddNewUser(props) {
                     <input
                       className="form-check-input "
                       type="radio"
-                      value="nam"
+                      value="male"
                       id="male"
                       name="gander"
                       onChange={(e) => setGender(e.target.value)}
@@ -159,7 +159,7 @@ function ModalAddNewUser(props) {
                       className="form-check-input  "
                       type="radio"
                       id="female"
-                      value="nữ"
+                      value="female"
                       name="gander"
                       onChange={(e) => setGender(e.target.value)}
                     />
