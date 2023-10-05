@@ -1,0 +1,58 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  height: 90vh;
+  justify-content: center;
+  position: relative;
+}
+
+.backIcon {
+  position: absolute;
+  top: 10px;
+  height: 50px;
+  width: 50px;
+  color: blue;
+  cursor: pointer;
+}
+
+.bodyWrapper {
+  display: grid;
+  grid-template-columns: 30% 70%;
+  width: 90%;
+  border: 3px solid rgb(25, 0, 255);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.personInfo {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  img {
+    height: 300px;
+    width: 100%;
+    max-width: 300px;
+    border: 5px solid rgba(0, 0, 0, 0.199);
+    object-fit: cover;
+  }
+
+  button {
+    padding: 5px;
+    border-radius: 10px;
+    border: none;
+    background-color: aqua;
+    color: white;
+    font-weight: 600;
+  }
+
+  .editIcon {
+    color: rgba(0, 0, 0, 0.349);
+  }
+}
+
+.profile {
+  margin-left: 40px;
+}

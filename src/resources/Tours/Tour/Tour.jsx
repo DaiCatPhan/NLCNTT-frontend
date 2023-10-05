@@ -1,9 +1,5 @@
 import className from "classnames/bind";
 import styles from "./Tour.module.scss";
-import Tab from "./componentsTour/Tab";
-import ProcessTour from "./componentsTour/ProcessTour";
-import Item from "./componentsTour/Item";
-import Details from "./componentsTour/Details";
 import { useState } from "react";
 
 const cx = className.bind(styles);
@@ -13,29 +9,6 @@ function Tour() {
     name: "Mũi Sa Vĩ - Bình Liêu - Cát Bà - Hạ Long",
     duration: "4 NGÀY / 3 ĐÊM",
   };
-
-  const items = [
-    {
-      key: "1",
-      label: "Chương trình Tour",
-      children: <ProcessTour />,
-    },
-    {
-      key: "2",
-      label: "Thông tin chi tiết",
-      children: <Details />,
-    },
-    {
-      key: "3",
-      label: "Visa",
-      children: <Item />,
-    },
-    {
-      key: "4",
-      label: "Đánh giá",
-      children: <Item />,
-    },
-  ];
 
   return (
     <div className={cx("wrapper")}>
@@ -109,8 +82,8 @@ function Tour() {
           </div>
         </div>
       </div>
+
       <div className={cx("DescTour")}>
-        <h2>4 NGÀY 3 ĐÊM</h2>
         <h1 className={cx("titleDescTour")}>
           MŨI SA VĨ – BÌNH LIÊU – CÁT BÀ – HẠ LONG
         </h1>
@@ -122,8 +95,70 @@ function Tour() {
           Nam" và Cột mốc 1305 giữa thiên đường hoa cỏ lau.
         </p>
       </div>
+
       <hr />
-      <Tab items={items} />;
+      <div className={cx("bgProcessTour")}> 
+        <div className={cx("processTour")}>
+          <div className={cx("tab")}></div>
+          <div className={cx("calendar")}>
+            <div className={cx("infoCalendar")}>
+              <h1 className={cx("title")}>Lịch khởi hành và giá</h1>
+              <p>Chọn ngày khởi hành</p>
+              <div className={cx("d-flex justify-content-between  ")}>
+                <p className={cx("border rounded p-4 date")}>11/10</p>
+                <p className={cx("border rounded p-4 date")}>11/10</p>
+                <p className={cx("border rounded p-4 date")}>11/10</p>
+                <p className={cx("border rounded p-4 date")}>11/10</p>
+              </div>
+              <div
+                className={cx("my-4 d-flex border p-3 justify-content-between")}
+              >
+                <p>Người lớn</p>
+                <p>x 16.490.000</p>
+                <p>- 5 + </p>
+              </div>
+              <div
+                className={cx(
+                  " my-4 d-flex border p-3 justify-content-between"
+                )}
+              >
+                <p>Người lớn</p>
+                <p>x 16.490.000</p>
+                <p>- 5 + </p>
+              </div>
+              <div className={cx("")}></div>
+              <p> Liên hệ để xác nhận chỗ</p>
+              <div className={cx("d-flex justify-content-between")}>
+                <p>Tong cong</p>
+                <h2>82.450.000 vnd</h2>
+              </div>
+
+              <div className={cx("d-flex justify-content-between")}>
+                <button className={cx("btnLienHe")}>Liên hệ tư vấn</button>
+                <button className={cx("btnYeuCau")}>Yêu cầu đặt</button>
+              </div>
+            </div>
+            <div className={cx("advise")}>
+              <div className={cx("d-flex p-3 justify-content-around  border")}>
+                <p>Bảo hiểm</p>
+                <p>Bữa ăn</p>
+              </div>
+              <div className={cx("d-flex p-3 justify-content-around  border")}>
+                <p>Bảo hiểm</p>
+                <p>Bữa ăn</p>
+              </div>
+              <div className={cx("d-flex p-3 justify-content-around  border")}>
+                <p>Bảo hiểm</p>
+                <p>Bữa ăn</p>
+              </div>
+              <div className={cx("d-flex p-3 justify-content-around  border")}>
+                <p>Bảo hiểm</p>
+                <p>Bữa ăn</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

@@ -32,17 +32,11 @@ const items2 = [
     icon: <IconTournament />,
     label: <Link to={"/tour-listTour"}>Manager Tour</Link>,
 
-    // children: [
-    //   {
-    //     label: <Link to={""}>List User</Link>,
-    //   },
-    //   {
-    //     label: <Link to={""}>List User</Link>,
-    //   },
-    //   {
-    //     label: <Link to={""}>List User</Link>,
-    //   },
-    // ],
+    children: [
+      {
+        label: <Link to={"/tour-createTour"}>Create</Link>,
+      },
+    ],
   },
   {
     icon: <IconSettings />,

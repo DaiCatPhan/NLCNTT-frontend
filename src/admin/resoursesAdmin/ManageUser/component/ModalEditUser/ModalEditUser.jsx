@@ -252,7 +252,6 @@ function ModalEditUser(props) {
                     src={
                       imageLocal ? imageLocal : "src/assets/imageNotFound.jpg"
                     }
-                    // onClick={openPreviewImage}
                     alt="not found"
                     className={cx("imageInfo")}
                   />

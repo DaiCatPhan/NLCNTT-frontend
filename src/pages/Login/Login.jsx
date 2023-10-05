@@ -24,8 +24,6 @@ function Login() {
   const { isLogged, role, profile } = useAuth();
   const dispatch = useDispatch();
 
-  console.log({ email, password });
-
   const handleLoginSDTorEmail = async (e) => {
     try {
       e.preventDefault();
@@ -38,7 +36,7 @@ function Login() {
         return;
       }
 
-      const res = await AuthenticationService.loginApi({
+      const res = await AuthenticationService.loginApi({ 
         email,
         password,
       });

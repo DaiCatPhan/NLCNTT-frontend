@@ -12,6 +12,7 @@ import ListUser from "../admin/resoursesAdmin/ManageUser/ListUser";
 
 import ListTour from "../admin/resoursesAdmin/ManageTour/ListTour";
 import UpdateTour from "../admin/resoursesAdmin/ManageTour/UpdateTour";
+import CreateTour from "../admin/resoursesAdmin/ManageTour/CreateTour";
 
 // tour
 import StaffDetail from "../admin/resoursesAdmin/ManageUser/StaffDetail";
@@ -41,6 +42,7 @@ const publicRoutes = [
   { path: "/user-listUser", component: ListUser, layout: AdminLayout },
 
   { path: "/tour-listTour", component: ListTour, layout: AdminLayout },
+  { path: "/tour-createTour", component: CreateTour, layout: AdminLayout },
   { path: "/tour-updateTour/:id", component: UpdateTour, layout: AdminLayout },
 
   //================== END ADMIN ================================

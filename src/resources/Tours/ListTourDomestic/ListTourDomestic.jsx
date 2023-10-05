@@ -7,23 +7,28 @@ import axios from "axios";
 const cx = className.bind(styles);
 
 function ListTourDomestic() {
-  const [tours, setTours] = useState([]);
-  useEffect(() => {
-    axios
-      .get(`http://localhost:3000/api/v1/tour/getTours`, {
-        params: {
-          type: "nội địa",
-        },
-      })
-      .then((tours) => {
-        if (tours.data.mes == "Success") {
-          setTours(tours.data.data);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  // const [tours, setTours] = useState([]);
+  // useEffect(() => {
+  //   axios
+  //     .get(`http://localhost:3000/api/v1/tour/getTours`, {
+  //       params: {
+  //         type: "nội địa",
+  //       },
+  //     })
+  //     .then((tours) => {
+  //       if (tours.data.mes == "Success") {
+  //         setTours(tours.data.data);
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
+
+  const [tours, setTours] = useState([{
+    
+  }]);
+
 
   return (
     <div className={cx("wrapper")}>

@@ -1,7 +1,7 @@
 .logo {
   width: 100%;
   position: relative;
-  margin-bottom: 150px;
+  margin-bottom: 100px;
 }
 
 .figure {
@@ -48,82 +48,150 @@
     hsla(333, 100%, 53%, 1) 0%,
     hsla(33, 94%, 57%, 1) 100%
   );
-}
 
-.info {
-  display: flex;
-  align-items: center;
-}
-
-.iconTime {
-  svg {
-    font-size: 25px;
+  .info {
+    display: flex;
+    align-items: center;
   }
-  margin-right: 10px;
-}
 
-.infoTime {
-}
+  .iconTime {
+    svg {
+      font-size: 25px;
+    }
+    margin-right: 10px;
+  }
 
-.infoTimeTitle {
-  font-size: 23px;
-  color: white;
-}
+  .buttonBuyTicket {
+    color: white;
+    padding: 10px 45px;
+    border: none;
+    background-color: blue;
 
-.infoTimeDesc {
-  font-size: 28px;
-  font-weight: 800;
-  color: white;
-}
-
-.address {
-}
-
-.start {
-}
-
-.buyTicket {
-  // background-color: blue;
-}
-
-.buttonBuyTicket {
-  color: white;
-  padding: 10px 45px;
-  border: none;
-  background-color: blue;
-
-  &:hover {
-    transform: scale(1.1);
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 }
 
-// DESC TOUR
+// ===================
 
 .DescTour {
-  margin: 0 auto 60px auto;
   text-align: center;
   width: 800px;
+  margin: 0 auto;
+
+  .infoTimeTitle {
+    font-size: 23px;
+    color: white;
+  }
+
+  .infoTimeDesc {
+    font-size: 28px;
+    font-weight: 800;
+    color: white;
+  }
+
+  .titleDescTour {
+    font-weight: 800;
+    font-size: 35px;
+  }
+
+  .pagDescTour {
+    margin-top: 10px;
+    font-size: 18px;
+  }
+
+  .lineDescTour {
+    height: 20px;
+    background: linear-gradient(
+      90deg,
+      hsla(17, 95%, 50%, 1) 0%,
+      hsla(42, 94%, 57%, 1) 100%
+    );
+  }
 }
 
-.lineDescTour {
-  height: 20px;
-  background: linear-gradient(
-    90deg,
-    hsla(17, 95%, 50%, 1) 0%,
-    hsla(42, 94%, 57%, 1) 100%
-  );
+// processTour
+
+.bgProcessTour {
+  background-color: #ecf0f5;
 }
 
-.titleDescTour {
-  font-weight: 800;
-  font-size: 35px;
+.processTour {
+  display: flex;
+  gap: 40px;
+  min-height: 100vh;
+  padding: 0 50px;
+  border: 1px solid black;
 }
 
-.pagDescTour {
-  margin-top: 10px;
-  font-size: 18px;
+.processTour > .tab {
+  flex: 1;
+  border: 1px solid blue;
 }
 
-// Tab Tour
+.processTour > .calendar {
+  width: 360px;
+  // background-color: white;
 
- 
+  .infoCalendar {
+    background-color: white;
+    min-height: 500px;
+    padding: 20px;
+    border: 1px solid blue;
+
+    .title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #003c71;
+      margin-bottom: 10px;
+    }
+
+    .date {
+      &:active {
+        border: solid 2px #26bed6;
+      }
+    }
+    .btnLienHe {
+      border: 2px solid #f79321;
+      color: #f79321;
+      background-color: transparent;
+      border-radius: 5px;
+      font-size: 18px;
+      font-weight: 550;
+      padding: 8px 15px;
+      min-width: 147px;
+      cursor: pointer;
+      transition: 0.5s;
+
+      &:hover {
+        background-color: #f79321;
+        color: white;
+      }
+    }
+
+    .btnYeuCau {
+      border: 2px solid #f79321;
+      background-color: #f79321;
+      color: white;
+      border-radius: 5px;
+      font-size: 18px;
+      font-weight: 550;
+      padding: 8px 15px;
+      min-width: 147px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #f9ab52;
+      }
+    }
+  }
+
+  .advise {
+    border: 1px solid red;
+
+    margin: 20px 0;
+    background-color: white;
+    min-height: 200px;
+  }
+}
