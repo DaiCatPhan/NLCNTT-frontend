@@ -11,7 +11,9 @@ const createUser = (dataCreate) => {
 };
 
 const updateUser = (dataUpdate) => {
-  return axios.put("/api/v1/staff/update", dataUpdate);
+  return axios.put("/api/v1/staff/update", dataUpdate, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
 };
 
 const deleteUser = (user) => {

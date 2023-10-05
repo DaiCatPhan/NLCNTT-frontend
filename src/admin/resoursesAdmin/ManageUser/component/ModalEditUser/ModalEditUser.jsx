@@ -5,7 +5,6 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
 import UserService from "../../../../../services/UserService";
-import axios from "../../../../../services/customize-axios";
 import { IconPlus } from "@tabler/icons-react";
 import { IconBackspaceFilled } from "@tabler/icons-react";
 
@@ -20,19 +19,20 @@ function ModalEditUser(props) {
   const [role, setRole] = useState("");
   const [email, setEmail] = useState("");
   const [image, setImage] = useState("");
-  console.log("image >>>", image);
+  const [imageLocal, setImageLocal] = useState("");
 
   useEffect(() => {
-    if (show) {
-      setId(dataUserEdit.id);
-      setName(dataUserEdit.name);
-      setPhone(dataUserEdit.phone);
-      setGender(dataUserEdit.gender);
-      setRole(dataUserEdit.role);
-      setEmail(dataUserEdit.email);
-      setImage(dataUserEdit.image);
-    }
+    setId(dataUserEdit?.id || "");
+    setName(dataUserEdit?.name || "");
+    setPhone(dataUserEdit?.phone || "");
+    setGender(dataUserEdit?.gender || "");
+    setRole(dataUserEdit?.role || "");
+    setEmail(dataUserEdit?.email || "");
+    setImageLocal(dataUserEdit?.image || "");
+    // setImage(dataUserEdit.image);
   }, [dataUserEdit]);
+
+  console.log("check image", imageLocal);
 
   const checkValidate = (reqUserEdit) => {
     if (!reqUserEdit.email.trim()) {
@@ -64,19 +64,39 @@ function ModalEditUser(props) {
     return true;
   };
 
+  const handleImage = (e) => {
+    let data = e.target.files;
+    let file = data[0];
+    if (file) {
+      const imageUrlLocal = URL.createObjectURL(file);
+      setImage(file);
+      setImageLocal(imageUrlLocal);
+    }
+  };
+
   const handleEditUser = async () => {
     try {
-      const reqUserEdit = { name, phone, gender, role, email, id, image };
-
+      // Check validate
+      const reqUserEdit = { email, name, phone, gender, role, image };
       const checkData = checkValidate(reqUserEdit);
-
-      console.log(">data", reqUserEdit);
 
       if (checkData === false) {
         return;
       }
 
-      const response = await UserService.updateUser(reqUserEdit);
+      // Init formData
+
+      const formData = new FormData();
+      formData.append("id", id);
+      formData.append("email", email);
+      formData.append("name", name);
+      formData.append("phone", phone);
+      formData.append("gender", gender);
+      formData.append("role", role);
+      formData.append("image", image);
+
+      const response = await UserService.updateUser(formData);
+
       if (response && response.data.EC === 0) {
         setName("");
         setPhone("");
@@ -96,13 +116,6 @@ function ModalEditUser(props) {
     }
   };
 
-  const handleImage = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      setImage(URL.createObjectURL(e.target.files[0]));
-    }
-    handleUpdateListUser();
-  };
-
   return (
     <div className={cx("wrapper")}>
       <Modal
@@ -111,6 +124,7 @@ function ModalEditUser(props) {
         size="md"
         backdrop="static"
         keyboard={false}
+        onExit={() => setImageLocal("")}
       >
         <Modal.Header closeButton>
           <Modal.Title>Edit a User</Modal.Title>
@@ -214,7 +228,9 @@ function ModalEditUser(props) {
                   />
 
                   <img
-                    src={image ? image : "src/assets/imageNotFound.jpg"}
+                    src={
+                      imageLocal ? imageLocal : "src/assets/imageNotFound.jpg"
+                    }
                     alt="not found"
                     className={cx("imageInfo")}
                   />
