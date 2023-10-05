@@ -11,7 +11,8 @@ import { IconBackspaceFilled } from "@tabler/icons-react";
 const cx = className.bind(styles);
 
 function ModalEditUser(props) {
-  const { show, handleClose, dataUserEdit, handleUpdateListUser } = props;
+  const { show, setShow, dataUserEdit, setDataEdituser, handleUpdateListUser } =
+    props;
   const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -22,17 +23,18 @@ function ModalEditUser(props) {
   const [imageLocal, setImageLocal] = useState("");
 
   useEffect(() => {
-    setId(dataUserEdit?.id || "");
-    setName(dataUserEdit?.name || "");
-    setPhone(dataUserEdit?.phone || "");
-    setGender(dataUserEdit?.gender || "");
-    setRole(dataUserEdit?.role || "");
-    setEmail(dataUserEdit?.email || "");
-    setImageLocal(dataUserEdit?.image || "");
-    // setImage(dataUserEdit.image);
+    if (dataUserEdit && dataUserEdit.id) {
+      setId(dataUserEdit?.id || "");
+      setName(dataUserEdit?.name || "");
+      setPhone(dataUserEdit?.phone || "");
+      setGender(dataUserEdit?.gender || "");
+      setRole(dataUserEdit?.role || "");
+      setEmail(dataUserEdit?.email || "");
+      setImageLocal(dataUserEdit?.image || "");
+    }
   }, [dataUserEdit]);
 
-  console.log("check image", imageLocal);
+  console.log({ id, name, phone, gender, role, email, imageLocal });
 
   const checkValidate = (reqUserEdit) => {
     if (!reqUserEdit.email.trim()) {
@@ -62,6 +64,18 @@ function ModalEditUser(props) {
     }
 
     return true;
+  };
+
+  const handleClose = () => {
+    setName("");
+    setPhone("");
+    setGender("");
+    setRole("");
+    setEmail("");
+    setId("");
+    setImage("");
+    setShow(false);
+    setDataEdituser(null);
   };
 
   const handleImage = (e) => {
@@ -95,18 +109,13 @@ function ModalEditUser(props) {
       formData.append("role", role);
       formData.append("image", image);
 
+      // Goi API
+
       const response = await UserService.updateUser(formData);
 
       if (response && response.data.EC === 0) {
-        setName("");
-        setPhone("");
-        setGender("");
-        setRole("");
-        setEmail("");
-        setId("");
-        setImage("");
-        toast.success(response.data.EM);
         handleClose();
+        toast.success(response.data.EM);
         handleUpdateListUser();
       } else {
         toast.error(response.data.EM);

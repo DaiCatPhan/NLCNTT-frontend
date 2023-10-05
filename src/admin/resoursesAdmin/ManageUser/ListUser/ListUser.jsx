@@ -386,8 +386,9 @@ function ListUser() {
 
         <ModalEditUser
           show={isShowModalEditUser}
-          handleClose={handleClose}
+          setShow={setIsShowModalEditUser}
           dataUserEdit={dataEditUser}
+          setDataEdituser={setDataEdituser}
           handleUpdateListUser={getUsers}
         />
 
