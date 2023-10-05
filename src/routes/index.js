@@ -3,7 +3,7 @@ import Register from "../pages/Register";
 import FirstPage from "../pages/FirstPage";
 import NotFoundPage from "../admin/component/NotFoundPage";
 
-// ADMIN ==================================================
+// ADMIN =======================
 import HomeAdmin from "../admin/resoursesAdmin/HomeAdmin";
 
 import Dashboard from "../admin/resoursesAdmin/Dashboard";
@@ -13,7 +13,9 @@ import ListUser from "../admin/resoursesAdmin/ManageUser/ListUser";
 import ListTour from "../admin/resoursesAdmin/ManageTour/ListTour";
 import UpdateTour from "../admin/resoursesAdmin/ManageTour/UpdateTour";
 
-// ========================================================
+// tour
+import StaffDetail from "../admin/resoursesAdmin/ManageUser/StaffDetail";
+
 // Layout
 import NoneLayout from "../layouts/NoneLayout";
 import AdminLayout from "../layouts/AdminLayout";
@@ -31,14 +33,17 @@ import ListTourForeign from "../resources/Tours/ListTourForeign";
 import Tour from "../resources/Tours/Tour";
 
 const publicRoutes = [
-  //========================================================== ADMIN ===================================================
+  //===================== ADMIN ========================
   { path: "/homeadmin", component: HomeAdmin, layout: AdminLayout },
   { path: "/dashboard", component: Dashboard, layout: AdminLayout },
+
+  { path: "/user-listUser/:id", component: StaffDetail, layout: AdminLayout },
   { path: "/user-listUser", component: ListUser, layout: AdminLayout },
+
   { path: "/tour-listTour", component: ListTour, layout: AdminLayout },
   { path: "/tour-updateTour/:id", component: UpdateTour, layout: AdminLayout },
 
-  //=========================================================== END ADMIN =================================================
+  //================== END ADMIN ================================
 
   // AllTypeTour
 

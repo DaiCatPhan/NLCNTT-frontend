@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import UserService from "../../../../../services/UserService";
 import { IconPlus } from "@tabler/icons-react";
 import { IconBackspaceFilled } from "@tabler/icons-react";
+import { Image } from "antd";
 
 const cx = className.bind(styles);
 
@@ -22,6 +23,9 @@ function ModalEditUser(props) {
   const [image, setImage] = useState("");
   const [imageLocal, setImageLocal] = useState("");
 
+  // Xu li anh lightbox
+  const [isOpen, setIsOpen] = useState(false);
+
   useEffect(() => {
     if (dataUserEdit && dataUserEdit.id) {
       setId(dataUserEdit?.id || "");
@@ -33,8 +37,6 @@ function ModalEditUser(props) {
       setImageLocal(dataUserEdit?.image || "");
     }
   }, [dataUserEdit]);
-
-  console.log({ id, name, phone, gender, role, email, imageLocal });
 
   const checkValidate = (reqUserEdit) => {
     if (!reqUserEdit.email.trim()) {
@@ -86,6 +88,14 @@ function ModalEditUser(props) {
       setImage(file);
       setImageLocal(imageUrlLocal);
     }
+  };
+
+  const openPreviewImage = () => {
+    alert("Phong to anh");
+  };
+
+  const handleDeleteImage = () => {
+    alert("Delete anh");
   };
 
   const handleEditUser = async () => {
@@ -240,10 +250,12 @@ function ModalEditUser(props) {
                     src={
                       imageLocal ? imageLocal : "src/assets/imageNotFound.jpg"
                     }
+                    onClick={openPreviewImage}
                     alt="not found"
                     className={cx("imageInfo")}
                   />
-                  <IconBackspaceFilled />
+
+                  <IconBackspaceFilled onClick={handleDeleteImage} />
                 </div>
               </form>
             </div>

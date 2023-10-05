@@ -53,7 +53,8 @@ function ListUser() {
     setIsShowModalDeleteUser(false);
   };
 
-  // ============= Search ======================
+  // ============= Libary ====================
+  //  ============Search ================
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
@@ -199,58 +200,80 @@ function ListUser() {
   };
 
   const columns = [
+    //  Id
     {
       title: "ID",
       dataIndex: "id",
-      // key: "id",
+      key: "id",
       sorter: {
         compare: (a, b) => a.id - b.id,
       },
 
       ...getColumnSearchProps("id"),
     },
+
+    //  Username
+
     {
       title: "Họ và tên",
       dataIndex: "name",
-      // key: "name",
-
+      key: "name",
+      render: (text) => <a>{text}</a>,
       ...getColumnSearchProps("name"),
     },
+    // Email
     {
       title: "Email",
       dataIndex: "email",
-      // key: "email",
+      key: "email",
 
       ...getColumnSearchProps("email"),
     },
+
+    //   Phone
     {
       title: "Phone",
       dataIndex: "phone",
-      // key: "phone",
-
+      key: "phone",
       ...getColumnSearchProps("phone"),
     },
+    // Gioi tinh
     {
       title: "Giới tính",
       dataIndex: "gender",
-      // key: "gender",
+      key: "gender",
       sorter: {
         compare: (a, b) => a.gender.length - b.gender.length,
       },
+      //===========
+      filters: [
+        {
+          text: "Name",
+          value: "male",
+        },
+        {
+          text: "Nữ",
+          value: "female",
+        },
+      ],
+
+      onFilter: (value, record) => record.gender.indexOf(value) === 0,
+      //=============
       ...getColumnSearchProps("gender"),
     },
+    // Chuc vu
     {
       title: "Chức vụ",
       dataIndex: "role",
-      // key: "role",
+      key: "role",
       sorter: {
         compare: (a, b) => a.role.length - b.role.length,
       },
       ...getColumnSearchProps("role"),
     },
+    //  Thao tac
     {
       title: "Thao tác",
-      // key: "thaotac",
       render: (record) => {
         return (
           <>
