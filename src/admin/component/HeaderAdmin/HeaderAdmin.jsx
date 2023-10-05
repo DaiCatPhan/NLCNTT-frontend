@@ -5,12 +5,13 @@ const cx = className.bind(styles);
 import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
-import { IconUser } from "@tabler/icons-react";
+import { IconBrandMessenger, IconUser } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../redux/reducers/userSlice";
 
 import AuthenticationService from "../../../services/AuthenticationService";
+import { IconBellRinging } from "@tabler/icons-react";
 
 function HeaderAdmin() {
   const [isShowFormInfo, setIsShowFormInfo] = useState(false);
@@ -32,24 +33,16 @@ function HeaderAdmin() {
       <header className={cx("header")}>
         <div className={cx("navHeader")}>
           <div className={cx("logo")}>
-            <Link to={"/homeAdmin"}> 
+            <Link to={"/homeAdmin"}>
               <h1>Travel</h1>
             </Link>
           </div>
           <div className={cx("info")}>
             <span>
-              <img
-                className={cx("iconMes")}
-                src="/src/assets/icons/message.svg"
-                alt=""
-              />
+              <IconBrandMessenger color="white" height={30} width={30} />
             </span>
-            <span>
-              <img
-                className={cx("iconNoti")}
-                src="/src/assets/icons/notification.svg"
-                alt=""
-              />
+            <span className="mx-3">
+              <IconBellRinging color="white" height={30} width={30} />
             </span>
             <span>
               <img

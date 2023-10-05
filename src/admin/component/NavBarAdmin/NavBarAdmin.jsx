@@ -5,28 +5,31 @@ import { useEffect, useRef, useState } from "react";
 
 const cx = className.bind(styles);
 import React from "react";
-import {
-  LaptopOutlined,
-  NotificationOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
+
 import { Breadcrumb, Layout, Menu, theme } from "antd";
+import {
+  IconHome2,
+  IconLayoutDashboard,
+  IconSettings,
+  IconTournament,
+  IconUser,
+} from "@tabler/icons-react";
 const { Header, Content, Footer, Sider } = Layout;
 const items2 = [
   {
-    icon: <img src="./src/assets/icons/home.svg" alt="" />,
+    icon: <IconHome2 />,
     label: <Link to={"/homeadmin"}>Home</Link>,
   },
   {
-    icon: <img src="./src/assets/icons/dashboard.svg" alt="" />,
+    icon: <IconLayoutDashboard />,
     label: <Link to={"/dashboard"}>Dash board</Link>,
   },
   {
-    icon: <img src="./src/assets/icons/user.svg" alt="" />,
+    icon: <IconUser />,
     label: <Link to={"/user-listUser"}>Manager Staff</Link>,
   },
   {
-    icon: <img src="./src/assets/icons/tour.svg" alt="" />,
+    icon: <IconTournament />,
     label: <Link to={"/tour-listTour"}>Manager Tour</Link>,
 
     // children: [
@@ -42,7 +45,7 @@ const items2 = [
     // ],
   },
   {
-    icon: <img src="./src/assets/icons/setting.svg" alt="" />,
+    icon: <IconSettings />,
     label: <Link to={""}>Setting</Link>,
   },
 ];

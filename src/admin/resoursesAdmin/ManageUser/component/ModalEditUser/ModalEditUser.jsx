@@ -7,11 +7,13 @@ import { toast } from "react-toastify";
 import UserService from "../../../../../services/UserService";
 import { IconPlus } from "@tabler/icons-react";
 import { IconBackspaceFilled } from "@tabler/icons-react";
-import { Image } from "antd";
 
 const cx = className.bind(styles);
 
 function ModalEditUser(props) {
+  // Test
+  console.log(">>> Modal Edit User");
+
   const { show, setShow, dataUserEdit, setDataEdituser, handleUpdateListUser } =
     props;
   const [id, setId] = useState("");
@@ -250,7 +252,7 @@ function ModalEditUser(props) {
                     src={
                       imageLocal ? imageLocal : "src/assets/imageNotFound.jpg"
                     }
-                    onClick={openPreviewImage}
+                    // onClick={openPreviewImage}
                     alt="not found"
                     className={cx("imageInfo")}
                   />
