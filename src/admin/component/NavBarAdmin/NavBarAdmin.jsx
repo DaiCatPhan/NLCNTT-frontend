@@ -36,6 +36,9 @@ const items2 = [
       {
         label: <Link to={"/tour-createTour"}>Create</Link>,
       },
+      {
+        label: <Link to={"/tour-updateTour/1"}>Update</Link>,
+      },
     ],
   },
   {

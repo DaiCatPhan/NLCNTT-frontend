@@ -1,10 +1,22 @@
 import className from "classnames/bind";
 import styles from "./Tour.module.scss";
 import { useState } from "react";
+import {
+  IconAlarm,
+  IconCalendarDue,
+  IconCheck,
+  IconExclamationCircle,
+  IconMapPin,
+  IconMapPinFilled,
+  IconPlus,
+} from "@tabler/icons-react";
+import { IconMinus } from "@tabler/icons-react";
 
 const cx = className.bind(styles);
 
 function Tour() {
+  const [numberTicket, setNumberTicket] = useState(0);
+
   const Tour = {
     name: "Mũi Sa Vĩ - Bình Liêu - Cát Bà - Hạ Long",
     duration: "4 NGÀY / 3 ĐÊM",
@@ -29,14 +41,7 @@ function Tour() {
         <div className={cx("contactLogo")}>
           <div className={cx("info")}>
             <div className={cx("iconTime")}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="1em"
-                viewBox="0 0 512 512"
-              >
-                {" "}
-                <path d="M464 256A208 208 0 1 1 48 256a208 208 0 1 1 416 0zM0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM232 120V256c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2V120c0-13.3-10.7-24-24-24s-24 10.7-24 24z" />
-              </svg>
+              <IconAlarm width={40} height={40} color="white" />
             </div>
             <div className={cx("infoTime")}>
               <div className={cx("infoTimeTitle")}>Thời gian</div>
@@ -46,14 +51,7 @@ function Tour() {
 
           <div className={cx("info")}>
             <div className={cx("iconTime")}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="1em"
-                viewBox="0 0 384 512"
-              >
-                {" "}
-                <path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z" />
-              </svg>
+              <IconMapPin width={40} height={40} color="white" />
             </div>
             <div className={cx("infoTime")}>
               <div className={cx("infoTimeTitle")}>Điểm đến</div>
@@ -63,14 +61,7 @@ function Tour() {
 
           <div className={cx("info")}>
             <div className={cx("iconTime")}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="1em"
-                viewBox="0 0 448 512"
-              >
-                {" "}
-                <path d="M128 0c17.7 0 32 14.3 32 32V64H288V32c0-17.7 14.3-32 32-32s32 14.3 32 32V64h48c26.5 0 48 21.5 48 48v48H0V112C0 85.5 21.5 64 48 64H96V32c0-17.7 14.3-32 32-32zM0 192H448V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V192zm64 80v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16zm128 0v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H208c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H336zM64 400v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H208zm112 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H336c-8.8 0-16 7.2-16 16z" />
-              </svg>
+              <IconCalendarDue width={40} height={40} color="white" />
             </div>
             <div className={cx("infoTime")}>
               <div className={cx("infoTimeTitle")}>Thời gian khởi hành</div>
@@ -96,41 +87,51 @@ function Tour() {
         </p>
       </div>
 
+      {/* bgProcessTour */}
       <hr />
-      <div className={cx("bgProcessTour")}> 
+      <div className={cx("bgProcessTour")}>
         <div className={cx("processTour")}>
           <div className={cx("tab")}></div>
           <div className={cx("calendar")}>
             <div className={cx("infoCalendar")}>
-              <h1 className={cx("title")}>Lịch khởi hành và giá</h1>
-              <p>Chọn ngày khởi hành</p>
-              <div className={cx("d-flex justify-content-between  ")}>
-                <p className={cx("border rounded p-4 date")}>11/10</p>
-                <p className={cx("border rounded p-4 date")}>11/10</p>
-                <p className={cx("border rounded p-4 date")}>11/10</p>
-                <p className={cx("border rounded p-4 date")}>11/10</p>
-              </div>
-              <div
-                className={cx("my-4 d-flex border p-3 justify-content-between")}
-              >
-                <p>Người lớn</p>
-                <p>x 16.490.000</p>
-                <p>- 5 + </p>
+              <h1 className={cx("title", "fs-2")}>Lịch khởi hành và giá</h1>
+              <p>Chọn ngày khởi hành : </p>
+              <div className={cx("d-flex justify-content-between my-4")}>
+                <p className={cx("rounded", "p-4 ", "date", "active")}>11/10</p>
+                <p className={cx("rounded", "p-4 ", "date")}>11/10</p>
+                <p className={cx("rounded", "p-4 ", "date")}>11/10</p>
+                <p className={cx("rounded", "p-4 ", "date")}>11/10</p>
               </div>
               <div
                 className={cx(
-                  " my-4 d-flex border p-3 justify-content-between"
+                  "my-5 d-flex border p-3 justify-content-between align-items-center"
                 )}
               >
-                <p>Người lớn</p>
-                <p>x 16.490.000</p>
-                <p>- 5 + </p>
+                <p>Gía vé : </p>
+                <p className={cx("text-warning ", "fs-3", "fw-600px")}>
+                  x 16.490.000
+                </p>
+                <p>
+                  <IconMinus
+                    className={cx("poiter")}
+                    onClick={() => setNumberTicket(numberTicket - 1)}
+                  />
+                  <span className="m-4 fs-3">{numberTicket}</span>
+                  <IconPlus
+                    className={cx("poiter")}
+                    onClick={() => setNumberTicket(numberTicket + 1)}
+                  />
+                </p>
               </div>
-              <div className={cx("")}></div>
-              <p> Liên hệ để xác nhận chỗ</p>
-              <div className={cx("d-flex justify-content-between")}>
-                <p>Tong cong</p>
-                <h2>82.450.000 vnd</h2>
+
+              <p className={cx("xanhBlueMo", "fs-3")}>
+                <IconExclamationCircle /> Liên hệ để xác nhận chỗ
+              </p>
+              <div className={cx("d-flex justify-content-between my-5")}>
+                <p className={cx("fs-3")}>Tổng cộng : </p>
+                <h2 className={cx("fs-1", "text-warning", "fw-600px")}>
+                  82.450.000 vnd
+                </h2>
               </div>
 
               <div className={cx("d-flex justify-content-between")}>
@@ -139,21 +140,49 @@ function Tour() {
               </div>
             </div>
             <div className={cx("advise")}>
-              <div className={cx("d-flex p-3 justify-content-around  border")}>
-                <p>Bảo hiểm</p>
-                <p>Bữa ăn</p>
+              <div className={cx(" p-3  px-5 border row")}>
+                <span className=" col-5">
+                  <IconCheck color="green" /> Bảo hiểm
+                </span>
+                <span className=" col-7">
+                  <IconCheck color="green" /> Bữa ăn
+                </span>
               </div>
-              <div className={cx("d-flex p-3 justify-content-around  border")}>
-                <p>Bảo hiểm</p>
-                <p>Bữa ăn</p>
+
+              <div className={cx(" p-3  px-5 border row")}>
+                <span className=" col-5">
+                  <IconCheck color="green" /> Hướng dẫn
+                </span>
+                <span className=" col-7">
+                  <IconCheck color="green" /> Khách Sạn 4*
+                </span>
               </div>
-              <div className={cx("d-flex p-3 justify-content-around  border")}>
-                <p>Bảo hiểm</p>
-                <p>Bữa ăn</p>
+
+              <div className={cx(" p-3  px-5 border row")}>
+                <span className=" col-5">
+                  <IconCheck color="green" /> Vé máy bay
+                </span>
+                <span className=" col-7">
+                  <IconCheck color="green" /> Vé tham quan
+                </span>
               </div>
-              <div className={cx("d-flex p-3 justify-content-around  border")}>
-                <p>Bảo hiểm</p>
-                <p>Bữa ăn</p>
+
+              <div className={cx(" p-3  px-5 border row")}>
+                <span className=" col-5">
+                  <IconCheck color="green" /> Visa
+                </span>
+                <span className=" col-7">
+                  <IconCheck color="green" /> Vui Chơi Giải Trí
+                </span>
+              </div>
+
+              <div className={cx(" p-3  px-5 border row")}>
+                <span className=" col-5">
+                  <IconCheck color="green" /> Xe đưa đón
+                </span>
+                <span className=" col-7">
+                  <IconCheck color="green" /> Nhà hàng 5*
+                </span>
               </div>
             </div>
           </div>

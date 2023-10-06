@@ -1,3 +1,15 @@
+.fw-600px {
+  font-weight: 800;
+}
+
+.poiter {
+  cursor: pointer;
+}
+
+.xanhBlueMo {
+  color: #26bed6;
+}
+
 .logo {
   width: 100%;
   position: relative;
@@ -111,7 +123,7 @@
   }
 }
 
-// processTour
+// bgProcessTour
 
 .bgProcessTour {
   background-color: #ecf0f5;
@@ -123,16 +135,19 @@
   min-height: 100vh;
   padding: 0 50px;
   border: 1px solid black;
+  position: relative;
+  flex-wrap: wrap;
 }
 
 .processTour > .tab {
   flex: 1;
   border: 1px solid blue;
+  padding: 0 20px;
 }
 
 .processTour > .calendar {
   width: 360px;
-  // background-color: white;
+    
 
   .infoCalendar {
     background-color: white;
@@ -148,10 +163,17 @@
     }
 
     .date {
-      &:active {
-        border: solid 2px #26bed6;
-      }
+      border: 1px solid rgba(0, 0, 0, 0.281);
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
+        rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
+        rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+      cursor: pointer;
     }
+
+    .date.active {
+      border: 2px solid rgba(0, 0, 255, 0.575);
+    }
+
     .btnLienHe {
       border: 2px solid #f79321;
       color: #f79321;

@@ -1,0 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Merriweather:wght@300&family=Oswald&family=Rubik+Iso&family=Young+Serif&display=swap");
+
+.bodyWrapper {
+  padding: 20px;
+}
+
+.customInput {
+  font-size: 15px;
+  padding: 7px;
+  border: 1px solid blue;
+  text-transform: uppercase;
+}
+
+.formCrateTour {
+  .title {
+    font-family: "Merriweather", serif;
+    font-weight: 600;
+  }
+}
+
+// Des quill
+.description {
+  .formDes {
+    display: flex;
+    gap: 20px;
+    // flex-wrap: wrap;
+  }
+
+  .quill {
+    width: 55%;
+    border: 1px solid blue;
+  }
+
+  .textQuill {
+    flex: 1;
+    border: 1px solid blue;
+  }
+}
