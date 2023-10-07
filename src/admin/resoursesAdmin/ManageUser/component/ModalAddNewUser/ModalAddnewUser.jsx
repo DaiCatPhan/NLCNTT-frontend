@@ -11,7 +11,7 @@ import UserService from "../../../../../services/UserService";
 const cx = className.bind(styles);
 
 function ModalAddNewUser(props) {
-  //
+  
 
   const { show, handleClose, handleUpdateListUser } = props;
   const [name, setName] = useState("");

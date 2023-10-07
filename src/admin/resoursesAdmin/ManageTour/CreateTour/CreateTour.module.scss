@@ -11,10 +11,26 @@
   text-transform: uppercase;
 }
 
-.formCrateTour {
+.formCreateTour {
   .title {
     font-family: "Merriweather", serif;
     font-weight: 600;
+  }
+
+  .selectImage {
+    border: 1px solid blue;
+    cursor: pointer;
+    min-height: 100px;
+    min-width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+    
+  }
+
+  .selectImage:hover {
+    transform: scale(1.05);
   }
 }
 
@@ -27,7 +43,7 @@
   }
 
   .quill {
-    width: 55%;
+    width: 52%;
     border: 1px solid blue;
   }
 

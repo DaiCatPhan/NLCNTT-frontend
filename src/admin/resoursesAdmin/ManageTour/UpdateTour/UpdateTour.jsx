@@ -7,19 +7,43 @@ import Form from "react-bootstrap/Form";
 import { IconAsterisk } from "@tabler/icons-react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { IconUpload } from "@tabler/icons-react";
 
 const cx = className.bind(styles);
 
 function UpdateTour() {
-  const [value, setValue] = useState("");
   const reactQuillRef = useRef();
-  console.log(">>>", value);
+
+  // data
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [duration, setDuration] = useState("");
+  const [type, setType] = useState("");
+  const [domain, setDomain] = useState("");
+  const [vehicle, setVehicle] = useState("");
+  const [image, setImage] = useState("");
+  const [imageLocal, setImageLocal] = useState("");
+  const [desription, setDescription] = useState("");
+
+  console.log({
+    // name,
+    // price,
+    // duration,
+    // type,
+    // domain,
+    // vehicle,
+    // image,
+    // imageLocal,
+    desription,
+  });
+
+  // quill
 
   return (
     <div className={cx("wrapper")}>
       <div className={cx("bodyWrapper")}>
         {/* form */}
-        <div className={cx("formCrateTour")}>
+        <div className={cx("formCreateTour")}>
           <h1 className={cx("title")}>Update Tour</h1>
           <Form>
             <Form.Group>
@@ -98,7 +122,38 @@ function UpdateTour() {
                   >
                     <option>Xe du lịch</option>
                     <option> Máy bay</option>
+                    <option> Tàu</option>
                   </Form.Select>
+                </div>
+              </div>
+            </Form.Group>
+
+            <Form.Group>
+              <div
+                className={cx(
+                  "d-flex justify-content-center align-items-center my-5"
+                )}
+              >
+                <div className={cx("mx-5")}>
+                  <Form.Label>
+                    Chọn ảnh Tour <IconAsterisk height={10} color="red" />
+                  </Form.Label>
+                  <label htmlFor="upImg" className={cx("selectImage")}>
+                    <IconUpload
+                      className={cx("IconUpImg")}
+                      color="green"
+                      height={30}
+                      width={30}
+                    />
+                  </label>
+                  <input className={cx("d-none")} type="file" id="upImg" />
+                </div>
+                <div className={cx("")}>
+                  <img
+                    height={250}
+                    src="https://demoda.vn/wp-content/uploads/2022/01/hinh-nen-desktop-1-800x533.jpg"
+                    alt=""
+                  />
                 </div>
               </div>
             </Form.Group>
@@ -106,7 +161,9 @@ function UpdateTour() {
         </div>
         {/* Description */}
         <div className={cx("description")}>
-          <h1>Mô tả 1 vài thông tin Tour</h1>
+          <h3 className={cx("my-4")}>
+            Mô tả 1 vài thông tin Tour <IconAsterisk height={10} color="red" />
+          </h3>
           <div className={cx("formDes")}>
             <div className={cx("quill")}>
               <ReactQuill
@@ -150,15 +207,15 @@ function UpdateTour() {
                   "video",
                   "code-block",
                 ]}
-                value={value}
-                onChange={setValue}
+                value={desription}
+                onChange={setDescription}
                 style={{
                   height: "200",
                 }}
               />
             </div>
             <div className={cx("textQuill")}>
-              <ReactQuill value={value} readOnly={true} theme={"bubble"} />
+              <ReactQuill value={desription} readOnly={true} theme={"bubble"} />
             </div>
           </div>
         </div>

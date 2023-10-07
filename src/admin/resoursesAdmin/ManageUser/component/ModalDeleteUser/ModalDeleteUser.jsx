@@ -9,8 +9,6 @@ import UserService from "../../../../../services/UserService";
 const cx = className.bind(styles);
 
 function ModalDeleteUser(props) {
-  //
-  console.log(">>> Modal Delete");
 
   const { show, handleClose, dataDeleteUser, handleUpdateListUser } = props;
 

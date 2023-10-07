@@ -12,7 +12,6 @@ const cx = className.bind(styles);
 
 function ModalEditUser(props) {
   // Test
-  console.log(">>> Modal Edit User");
 
   const { show, setShow, dataUserEdit, setDataEdituser, handleUpdateListUser } =
     props;
@@ -26,7 +25,6 @@ function ModalEditUser(props) {
   const [imageLocal, setImageLocal] = useState("");
 
   // Xu li anh lightbox
-  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     if (dataUserEdit && dataUserEdit.id) {
@@ -85,7 +83,13 @@ function ModalEditUser(props) {
   const handleImage = (e) => {
     let data = e.target.files;
     let file = data[0];
+    console.log(">>>", file);
+
     if (file) {
+      // if (file.type != "text/jpg" || file.type != "text/png") {
+      //   toast.error("Chỉ upload ảnh .jpg or .png");
+      //   return;
+      // }
       const imageUrlLocal = URL.createObjectURL(file);
       setImage(file);
       setImageLocal(imageUrlLocal);

@@ -179,7 +179,7 @@ function ListUser() {
     if (res && res.data && res.data.EC === 0) {
       const resDataUser = res.data.DT.users;
       const resDataTotalPage = res.data.DT.totalRows;
-      const resDataUserCopy = resDataUser.map((user, index) => {
+      const resDataUserCopy = resDataUser?.map((user, index) => {
         return {
           id: user.id,
           name: user.name,
