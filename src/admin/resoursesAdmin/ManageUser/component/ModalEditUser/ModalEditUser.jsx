@@ -96,13 +96,9 @@ function ModalEditUser(props) {
     }
   };
 
-  const openPreviewImage = () => {
-    alert("Phong to anh");
-  };
+ 
 
-  const handleDeleteImage = () => {
-    alert("Delete anh");
-  };
+ 
 
   const handleEditUser = async () => {
     try {
@@ -260,7 +256,7 @@ function ModalEditUser(props) {
                     className={cx("imageInfo")}
                   />
 
-                  <IconBackspaceFilled onClick={handleDeleteImage} />
+                  
                 </div>
               </form>
             </div>

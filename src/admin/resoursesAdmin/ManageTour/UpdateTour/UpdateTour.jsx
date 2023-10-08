@@ -25,20 +25,6 @@ function UpdateTour() {
   const [imageLocal, setImageLocal] = useState("");
   const [desription, setDescription] = useState("");
 
-  console.log({
-    // name,
-    // price,
-    // duration,
-    // type,
-    // domain,
-    // vehicle,
-    // image,
-    // imageLocal,
-    desription,
-  });
-
-  // quill
-
   return (
     <div className={cx("wrapper")}>
       <div className={cx("bodyWrapper")}>
@@ -48,28 +34,18 @@ function UpdateTour() {
           <Form>
             <Form.Group>
               <div className={cx("row my-5")}>
-                <div className={cx("col-4 ")}>
-                  <Form.Label className={cx("text-primary")}>
+                <div className={cx("col-lg-6 ", "col-md-12")}>
+                  <Form.Label className={cx("")}>
                     Nhập tên Tour <IconAsterisk height={10} color="red" />
                   </Form.Label>
                   <Form.Control
                     placeholder="Enter name tour"
                     className={cx("customInput")}
+                    spellCheck={false}
                   />
                 </div>
-                <div className={cx("col-4 ")}>
-                  <Form.Label>
-                    Nhập Giá Tour <IconAsterisk height={10} color="red" />
-                    <span className={cx("fs-4", "text-secondary")}>
-                      ( ex: 4.000.000 )
-                    </span>
-                  </Form.Label>
-                  <Form.Control
-                    placeholder="Enter giá tour"
-                    className={cx("customInput")}
-                  />
-                </div>
-                <div className={cx("col-4 ")}>
+
+                <div className={cx("col-lg-6 ", "col-md-12")}>
                   <Form.Label>
                     Tổng thời gian Tour
                     <IconAsterisk height={10} color="red" />
@@ -79,6 +55,33 @@ function UpdateTour() {
                   </Form.Label>
                   <Form.Control
                     placeholder="Enter tổng thời gian tour"
+                    className={cx("customInput")}
+                  />
+                </div>
+              </div>
+            </Form.Group>
+
+            <Form.Group>
+              <div className={cx("row my-5")}>
+                <div className={cx("col-lg-6 ", "col-md-12")}>
+                  <Form.Label className={cx("")}>
+                    Giá Tour người lớn <IconAsterisk height={10} color="red" />
+                  </Form.Label>
+                  <Form.Control
+                    placeholder="Giá Tour người lớn"
+                    className={cx("customInput")}
+                    spellCheck={false}
+                  />
+                </div>
+
+                <div className={cx("col-lg-6 ", "col-md-12")}>
+                  <Form.Label>
+                    Gía Tour trẻ em
+                    <IconAsterisk height={10} color="red" />
+                    <span className={cx("fs-4", "text-secondary")}></span>
+                  </Form.Label>
+                  <Form.Control
+                    placeholder="Giá Tour trẻ em"
                     className={cx("customInput")}
                   />
                 </div>

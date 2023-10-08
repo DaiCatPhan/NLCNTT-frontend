@@ -26,7 +26,6 @@
     justify-content: center;
     align-items: center;
     transition: 0.5s;
-    
   }
 
   .selectImage:hover {
@@ -37,18 +36,26 @@
 // Des quill
 .description {
   .formDes {
-    display: flex;
-    gap: 20px;
-    // flex-wrap: wrap;
   }
+}
 
-  .quill {
-    width: 52%;
-    border: 1px solid blue;
-  }
+// Button create TOur
+.submitFormBTN {
+  margin: 50px 0 100px 0;
+  text-align: center;
 
-  .textQuill {
-    flex: 1;
-    border: 1px solid blue;
+  button {
+    border: none;
+    background-color: green;
+    padding: 10px 80px;
+    border-radius: 10px;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    transition: 0.5s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 }

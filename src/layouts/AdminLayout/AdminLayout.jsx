@@ -16,9 +16,6 @@ function AdminLayout({ children }) {
   const navigate = useNavigate();
   const { isLogged, role, profile } = useAuth();
 
-  console.log(">> isLogin", isLogged);
-  console.log(">> role", role);
-
   if (!isLogged) {
     return <NotPermissionPage />;
   }

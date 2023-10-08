@@ -14,6 +14,7 @@ import {
   IconTournament,
   IconUser,
 } from "@tabler/icons-react";
+import { IconCalendarCheck } from "@tabler/icons-react";
 const { Header, Content, Footer, Sider } = Layout;
 const items2 = [
   {
@@ -34,12 +35,23 @@ const items2 = [
 
     children: [
       {
+        label: <Link to={"/tour-listTour"}>List</Link>,
+      },
+      {
         label: <Link to={"/tour-createTour"}>Create</Link>,
       },
       {
         label: <Link to={"/tour-updateTour/1"}>Update</Link>,
       },
     ],
+  },
+  {
+    icon: <IconCalendarCheck />,
+    label: <Link to={""}>Manager Calendar</Link>,
+  },
+  {
+    icon: <IconCalendarCheck />,
+    label: <Link to={""}>Manager Booking Tour</Link>,
   },
   {
     icon: <IconSettings />,
