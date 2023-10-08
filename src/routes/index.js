@@ -33,6 +33,9 @@ import ListTourDomestic from "../resources/Tours/ListTourDomestic";
 import ListTourForeign from "../resources/Tours/ListTourForeign";
 import Tour from "../resources/Tours/Tour";
 
+// TEST UI
+import TestUi from "../testUI";
+
 const publicRoutes = [
   //===================== ADMIN ========================
   { path: "/homeadmin", component: HomeAdmin, layout: AdminLayout },
@@ -46,6 +49,9 @@ const publicRoutes = [
   { path: "/tour-updateTour/:id", component: UpdateTour, layout: AdminLayout },
 
   //================== END ADMIN ================================
+
+  // TEST UI
+  { path: "/testUI", component: TestUi, layout: NoneLayout },
 
   // AllTypeTour
 
