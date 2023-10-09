@@ -31,11 +31,10 @@ const dataAr = [
 function onClick_Active() {
   const [dataApi, setdataApi] = useState([]);
   const [dataItemActive, setDataItemActive] = useState({});
-  console.log(">>> dataItemActive", dataItemActive);
 
   useEffect(() => {
     if (dataAr && dataAr.length > 0) {
-      const dataCustomize = dataAr.map((item) => { 
+      const dataCustomize = dataAr.map((item) => {
         return {
           ...item,
           isSelected: false,
