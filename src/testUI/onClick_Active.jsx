@@ -35,7 +35,7 @@ function onClick_Active() {
 
   useEffect(() => {
     if (dataAr && dataAr.length > 0) {
-      const dataCustomize = dataAr.map((item) => {
+      const dataCustomize = dataAr.map((item) => { 
         return {
           ...item,
           isSelected: false,

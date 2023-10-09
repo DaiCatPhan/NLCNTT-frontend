@@ -1,6 +1,6 @@
-import className from "classnames/bind";
-import styles from "./TestUi.module.scss";
-const cx = className.bind(styles);
+// import className from "classnames/bind";
+// import styles from "./react_Select.module.scss";
+// const cx = className.bind(styles);
 import Select from "react-select";
 import { useState } from "react";
 
@@ -37,7 +37,7 @@ const dataArray = [
   },
 ];
 
-function TestUi() {
+function react_Select() {
   const [valueSelect, setValueSelect] = useState("");
   console.log("valueSelect", valueSelect);
 
@@ -68,11 +68,11 @@ function TestUi() {
   const options = handleBuild(dataArray);
 
   return (
-    <div className={cx("wrapper")}>
+    <div>
       <h1>React Select</h1>
       <Select onChange={handleChange} options={options} />
     </div>
   );
 }
 
-export default TestUi;
+export default react_Select;
