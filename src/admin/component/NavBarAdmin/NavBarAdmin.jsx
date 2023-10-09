@@ -35,19 +35,48 @@ const items2 = [
 
     children: [
       {
-        label: <Link to={"/tour-listTour"}>List</Link>,
+        label: <Link to={"/tour-listTour"}>List Tour</Link>,
       },
       {
-        label: <Link to={"/tour-createTour"}>Create</Link>,
+        label: <Link to={"/tour-viewTour/1"}>View Tour</Link>,
       },
       {
-        label: <Link to={"/tour-updateTour/1"}>Update</Link>,
+        label: <Link to={"/tour-createTour"}>Create Tour</Link>,
+      },
+      {
+        label: <Link to={"/tour-updateTour/1"}>Update Tour</Link>,
       },
     ],
   },
   {
     icon: <IconCalendarCheck />,
     label: <Link to={""}>Manager Calendar</Link>,
+
+    children: [
+      {
+        label: <Link to={""}>List Calendar</Link>,
+      },
+      {
+        label: <Link to={""}>Create Calendar</Link>,
+      },
+    ],
+  },
+  {
+    icon: <IconCalendarCheck />,
+    label: <Link to={""}>Manager Process Tour</Link>,
+    children: [
+      {
+        label: <Link to={"/process-listProcessTour"}>List ProcessTour</Link>,
+      },
+      {
+        label: (
+          <Link to={"/process-createProcessTour"}>Create ProcessTour</Link>
+        ),
+      },
+      {
+        label: <Link to={"/process-updateProcessTour"}>List ProcessTour</Link>,
+      },
+    ],
   },
   {
     icon: <IconCalendarCheck />,

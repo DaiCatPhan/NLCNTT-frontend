@@ -1,5 +1,6 @@
 import className from "classnames/bind";
 import styles from "./CardDomain.module.scss";
+import { IconClockHour1 } from "@tabler/icons-react";
 
 const cx = className.bind(styles);
 
@@ -19,12 +20,25 @@ function CardDomain({ tour }) {
         </figure>
         <div className={cx("articlePreview")}>
           <div className={cx("cardbody")}>
-            <h2 className={cx("black", "uppercase")}>{tour.name}</h2>
-            <p>{tour.content}</p>
+            <h2 className={cx("black", "uppercase", "hideTextDot")}>
+              {tour.name}
+            </h2>
+            {tour?.type === "noidia" && (
+              <p className={cx("text-secondary", "fs-4")}> Tour nội điạ</p>
+            )}
             <div className={cx("line")}></div>
             <div className={cx("duration")}>
-              <img src="/src/assets/icons/time.svg" alt="" />
-              <span>{tour.duration}</span>
+              <IconClockHour1 height={20} width={20} />
+              <span
+                className={cx(
+                  "mx-3",
+                  "text-secondary",
+                  "fs-4",
+                  "text-uppercase"
+                )}
+              >
+                {tour.duration}
+              </span>
             </div>
           </div>
         </div>

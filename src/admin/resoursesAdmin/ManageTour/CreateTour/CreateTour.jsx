@@ -7,6 +7,7 @@ import { IconAsterisk } from "@tabler/icons-react";
 import { IconUpload } from "@tabler/icons-react";
 import TourService from "../../../../services/TourService";
 import { toast } from "react-toastify";
+import { Spin } from "antd";
 
 import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
@@ -16,6 +17,8 @@ const mdParser = new MarkdownIt(/* Markdown-it options */);
 const cx = className.bind(styles);
 
 function CreateTour() {
+  // spin
+  const [isShowSpin, setIsShowSpin] = useState(false);
   // data
   const [name, setName] = useState("");
   const [duration, setDuration] = useState("");
@@ -130,10 +133,13 @@ function CreateTour() {
     formData.append("vehicle", vehicle);
     formData.append("image", image);
 
+    setIsShowSpin(true);
+
     const res = await TourService.createTour(formData);
     if (res && res.data.EC === 0 && res.data.DT.id) {
       console.log(">> dataTourafte call Api", res);
       toast.success(res.data.EM);
+      setIsShowSpin(false);
       handleClose();
     } else {
       toast.error(res.data.EM);
@@ -323,8 +329,15 @@ function CreateTour() {
         </div>
 
         {/* Button */}
+
         <div className={cx("submitFormBTN")}>
-          <button onClick={handleSubmitCreateTour}>Create Tour</button>
+          {isShowSpin ? (
+            <button onClick={handleSubmitCreateTour}>
+              <Spin size="large" /> Create Tour
+            </button>
+          ) : (
+            <button onClick={handleSubmitCreateTour}>Create Tour</button>
+          )}
         </div>
       </div>
     </div>

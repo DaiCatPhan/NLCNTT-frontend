@@ -25,6 +25,7 @@
   height: 500px;
   text-align: center;
   border-radius: 10px;
+  object-fit: cover;
 }
 
 .logoTitle {
@@ -114,7 +115,7 @@
   }
 
   .lineDescTour {
-    height: 20px;
+    height: 10px;
     background: linear-gradient(
       90deg,
       hsla(17, 95%, 50%, 1) 0%,

@@ -35,7 +35,7 @@
   right: 0;
   opacity: 0;
   transition: 1s;
-} 
+}
 
 .contactPrice {
   width: 100px;
@@ -90,11 +90,9 @@
 }
 
 .cardbody {
-  margin: 0 20px;
+  margin: 0 15px;
 
   h2 {
-    height: 55px;
-    width: 95%;
     font-size: 2.1rem;
     font-weight: 700;
     transition: color 0.3s ease-out;
@@ -103,31 +101,18 @@
     }
   }
 
-  p {
-    color: rgba(0, 0, 0, 0.719);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
 
   .line {
-    width: 98%;
-    height: 2px;
-    margin-bottom: 5px;
+    height: 1px;
+    margin-bottom: 7px;
     background-color: rgba(0, 0, 0, 0.281);
   }
 }
 
-.duration {
-  margin-bottom: 5px;
-  img {
-    margin-bottom: 5px;
-    color: red;
-  }
-
-  span {
-    font-size: 19px;
-    margin-left: 15px;
-    color: rgba(0, 0, 0, 0.747);
-  }
+.hideTextDot {
+  
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  display: -webkit-box;
 }

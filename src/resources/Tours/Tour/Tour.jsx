@@ -1,6 +1,6 @@
 import className from "classnames/bind";
 import styles from "./Tour.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   IconAlarm,
   IconCalendarDue,
@@ -11,34 +11,40 @@ import {
   IconPlus,
 } from "@tabler/icons-react";
 import { IconMinus } from "@tabler/icons-react";
+import { useParams } from "react-router-dom";
+
+import TourService from "../../../services/TourService";
 
 const cx = className.bind(styles);
 
 function Tour() {
   const [numberTicket, setNumberTicket] = useState(0);
+  const [tourDetail, setTourDetail] = useState({});
+  console.log("tourDetail", tourDetail);
+  let { id } = useParams();
 
-  const Tour = {
-    name: "Mũi Sa Vĩ - Bình Liêu - Cát Bà - Hạ Long",
-    duration: "4 NGÀY / 3 ĐÊM",
+  const getTourById = async () => {
+    const res = await TourService.getTour({ id: id });
+    if (res && res.data.EC === 0 && res.data.DT.id) {
+      setTourDetail(res.data.DT);
+    }
   };
+
+  useEffect(() => {
+    getTourById();
+  }, []);
 
   return (
     <div className={cx("wrapper")}>
       <div className={cx("logo")}>
         <figure className={cx("figure")}>
-          <img
-            className={cx("imageTour")}
-            src="https://vtourist.com.vn/wp-content/uploads/2022/01/Vinh-Ha-Long_Vtourist.jpg"
-            alt="1"
-          />
+          <img className={cx("imageTour")} src={tourDetail?.image} alt="1" />
         </figure>
-        <h1 className={cx("logoTitle")}>
-          Mũi Sa Vĩ - Bình Liêu - Cát Bà - Hạ Long
-        </h1>
+        <h1 className={cx("logoTitle")}>{tourDetail?.name}</h1>
 
         {/* description */}
 
-        <div className={cx("contactLogo")}>
+        <div className={cx("contactLogo", "text-white", "fs-2")}>
           <div className={cx("info")}>
             <div className={cx("iconTime")}>
               <IconAlarm width={40} height={40} color="white" />
@@ -74,24 +80,24 @@ function Tour() {
         </div>
       </div>
 
-      <div className={cx("DescTour")}>
-        <h1 className={cx("titleDescTour")}>
-          MŨI SA VĨ – BÌNH LIÊU – CÁT BÀ – HẠ LONG
-        </h1>
+      <div className={cx("DescTour", "my-5")}>
+        <h1 className={cx("titleDescTour")}>{tourDetail?.name}</h1>
         <div className={cx("lineDescTour")}></div>
-        <p className={cx("pagDescTour")}>
-          Hành trình tham quan Vịnh Hạ Long, là một trong 7 kỳ quan đẹp nhất thế
-          giói. Chinh phục "sống lưng Khủng Long" tại Bình Liêu. Chụp hình
-          check-in tại Mũi Sa Vĩ – còn gọi là mũi Gót là mũi "cực Đông Bắc Việt
-          Nam" và Cột mốc 1305 giữa thiên đường hoa cỏ lau.
-        </p>
       </div>
 
       {/* bgProcessTour */}
       <hr />
       <div className={cx("bgProcessTour")}>
         <div className={cx("processTour")}>
-          <div className={cx("tab")}></div>
+          <div className={cx("tab")}>
+            {tourDetail && tourDetail?.desriptionHTML && (
+              <div
+                dangerouslySetInnerHTML={{ __html: tourDetail.desriptionHTML }}
+                className={cx("desTour")}
+              ></div>
+            )}
+          </div>
+
           <div className={cx("calendar")}>
             <div className={cx("infoCalendar")}>
               <h1 className={cx("title", "fs-2")}>Lịch khởi hành và giá</h1>
