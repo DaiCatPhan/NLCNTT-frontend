@@ -186,7 +186,7 @@ function ListUser() {
           phone: user.phone,
           gender: user.gender,
           role: user.role,
-          email: user.email,
+          email: user.email, 
           key: user.id,
           image: user.image,
           createdAt: user.createdAt,
@@ -204,6 +204,7 @@ function ListUser() {
     {
       title: "ID",
       dataIndex: "id",
+      key: "id",
       sorter: {
         compare: (a, b) => a.id - b.id,
       },
@@ -216,12 +217,15 @@ function ListUser() {
     {
       title: "Họ và tên",
       dataIndex: "name",
+      key: "name",
+
       ...getColumnSearchProps("name"),
     },
     // Email
     {
       title: "Email",
       dataIndex: "email",
+      key: "email",
 
       ...getColumnSearchProps("email"),
     },
@@ -230,12 +234,16 @@ function ListUser() {
     {
       title: "Phone",
       dataIndex: "phone",
+      key: "phone",
+
       ...getColumnSearchProps("phone"),
     },
     // Gioi tinh
     {
       title: "Giới tính",
       dataIndex: "gender",
+      key: "gender",
+
       sorter: {
         compare: (a, b) => a.gender.length - b.gender.length,
       },
@@ -246,6 +254,8 @@ function ListUser() {
     {
       title: "Chức vụ",
       dataIndex: "role",
+      key: "role",
+
       sorter: {
         compare: (a, b) => a.role.length - b.role.length,
       },

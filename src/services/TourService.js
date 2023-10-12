@@ -15,7 +15,17 @@ const getTour = (rawData) => {
   });
 };
 
+const getToursByPanigation = (rawData) => {
+  return axios.get("/api/v1/tour/getTourPanigation", {
+    params: {
+      page: rawData.page,
+      limit: rawData.limit,
+    },
+  });
+};
+
 export default {
   createTour,
   getTour,
+  getToursByPanigation,
 };

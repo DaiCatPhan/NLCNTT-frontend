@@ -5,15 +5,11 @@ import { useEffect, useRef, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { IconAsterisk } from "@tabler/icons-react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 import { IconUpload } from "@tabler/icons-react";
 
 const cx = className.bind(styles);
 
 function UpdateTour() {
-  const reactQuillRef = useRef();
-
   // data
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
@@ -167,60 +163,7 @@ function UpdateTour() {
           <h3 className={cx("my-4")}>
             Mô tả 1 vài thông tin Tour <IconAsterisk height={10} color="red" />
           </h3>
-          <div className={cx("formDes")}>
-            <div className={cx("quill")}>
-              <ReactQuill
-                ref={reactQuillRef}
-                theme="snow"
-                modules={{
-                  toolbar: {
-                    container: [
-                      [{ header: "1" }, { header: "2" }, { font: [] }],
-                      [{ size: [] }],
-                      ["bold", "italic", "underline", "strike", "blockquote"],
-                      [
-                        { list: "ordered" },
-                        { list: "bullet" },
-                        { indent: "-1" },
-                        { indent: "+1" },
-                      ],
-                      ["link", "image", "video"],
-                      ["code-block"],
-                      ["clean"],
-                    ],
-                  },
-                  clipboard: {
-                    matchVisual: false,
-                  },
-                }}
-                formats={[
-                  "header",
-                  "font",
-                  "size",
-                  "bold",
-                  "italic",
-                  "underline",
-                  "strike",
-                  "blockquote",
-                  "list",
-                  "bullet",
-                  "indent",
-                  "link",
-                  "image",
-                  "video",
-                  "code-block",
-                ]}
-                value={desription}
-                onChange={setDescription}
-                style={{
-                  height: "200",
-                }}
-              />
-            </div>
-            <div className={cx("textQuill")}>
-              <ReactQuill value={desription} readOnly={true} theme={"bubble"} />
-            </div>
-          </div>
+          <div className={cx("formDes")}></div>
         </div>
       </div>
     </div>

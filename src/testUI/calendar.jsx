@@ -8,6 +8,10 @@ import moment from "moment";
 
 function Calendar() {
   const [startDate, setStartDate] = useState(new Date());
+  const [dateInput, setDateInput] = useState("");
+
+  let formatedDate = new Date(startDate).getTime();
+
   return (
     <div>
       <h1>Calendaer</h1>
@@ -15,9 +19,10 @@ function Calendar() {
         selected={startDate}
         onChange={(date) => setStartDate(date)}
         minDate={new Date()}
-        dateFormat="dd/MM/yyyy"
+        dateFormat="dd-mm-yyyy"
       />
-      <p>{`${moment(startDate).format("DD/MM/YYYY")}`}</p>
+      <p>{`${moment(startDate).format("DD-MM-YYYY")}`}</p>
+      <p>{formatedDate}</p>
     </div>
   );
 }
