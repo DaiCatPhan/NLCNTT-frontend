@@ -20,69 +20,86 @@ const items2 = [
   {
     icon: <IconHome2 />,
     label: <Link to={"/homeadmin"}>Home</Link>,
+    key: "1",
   },
   {
     icon: <IconLayoutDashboard />,
     label: <Link to={"/dashboard"}>Dash board</Link>,
+    key: "2",
   },
   {
     icon: <IconUser />,
     label: <Link to={"/user-listUser"}>Manager Staff</Link>,
+    key: "3",
   },
   {
     icon: <IconTournament />,
     label: <Link>Manager Tour</Link>,
+    key: "4",
 
     children: [
       {
         label: <Link to={"/tour-listTour"}>List Tour</Link>,
+        key: "4-1",
       },
 
       {
         label: <Link to={"/tour-createTour"}>Create Tour</Link>,
+        key: "4-2",
       },
       {
         label: <Link to={"/tour-updateTour/1"}>Update Tour</Link>,
+        key: "-3",
       },
     ],
   },
   {
     icon: <IconCalendarCheck />,
     label: <Link to={""}>Manager Calendar</Link>,
+    key: "5",
 
     children: [
       {
         label: <Link to={""}>List Calendar</Link>,
+        key: "5-1",
       },
       {
         label: <Link to={""}>Create Calendar</Link>,
+        key: "5-2",
       },
     ],
   },
   {
     icon: <IconCalendarCheck />,
     label: <Link to={""}>Manager Process Tour</Link>,
+    key: "6",
+
     children: [
       {
         label: <Link to={"/process-listProcessTour"}>List ProcessTour</Link>,
+        key: "6-1",
       },
       {
         label: (
           <Link to={"/process-createProcessTour"}>Create ProcessTour</Link>
         ),
+        key: "6-2",
       },
       {
         label: <Link to={"/process-updateProcessTour"}>List ProcessTour</Link>,
+        key: "6-3",
       },
     ],
   },
   {
     icon: <IconCalendarCheck />,
     label: <Link to={""}>Manager Booking Tour</Link>,
+    key: "7",
   },
   {
     icon: <IconSettings />,
     label: <Link to={""}>Setting</Link>,
+    key: "8",
   },
 ];
 function NavBarAdmin3() {
