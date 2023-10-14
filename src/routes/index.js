@@ -50,7 +50,7 @@ const publicRoutes = [
 
   { path: "/tour-listTour", component: ListTour, layout: AdminLayout },
   { path: "/tour-createTour", component: CreateTour, layout: AdminLayout },
-  { path: "/tour-updateTour/:id", component: UpdateTour, layout: AdminLayout },
+  { path: "/tour-updateTour", component: UpdateTour, layout: AdminLayout },
 
   {
     path: "/process-createProcessTour",

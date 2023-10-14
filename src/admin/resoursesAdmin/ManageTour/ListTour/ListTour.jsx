@@ -8,7 +8,6 @@ import { IconPlus } from "@tabler/icons-react";
 
 import TourService from "../../../../services/TourService";
 import ModalViewTour from "./component/ModalViewTour/ModalViewTour";
-
 function ListTour() {
   const [dataSourceTour, setDataSourceTour] = useState([]);
   const [totalPage, setTotalPage] = useState(0);
@@ -67,11 +66,24 @@ function ListTour() {
       title: "Miền",
       dataIndex: "domain",
       key: "domain",
+      render: (domainTour) => {
+        if (domainTour === "mienbac") {
+          return <div> Miền bắc</div>;
+        } else if (domainTour === "mientrung") {
+          return <div> Miền trung</div>;
+        } else if (domainTour === "miennam") {
+          return <div> Miền nam</div>;
+        } else {
+          return <div>{domainTour}</div>;
+        }
+      },
     },
     {
       title: "Kiểu ",
       dataIndex: "type",
       key: "type",
+      render: (typeTour) =>
+        typeTour === "noidia" ? <div>Nội địa </div> : <div>Nước ngoài</div>,
     },
     {
       title: "Action",
@@ -87,7 +99,7 @@ function ListTour() {
             </button>
           </Link>
 
-          <Link to={`/tour-updateTour/${record.id}`}>
+          <Link to={`/tour-updateTour/?idTour=${record.id}`}>
             <button className={cx("btn", "btn-warning")}>Update</button>
           </Link>
           <Link>

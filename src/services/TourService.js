@@ -16,7 +16,7 @@ const getTour = (rawData) => {
 };
 
 const getToursByPanigation = (rawData) => {
-  return axios.get("/api/v1/tour/getTourPanigation", { 
+  return axios.get("/api/v1/tour/getTourPanigation", {
     params: {
       page: rawData.page,
       limit: rawData.limit,
@@ -24,8 +24,13 @@ const getToursByPanigation = (rawData) => {
   });
 };
 
+const updateTour = (rawData) => {
+  return axios.put("/api/v1/tour/updateTour", rawData);
+};
+
 export default {
   createTour,
   getTour,
   getToursByPanigation,
+  updateTour,
 };

@@ -66,6 +66,8 @@ function ListProcessTour() {
     }
   };
 
+  console.log(dataSourceTour);
+
   const columns = [
     {
       title: "ID Tour",
@@ -76,6 +78,11 @@ function ListProcessTour() {
       title: "Tên Tour",
       dataIndex: "nameTour",
       key: "name",
+    },
+    {
+      title: "Tên chương trình tour",
+      dataIndex: "nameProcessTour",
+      key: "nameProcessTour",
     },
 
     {
@@ -105,30 +112,30 @@ function ListProcessTour() {
         ),
     },
 
-    {
-      title: "Kiểu Tour",
-      dataIndex: "typeTour",
-      key: "typeTour",
-      render: (typeTour) =>
-        typeTour === "noidia" ? <div>Nội địa </div> : <div>Nước ngoài</div>,
-    },
+    // {
+    //   title: "Kiểu Tour",
+    //   dataIndex: "typeTour",
+    //   key: "typeTour",
+    //   render: (typeTour) =>
+    //     typeTour === "noidia" ? <div>Nội địa </div> : <div>Nước ngoài</div>,
+    // },
 
-    {
-      title: "Miền Tour",
-      dataIndex: "domainTour",
-      key: "domainTour",
-      render: (domainTour) => {
-        if (domainTour === "mienbac") {
-          return <div> Miền bắc</div>;
-        } else if (domainTour === "mientrung") {
-          return <div> Miền trung</div>;
-        } else if (domainTour === "miennam") {
-          return <div> Miền nam</div>;
-        } else {
-          return <div>{domainTour}</div>;
-        }
-      },
-    },
+    // {
+    //   title: "Miền Tour",
+    //   dataIndex: "domainTour",
+    //   key: "domainTour",
+    //   render: (domainTour) => {
+    //     if (domainTour === "mienbac") {
+    //       return <div> Miền bắc</div>;
+    //     } else if (domainTour === "mientrung") {
+    //       return <div> Miền trung</div>;
+    //     } else if (domainTour === "miennam") {
+    //       return <div> Miền nam</div>;
+    //     } else {
+    //       return <div>{domainTour}</div>;
+    //     }
+    //   },
+    // },
 
     {
       title: "Action",

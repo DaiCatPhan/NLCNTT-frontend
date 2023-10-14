@@ -47,10 +47,6 @@ const items2 = [
         label: <Link to={"/tour-createTour"}>Create Tour</Link>,
         key: "4-2",
       },
-      {
-        label: <Link to={"/tour-updateTour/1"}>Update Tour</Link>,
-        key: "-3",
-      },
     ],
   },
   {
@@ -79,7 +75,6 @@ const items2 = [
         label: <Link to={"/process-listProcessTour"}>List ProcessTour</Link>,
         key: "6-1",
       },
-       
     ],
   },
   {

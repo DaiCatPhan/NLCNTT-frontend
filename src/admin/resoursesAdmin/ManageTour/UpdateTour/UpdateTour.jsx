@@ -1,25 +1,164 @@
 import className from "classnames/bind";
 import styles from "./UpdateTour.module.scss";
-import { Link } from "react-router-dom";
+const cx = className.bind(styles);
+import { Link, useSearchParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { IconAsterisk } from "@tabler/icons-react";
 import { IconUpload } from "@tabler/icons-react";
 
-const cx = className.bind(styles);
+import { Spin } from "antd";
+import { toast } from "react-toastify";
+
+import MarkdownIt from "markdown-it";
+import MdEditor from "react-markdown-editor-lite";
+import "react-markdown-editor-lite/lib/index.css";
+const mdParser = new MarkdownIt(/* Markdown-it options */);
+
+import TourService from "../../../../services/TourService";
 
 function UpdateTour() {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  function handleEditorChange({ html, text }) {
+    setDescriptionHTML(html);
+    setDescriptionTEXT(text);
+  }
+
   // data
+  const [id, setId] = useState(searchParams.get("idTour"));
   const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
+  const [priceAdult, setPriceAdult] = useState("");
+  const [priceChild, setPriceChild] = useState("");
   const [duration, setDuration] = useState("");
   const [type, setType] = useState("");
   const [domain, setDomain] = useState("");
   const [vehicle, setVehicle] = useState("");
   const [image, setImage] = useState("");
   const [imageLocal, setImageLocal] = useState("");
-  const [desription, setDescription] = useState("");
+  const [descriptionHTML, setDescriptionHTML] = useState("");
+  const [descriptionTEXT, setDescriptionTEXT] = useState("");
+  const [isShowSpin, setIsShowSpin] = useState(false);
+
+  const fetchData = async () => {
+    const res = await TourService.getTour({ id: id });
+    if (res && res.data.EC === 0 && res.data.DT.id) {
+      setName(res.data.DT.name);
+      setPriceAdult(res.data.DT.priceAdult);
+      setPriceChild(res.data.DT.priceChild);
+      setDuration(res.data.DT.duration);
+      setType(res.data.DT.type);
+      setDomain(res.data.DT.domain);
+      setVehicle(res.data.DT.vehicle);
+      setImageLocal(res.data.DT.image);
+      setDescriptionHTML(res.data.DT.descriptionHTML);
+      setDescriptionTEXT(res.data.DT.descriptionTEXT);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const handleImage = (e) => {
+    let data = e.target.files;
+    let file = data[0];
+
+    if (file) {
+      const imageUrlLocal = URL.createObjectURL(file);
+      setImage(file);
+      setImageLocal(imageUrlLocal);
+    }
+  };
+
+  const checkValidate = () => {
+    if (!id) {
+      toast.error("Không có id !!!!");
+      return;
+    }
+
+    if (!name || name.trim() === "") {
+      toast.error("Nhập thiếu dữ liệu name !!!!");
+      return;
+    }
+    if (!duration || duration.trim() === "") {
+      toast.error("Nhập thiếu dữ liệu duration !!!!");
+      return;
+    }
+    if (!priceAdult || priceAdult.trim() === "") {
+      toast.error("Nhập thiếu dữ liệu priceAdult !!!!");
+      return;
+    }
+    if (!priceChild || priceChild.trim() === "") {
+      toast.error("Nhập thiếu dữ liệu priceChild !!!!");
+      return false;
+    }
+    if (!type) {
+      toast.error("Nhập thiếu dữ liệu type !!!!");
+      return false;
+    }
+    if (!domain) {
+      toast.error("Nhập thiếu dữ liệu domain !!!!");
+      return false;
+    }
+    if (!vehicle) {
+      toast.error("Nhập thiếu dữ liệu vehicle !!!!");
+      return false;
+    }
+
+    if (!descriptionHTML) {
+      toast.error("Nhập thiếu dữ liệu desriptionHTML !!!!");
+      return false;
+    }
+    if (!descriptionTEXT) {
+      toast.error("Thiếu dữ liệu desriptionTEXT !!!!");
+      return false;
+    }
+    return true;
+  };
+
+  const handleEditTour = async () => {
+    try {
+      // Check validate
+      const checkData = checkValidate();
+
+      if (checkData === false) {
+        return;
+      }
+
+      // Init formData
+
+      const formData = new FormData();
+      formData.append("id", id);
+      formData.append("name", name);
+      formData.append("priceAdult", priceAdult);
+      formData.append("priceChild", priceChild);
+      formData.append("duration", duration);
+      formData.append("type", type);
+      formData.append("descriptionHTML", descriptionHTML);
+      formData.append("descriptionTEXT", descriptionTEXT);
+      formData.append("domain", domain);
+      formData.append("vehicle", vehicle);
+      formData.append("image", image);
+
+      // Goi API
+
+      setIsShowSpin(true);
+
+      const response = await TourService.updateTour(formData);
+
+      if (response && response.data.EC === 0) {
+        toast.success(response.data.EM);
+        setIsShowSpin(false);
+        fetchData();
+        window.scrollTo(0, 0);
+      } else {
+        toast.error(response.data.EM);
+      }
+    } catch (err) {
+      console.log(">> err", err);
+    }
+  };
 
   return (
     <div className={cx("wrapper")}>
@@ -30,7 +169,7 @@ function UpdateTour() {
           <Form>
             <Form.Group>
               <div className={cx("row my-5")}>
-                <div className={cx("col-lg-6 ", "col-md-12")}>
+                <div className={cx("col-lg-12 ", "col-md-12")}>
                   <Form.Label className={cx("")}>
                     Nhập tên Tour <IconAsterisk height={10} color="red" />
                   </Form.Label>
@@ -38,20 +177,24 @@ function UpdateTour() {
                     placeholder="Enter name tour"
                     className={cx("customInput")}
                     spellCheck={false}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                   />
                 </div>
-
-                <div className={cx("col-lg-6 ", "col-md-12")}>
+              </div>
+            </Form.Group>
+            <Form.Group>
+              <div className={cx("row my-5")}>
+                <div className={cx("col-lg-12", "col-md-12")}>
                   <Form.Label>
                     Tổng thời gian Tour
                     <IconAsterisk height={10} color="red" />
-                    <span className={cx("fs-4", "text-secondary")}>
-                      ( ex : 4 ngày 2 đêm )
-                    </span>
                   </Form.Label>
                   <Form.Control
                     placeholder="Enter tổng thời gian tour"
                     className={cx("customInput")}
+                    value={duration}
+                    onChange={(e) => setDuration(e.target.value)}
                   />
                 </div>
               </div>
@@ -66,7 +209,8 @@ function UpdateTour() {
                   <Form.Control
                     placeholder="Giá Tour người lớn"
                     className={cx("customInput")}
-                    spellCheck={false}
+                    value={priceAdult}
+                    onChange={(e) => setPriceAdult(e.target.value)}
                   />
                 </div>
 
@@ -79,6 +223,8 @@ function UpdateTour() {
                   <Form.Control
                     placeholder="Giá Tour trẻ em"
                     className={cx("customInput")}
+                    value={priceChild}
+                    onChange={(e) => setPriceChild(e.target.value)}
                   />
                 </div>
               </div>
@@ -93,9 +239,11 @@ function UpdateTour() {
                   <Form.Select
                     id="disabledSelect"
                     className={cx("customInput")}
+                    value={type}
+                    onChange={(e) => setType(e.target.value)}
                   >
-                    <option>Tour nội địa</option>
-                    <option> Tour nước ngoài</option>
+                    <option value={"noidia"}>Tour nội địa</option>
+                    <option value={"nuocngoai"}> Tour nước ngoài</option>
                   </Form.Select>
                 </div>
                 <div className={cx("col-4 ")}>
@@ -105,10 +253,12 @@ function UpdateTour() {
                   <Form.Select
                     id="disabledSelect"
                     className={cx("customInput")}
+                    value={domain}
+                    onChange={(e) => setDomain(e.target.value)}
                   >
-                    <option>Miền Bắc</option>
-                    <option> Miền Trung</option>
-                    <option> Miền Nam</option>
+                    <option value={"mienbac"}>Miền Bắc</option>
+                    <option value={"mientrung"}> Miền Trung</option>
+                    <option value={"miennam"}> Miền Nam</option>
                   </Form.Select>
                 </div>
                 <div className={cx("col-4 ")}>
@@ -118,10 +268,12 @@ function UpdateTour() {
                   <Form.Select
                     id="disabledSelect"
                     className={cx("customInput")}
+                    value={vehicle}
+                    onChange={(e) => setVehicle(e.target.value)}
                   >
-                    <option>Xe du lịch</option>
-                    <option> Máy bay</option>
-                    <option> Tàu</option>
+                    <option value={"xedulich"}>Xe du lịch</option>
+                    <option value={"maybay"}> Máy bay</option>
+                    <option value={"tau"}> Tàu</option>
                   </Form.Select>
                 </div>
               </div>
@@ -145,14 +297,15 @@ function UpdateTour() {
                       width={30}
                     />
                   </label>
-                  <input className={cx("d-none")} type="file" id="upImg" />
+                  <input
+                    onChange={handleImage}
+                    className={cx("d-none")}
+                    type="file"
+                    id="upImg"
+                  />
                 </div>
                 <div className={cx("")}>
-                  <img
-                    height={250}
-                    src="https://demoda.vn/wp-content/uploads/2022/01/hinh-nen-desktop-1-800x533.jpg"
-                    alt=""
-                  />
+                  <img height={250} src={imageLocal} alt="notFound" />
                 </div>
               </div>
             </Form.Group>
@@ -163,7 +316,26 @@ function UpdateTour() {
           <h3 className={cx("my-4")}>
             Mô tả 1 vài thông tin Tour <IconAsterisk height={10} color="red" />
           </h3>
-          <div className={cx("formDes")}></div>
+          <div className={cx("formDes")}>
+            <MdEditor
+              style={{ height: "500px", width: "100%" }}
+              renderHTML={(text) => mdParser.render(text)}
+              onChange={handleEditorChange}
+              value={descriptionTEXT}
+              className={cx("markdownForm")}
+            />
+          </div>
+          <div className={cx("text-center my-5")}>
+            <button
+              onClick={handleEditTour}
+              className={cx(
+                "btn btn-warning border border-warning fs-3 text-white "
+              )}
+            >
+              {isShowSpin && <Spin />}
+              Cập nhật Tour
+            </button>
+          </div>
         </div>
       </div>
     </div>
