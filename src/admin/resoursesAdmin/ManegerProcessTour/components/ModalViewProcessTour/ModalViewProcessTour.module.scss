@@ -1,0 +1,30 @@
+.modal {
+  animation: slideRight 0.5s;
+
+  width: 75%;
+  height: 100%;
+  margin: 0;
+}
+
+@keyframes slideRight {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.wrapperBody {
+  width: 75%;
+  border: 1px solid red;
+}
+
+.process {
+  border: 1px solid blue;
+  margin: 0 30px;
+}
+
+.w-30px {
+  width: 100px;
+}

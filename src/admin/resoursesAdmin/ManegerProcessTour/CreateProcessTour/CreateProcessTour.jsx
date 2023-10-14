@@ -7,11 +7,14 @@ import { useEffect, useRef, useState } from "react";
 import Form from "react-bootstrap/Form";
 import { useSearchParams, useParams } from "react-router-dom";
 import { IconArrowLeft } from "@tabler/icons-react";
+import { toast } from "react-toastify";
 
 import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
 import "react-markdown-editor-lite/lib/index.css";
 const mdParser = new MarkdownIt(/* Markdown-it options */);
+
+import ProcessTourService from "../../../../services/ProcessTourService";
 
 function CreateProcessTour() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -21,20 +24,65 @@ function CreateProcessTour() {
   const [imageTour, setImageTour] = useState(searchParams?.get("img"));
   const [nameTour, setMameTour] = useState(searchParams?.get("name"));
   // markdown
-  const [desriptionHTML, setDescriptionHTML] = useState("");
-  const [desriptionTEXT, setDescriptionTEXT] = useState("");
+  const [descriptionHTML, setDescriptionHTML] = useState("");
+  const [descriptionTEXT, setDescriptionTEXT] = useState("");
   function handleEditorChange({ html, text }) {
     setDescriptionHTML(html);
     setDescriptionTEXT(text);
   }
 
-  const handleSubmit = () => {
-    console.log({idTour , nameProcessTour, desriptionHTML, desriptionTEXT });
+  const handleClose = () => {
+    setNameProcessTour("");
+    setDescriptionHTML("");
+    setDescriptionTEXT("");
+  };
+
+  const checkValidate = () => {
+    if (!nameProcessTour) {
+      toast.error("Nhập thiếu Tên chương trình Tour");
+      return false;
+    }
+    if (!descriptionHTML) {
+      toast.error("Nhập thiếu mô tả HTML chương trình Tour");
+      return false;
+    }
+    if (!descriptionTEXT) {
+      toast.error("Nhập thiếu mô tả Text chương trình Tour");
+      return false;
+    }
+    if (!idTour) {
+      toast.error("Không có ID Tour");
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = async () => {
+    const check = checkValidate();
+
+    if (!check) {
+      return;
+    }
+
+    const res = await ProcessTourService.createProcessTour({
+      idTour: idTour,
+      name: nameProcessTour,
+      descriptionHTML: descriptionHTML,
+      descriptionTEXT: descriptionTEXT,
+    });
+
+    if (res && res.data.DT.id && res.data.EC === 0) {
+      console.log(">>> res", res);
+      toast.success(res.data.EM);
+      handleClose();
+    } else {
+      toast.warning(res.data.EM);
+    }
   };
 
   return (
     <div className={cx("wrapper")}>
-      <div className={cx("bodyWrapper", "position-relative")}> 
+      <div className={cx("bodyWrapper", "position-relative")}>
         <span className={cx("backIcon")}>
           <Link to={"/process-listProcessTour"}>
             <IconArrowLeft height={30} width={30} color="grey" />

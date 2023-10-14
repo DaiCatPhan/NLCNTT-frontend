@@ -10,8 +10,12 @@ import { Pagination } from "antd";
 import moment from "moment";
 
 import ProcessTourService from "../../../../services/ProcessTourService";
-
+import ModalViewProcessTour from "../components/ModalViewProcessTour";
 function ListProcessTour() {
+  const [isShowModalViewProcessTour, setIsShowModalViewProcessTour] =
+    useState(false);
+  const [dataModalViewProcessTour, setDataModalViewProcessTour] = useState({});
+
   const [dataSourceTour, setDataSourceTour] = useState([]);
   const [totalPage, setTotalPage] = useState(0);
   const [tableParams, setTableParams] = useState({
@@ -82,23 +86,41 @@ function ListProcessTour() {
 
     {
       title: "Chương trình Tour",
-      dataIndex: "descriptionTEXTProcessTour",
-      key: "descriptionTEXTProcessTour",
-      render: (descriptionTEXTProcessTour) => (
-        <div>{descriptionTEXTProcessTour}</div>
-      ),
+      dataIndex: "descriptionHTMLProcessTour",
+      key: "descriptionHTMLProcessTour",
+      render: (descriptionHTMLProcessTour) =>
+        descriptionHTMLProcessTour ? (
+          <div className={cx("text-primary")}>
+            <b>Đã tạo</b>
+          </div>
+        ) : (
+          <div className={cx("text-warning")}>Chưa tạo</div>
+        ),
     },
 
     {
       title: "Kiểu Tour",
       dataIndex: "typeTour",
       key: "typeTour",
+      render: (typeTour) =>
+        typeTour === "noidia" ? <div>Nội địa </div> : <div>Nước ngoài</div>,
     },
 
     {
       title: "Miền Tour",
       dataIndex: "domainTour",
       key: "domainTour",
+      render: (domainTour) => {
+        if (domainTour === "mienbac") {
+          return <div> Miền bắc</div>;
+        } else if (domainTour === "mientrung") {
+          return <div> Miền trung</div>;
+        } else if (domainTour === "miennam") {
+          return <div> Miền nam</div>;
+        } else {
+          return <div>{domainTour}</div>;
+        }
+      },
     },
 
     {
@@ -108,10 +130,15 @@ function ListProcessTour() {
       render: (record) => (
         <Space size="middle">
           <Link>
-            <button className={cx("btn", "btn-primary")}>View </button>
+            <button
+              onClick={() => handleModalViewProcessTour(record)}
+              className={cx("btn", "btn-primary")}
+            >
+              View
+            </button>
           </Link>
           <Link
-            to={`/process-createProcessTour/?idTour=${record.id}&img=${record.image}&name=${record.name}`}
+            to={`/process-createProcessTour/?idTour=${record.idTour}&img=${record.imageTour}&name=${record.nameTour}`}
           >
             <button className={cx("btn", "btn-primary")}>Create </button>
           </Link>
@@ -130,6 +157,11 @@ function ListProcessTour() {
   useEffect(() => {
     callAPIgetTours();
   }, [tableParams]);
+
+  const handleModalViewProcessTour = (record) => {
+    setIsShowModalViewProcessTour(true);
+    setDataModalViewProcessTour(record);
+  };
 
   return (
     <div className={cx("wrapper")}>
@@ -150,6 +182,14 @@ function ListProcessTour() {
           />
         </div>
       </div>
+
+      {/* Modal View Process Tour */}
+      <ModalViewProcessTour
+        isShowModalViewProcessTour={isShowModalViewProcessTour}
+        setIsShowModalViewProcessTour={setIsShowModalViewProcessTour}
+        dataModalViewProcessTour={dataModalViewProcessTour}
+        setDataModalViewProcessTour={setDataModalViewProcessTour}
+      />
     </div>
   );
 }

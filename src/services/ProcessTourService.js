@@ -9,6 +9,11 @@ const getToursByPanigation = (rawData) => {
   });
 };
 
+const createProcessTour = (rawData) => {
+  return axios.post("/api/v1/processTour/create", rawData);
+};
+
 export default {
   getToursByPanigation,
+  createProcessTour,
 };
