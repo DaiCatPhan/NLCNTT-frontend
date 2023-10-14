@@ -8,6 +8,7 @@ import Form from "react-bootstrap/Form";
 import { useSearchParams, useParams } from "react-router-dom";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
@@ -18,7 +19,7 @@ import ProcessTourService from "../../../../services/ProcessTourService";
 
 function CreateProcessTour() {
   const [searchParams, setSearchParams] = useSearchParams();
-
+  const navigate = useNavigate();
   const [nameProcessTour, setNameProcessTour] = useState("");
   const [idTour, setIdTour] = useState(searchParams?.get("idTour"));
   const [imageTour, setImageTour] = useState(searchParams?.get("img"));
@@ -66,15 +67,19 @@ function CreateProcessTour() {
 
     const res = await ProcessTourService.createProcessTour({
       idTour: idTour,
-      name: nameProcessTour,
+      nameProcessTour: nameProcessTour,
       descriptionHTML: descriptionHTML,
       descriptionTEXT: descriptionTEXT,
     });
 
+    console.log(res);
+
     if (res && res.data.DT.id && res.data.EC === 0) {
-      console.log(">>> res", res);
       toast.success(res.data.EM);
       handleClose();
+      setTimeout(() => {
+        navigate("/process-listProcessTour");
+      }, 700);
     } else {
       toast.warning(res.data.EM);
     }

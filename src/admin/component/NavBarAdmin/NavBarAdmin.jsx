@@ -79,16 +79,7 @@ const items2 = [
         label: <Link to={"/process-listProcessTour"}>List ProcessTour</Link>,
         key: "6-1",
       },
-      {
-        label: (
-          <Link to={"/process-createProcessTour"}>Create ProcessTour</Link>
-        ),
-        key: "6-2",
-      },
-      {
-        label: <Link to={"/process-updateProcessTour"}>List ProcessTour</Link>,
-        key: "6-3",
-      },
+       
     ],
   },
   {

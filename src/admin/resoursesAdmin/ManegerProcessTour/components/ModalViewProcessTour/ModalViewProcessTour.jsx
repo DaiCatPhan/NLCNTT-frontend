@@ -13,7 +13,6 @@ function ModalViewProcessTour(rawData) {
     setDataModalViewProcessTour,
   } = rawData;
 
-  console.log(">>>", dataModalViewProcessTour);
 
   const handleClose = () => {
     setIsShowModalViewProcessTour(false);
@@ -30,12 +29,16 @@ function ModalViewProcessTour(rawData) {
         size="fullscreen"
       >
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title className={cx(" w-75  text-center")}>
+            <h3 className={cx("text-truncate")}>
+              <b>{dataModalViewProcessTour.nameProcessTour}</b>
+            </h3>
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body className={cx("wrapperBody")}>
           <div className={cx("process")}>
             <img
-              className={cx("w-100")}
+              className={cx("w-100",'imgTour')}
               src={dataModalViewProcessTour.imageTour}
               alt="notFound"
             />
@@ -45,14 +48,19 @@ function ModalViewProcessTour(rawData) {
               )}
             >
               <div className={cx("w-30px")}>
-                ID TOUR : {dataModalViewProcessTour.idTour}{" "}
+                ID TOUR : {dataModalViewProcessTour.idTour}
               </div>
               <div className={cx("text-truncate")}>
                 {dataModalViewProcessTour.nameTour}
               </div>
-              <div className={cx("w-30px")}>  </div>
+              <div className={cx("w-30px")}> </div>
             </div>
-              <div dangerouslySetInnerHTML={{__html: dataModalViewProcessTour.descriptionHTMLProcessTour}}></div>
+            <div
+              className={cx("desHTML")}
+              dangerouslySetInnerHTML={{
+                __html: dataModalViewProcessTour.descriptionHTMLProcessTour, 
+              }}
+            ></div>
           </div>
         </Modal.Body>
         <Modal.Footer>

@@ -11,10 +11,16 @@ import moment from "moment";
 
 import ProcessTourService from "../../../../services/ProcessTourService";
 import ModalViewProcessTour from "../components/ModalViewProcessTour";
+import ModalDeleteProcessTour from "../components/ModalDeleteProcessTour";
+
 function ListProcessTour() {
   const [isShowModalViewProcessTour, setIsShowModalViewProcessTour] =
     useState(false);
   const [dataModalViewProcessTour, setDataModalViewProcessTour] = useState({});
+  const [isShowModalDeleteProcessTour, setIsShowModalDeleteProcessTour] =
+    useState(false);
+  const [dataModalDeleteProcessTour, setDataModalDeleteProcessTour] =
+    useState(null);
 
   const [dataSourceTour, setDataSourceTour] = useState([]);
   const [totalPage, setTotalPage] = useState(0);
@@ -46,6 +52,7 @@ function ListProcessTour() {
         object.typeTour = item.type;
         object.domainTour = item.domain;
         object.imageTour = item.image;
+        object.idProcessTour = item.ProcessTour?.id;
         object.nameProcessTour = item.ProcessTour?.name;
         object.descriptionHTMLProcessTour = item.ProcessTour?.descriptionHTML;
         object.descriptionTEXTProcessTour = item.ProcessTour?.descriptionTEXT;
@@ -143,11 +150,16 @@ function ListProcessTour() {
             <button className={cx("btn", "btn-primary")}>Create </button>
           </Link>
 
-          <Link to={""}>
+          <Link to={`/process-updateProcessTour/?idTour=${record.idTour}`}>
             <button className={cx("btn", "btn-warning")}>Update </button>
           </Link>
           <Link>
-            <button className={cx("btn", "btn-danger")}>Delete </button>
+            <button
+              onClick={() => handleModalDeleteProcessTour(record)}
+              className={cx("btn", "btn-danger")}
+            >
+              Delete{" "}
+            </button>
           </Link>
         </Space>
       ),
@@ -161,6 +173,12 @@ function ListProcessTour() {
   const handleModalViewProcessTour = (record) => {
     setIsShowModalViewProcessTour(true);
     setDataModalViewProcessTour(record);
+  };
+
+  const handleModalDeleteProcessTour = (record) => {
+    console.log(">> idTour", record);
+    setIsShowModalDeleteProcessTour(true);
+    setDataModalDeleteProcessTour(record);
   };
 
   return (
@@ -189,6 +207,14 @@ function ListProcessTour() {
         setIsShowModalViewProcessTour={setIsShowModalViewProcessTour}
         dataModalViewProcessTour={dataModalViewProcessTour}
         setDataModalViewProcessTour={setDataModalViewProcessTour}
+      />
+
+      <ModalDeleteProcessTour
+        isShowModalDeleteProcessTour={isShowModalDeleteProcessTour}
+        setIsShowModalDeleteProcessTour={setIsShowModalDeleteProcessTour}
+        dataModalDeleteProcessTour={dataModalDeleteProcessTour}
+        setDataModalDeleteProcessTour={setDataModalDeleteProcessTour}
+        callAPIgetTours={callAPIgetTours}
       />
     </div>
   );
