@@ -9,6 +9,7 @@ import { useSearchParams, useParams } from "react-router-dom";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { Spin } from "antd";
 
 import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
@@ -92,12 +93,12 @@ function UpdateProcessTour() {
       descriptionTEXT,
     });
 
-    console.log(res);
-
     if (res && res.data.EC === 0) {
-      toast.success(res.data.EM);
       setIsShowLoading(false);
-      window.scrollTo(0, 0);
+      toast.success(res.data.EM);
+      // setTimeout(() => {
+      //   window.scrollTo(0, 0);
+      // }, 700);
     } else {
       toast.success(res.data.EM);
     }
@@ -167,6 +168,7 @@ function UpdateProcessTour() {
                 "btn btn-warning border border-warning fs-3 text-white "
               )}
             >
+              {isShowLoading && <Spin />}
               Cập nhật Chương Trình Tour
             </button>
           </div>

@@ -9,6 +9,7 @@ import { useSearchParams, useParams } from "react-router-dom";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { Spin } from "antd";
 
 import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
@@ -24,6 +25,8 @@ function CreateProcessTour() {
   const [idTour, setIdTour] = useState(searchParams?.get("idTour"));
   const [imageTour, setImageTour] = useState(searchParams?.get("img"));
   const [nameTour, setMameTour] = useState(searchParams?.get("name"));
+
+  const [isShowSpin, setIsShowSpin] = useState(false);
   // markdown
   const [descriptionHTML, setDescriptionHTML] = useState("");
   const [descriptionTEXT, setDescriptionTEXT] = useState("");
@@ -65,6 +68,8 @@ function CreateProcessTour() {
       return;
     }
 
+    setIsShowSpin(true);
+
     const res = await ProcessTourService.createProcessTour({
       idTour: idTour,
       nameProcessTour: nameProcessTour,
@@ -72,16 +77,16 @@ function CreateProcessTour() {
       descriptionTEXT: descriptionTEXT,
     });
 
-    console.log(res);
-
     if (res && res.data.DT.id && res.data.EC === 0) {
       toast.success(res.data.EM);
       handleClose();
       setTimeout(() => {
         navigate("/process-listProcessTour");
       }, 700);
+      setIsShowSpin(false);
     } else {
       toast.warning(res.data.EM);
+      navigate("/process-listProcessTour");
     }
   };
 
@@ -146,6 +151,7 @@ function CreateProcessTour() {
                 "btn btn-warning border border-warning fs-3 text-white "
               )}
             >
+              {isShowSpin && <Spin />}
               Tạo Chương Trình Tour
             </button>
           </div>

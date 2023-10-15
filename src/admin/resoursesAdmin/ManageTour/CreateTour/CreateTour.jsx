@@ -30,8 +30,8 @@ function CreateTour() {
   const [image, setImage] = useState("");
   const [imageLocal, setImageLocal] = useState("");
   // markdown
-  const [desriptionHTML, setDescriptionHTML] = useState("");
-  const [desriptionTEXT, setDescriptionTEXT] = useState("");
+  const [descriptionHTML, setDescriptionHTML] = useState("");
+  const [descriptionTEXT, setDescriptionTEXT] = useState("");
 
   function handleEditorChange({ html, text }) {
     setDescriptionHTML(html);
@@ -75,11 +75,11 @@ function CreateTour() {
       toast.error("Nhập thiếu dữ liệu image !!!!");
       return false;
     }
-    if (!desriptionHTML) {
+    if (!descriptionHTML) {
       toast.error("Nhập thiếu dữ liệu desriptionHTML !!!!");
       return false;
     }
-    if (!desriptionTEXT) {
+    if (!descriptionTEXT) {
       toast.error("Thiếu dữ liệu desriptionTEXT !!!!");
       return false;
     }
@@ -91,10 +91,6 @@ function CreateTour() {
     let file = data[0];
 
     if (file) {
-      // if (file.type != "text/jpg" || file.type != "text/png") {
-      //   toast.error("Chỉ upload ảnh .jpg or .png");
-      //   return;
-      // }
       const imageUrlLocal = URL.createObjectURL(file);
       setImage(file);
       setImageLocal(imageUrlLocal);
@@ -127,8 +123,8 @@ function CreateTour() {
     formData.append("priceChild", priceChild);
     formData.append("duration", duration);
     formData.append("type", type);
-    formData.append("desriptionHTML", desriptionHTML);
-    formData.append("desriptionTEXT", desriptionTEXT);
+    formData.append("descriptionHTML", descriptionHTML);
+    formData.append("descriptionTEXT", descriptionTEXT);
     formData.append("domain", domain);
     formData.append("vehicle", vehicle);
     formData.append("image", image);
@@ -141,6 +137,9 @@ function CreateTour() {
       toast.success(res.data.EM);
       setIsShowSpin(false);
       handleClose();
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+      }, 700);
     } else {
       toast.error(res.data.EM);
     }
@@ -253,6 +252,7 @@ function CreateTour() {
                     <option value={"mienbac"}>Miền Bắc</option>
                     <option value={"mientrung"}> Miền Trung</option>
                     <option value={"miennam"}> Miền Nam</option>
+                    <option value={"nuocngoai"}>Nước ngoài</option>
                   </Form.Select>
                 </div>
                 <div className={cx("col-lg-4 ", "col-md-6", "col-sm-12")}>

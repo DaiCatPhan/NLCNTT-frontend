@@ -28,9 +28,14 @@ const updateTour = (rawData) => {
   return axios.put("/api/v1/tour/updateTour", rawData);
 };
 
+const getAllTour = () => {
+  return axios.get("/api/v1/tour/getAllTour");
+};
+
 export default {
   createTour,
   getTour,
   getToursByPanigation,
   updateTour,
+  getAllTour,
 };

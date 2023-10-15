@@ -17,6 +17,7 @@ import "react-markdown-editor-lite/lib/index.css";
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
 import TourService from "../../../../services/TourService";
+import { IconArrowNarrowLeft } from "@tabler/icons-react";
 
 function UpdateTour() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -74,20 +75,20 @@ function UpdateTour() {
   const checkValidate = () => {
     if (!id) {
       toast.error("Không có id !!!!");
-      return;
+      return false;
     }
 
     if (!name || name.trim() === "") {
       toast.error("Nhập thiếu dữ liệu name !!!!");
-      return;
+      return false;
     }
     if (!duration || duration.trim() === "") {
       toast.error("Nhập thiếu dữ liệu duration !!!!");
-      return;
+      return false;
     }
     if (!priceAdult || priceAdult.trim() === "") {
       toast.error("Nhập thiếu dữ liệu priceAdult !!!!");
-      return;
+      return false;
     }
     if (!priceChild || priceChild.trim() === "") {
       toast.error("Nhập thiếu dữ liệu priceChild !!!!");
@@ -121,7 +122,6 @@ function UpdateTour() {
     try {
       // Check validate
       const checkData = checkValidate();
-
       if (checkData === false) {
         return;
       }
@@ -149,8 +149,8 @@ function UpdateTour() {
 
       if (response && response.data.EC === 0) {
         toast.success(response.data.EM);
-        setIsShowSpin(false);
         fetchData();
+        setIsShowSpin(false);
         window.scrollTo(0, 0);
       } else {
         toast.error(response.data.EM);
@@ -165,7 +165,10 @@ function UpdateTour() {
       <div className={cx("bodyWrapper")}>
         {/* form */}
         <div className={cx("formCreateTour")}>
-          <h1 className={cx("title")}>Update Tour</h1>
+          <Link to={"/tour-listTour"}>
+            <IconArrowNarrowLeft className={cx("iconBack")} />
+          </Link>
+          <h1 className={cx("title", "text-center")}>Update Tour</h1>
           <Form>
             <Form.Group>
               <div className={cx("row my-5")}>
@@ -259,6 +262,7 @@ function UpdateTour() {
                     <option value={"mienbac"}>Miền Bắc</option>
                     <option value={"mientrung"}> Miền Trung</option>
                     <option value={"miennam"}> Miền Nam</option>
+                    <option value={"nuocngoai"}> Nước ngoài</option>
                   </Form.Select>
                 </div>
                 <div className={cx("col-4 ")}>

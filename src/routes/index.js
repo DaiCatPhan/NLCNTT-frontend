@@ -3,27 +3,35 @@ import Register from "../pages/Register";
 import FirstPage from "../pages/FirstPage";
 import NotFoundPage from "../admin/component/NotFoundPage";
 
-// ADMIN =======================
-import HomeAdmin from "../admin/resoursesAdmin/HomeAdmin";
+// Layout
+import NoneLayout from "../layouts/NoneLayout";
+import AdminLayout from "../layouts/AdminLayout";
 
+// +++++++++++++++++++++++++++++++++++++++++++++++++++ ADMIN +++++++++++++++++++++++++++++++++++++++++
+import HomeAdmin from "../admin/resoursesAdmin/HomeAdmin";
 import Dashboard from "../admin/resoursesAdmin/Dashboard";
 
+// Module USER
 import ListUser from "../admin/resoursesAdmin/ManageUser/ListUser";
 
+// Module CALENDAR
+import ListCalendar from "../admin/resoursesAdmin/ManagerCalendar/ListCalendar";
+import CreateCalendar from "../admin/resoursesAdmin/ManagerCalendar/CreateCalendar";
+
+// Module TOUR
 import ListTour from "../admin/resoursesAdmin/ManageTour/ListTour";
 import UpdateTour from "../admin/resoursesAdmin/ManageTour/UpdateTour";
 import CreateTour from "../admin/resoursesAdmin/ManageTour/CreateTour";
 
+// Module PROCESSTOUR
 import CreateProcessTour from "../admin/resoursesAdmin/ManegerProcessTour/CreateProcessTour";
 import ListProcessTour from "../admin/resoursesAdmin/ManegerProcessTour/ListProcessTour";
 import UpdateProcessTour from "../admin/resoursesAdmin/ManegerProcessTour/UpdateProcessTour";
 
-// tour
+// Module STAFF
 import StaffDetail from "../admin/resoursesAdmin/ManageUser/StaffDetail";
 
-// Layout
-import NoneLayout from "../layouts/NoneLayout";
-import AdminLayout from "../layouts/AdminLayout";
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++ USER +++++++++++++++++++++++++++++++++++++++++++++
 
 import Structure from "../resources/AboutUs/Structure";
 import BusinessAreas from "../resources/AboutUs/BusinessAreas";
@@ -45,12 +53,17 @@ const publicRoutes = [
   { path: "/homeadmin", component: HomeAdmin, layout: AdminLayout },
   { path: "/dashboard", component: Dashboard, layout: AdminLayout },
 
+  // STAFF
+
   { path: "/user-listUser/:id", component: StaffDetail, layout: AdminLayout },
   { path: "/user-listUser", component: ListUser, layout: AdminLayout },
 
+  // TOUR
   { path: "/tour-listTour", component: ListTour, layout: AdminLayout },
   { path: "/tour-createTour", component: CreateTour, layout: AdminLayout },
   { path: "/tour-updateTour", component: UpdateTour, layout: AdminLayout },
+
+  // PROCESSTOUR
 
   {
     path: "/process-createProcessTour",
@@ -65,6 +78,18 @@ const publicRoutes = [
   {
     path: "/process-updateProcessTour",
     component: UpdateProcessTour,
+    layout: AdminLayout,
+  },
+
+  // CALENDAR
+  {
+    path: "/calendar-listCalendarTour",
+    component: ListCalendar,
+    layout: AdminLayout,
+  },
+  {
+    path: "/calendar-createCalendarTour",
+    component: CreateCalendar,
     layout: AdminLayout,
   },
 

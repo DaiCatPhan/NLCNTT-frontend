@@ -74,7 +74,7 @@ function ListTour() {
         } else if (domainTour === "miennam") {
           return <div> Miền nam</div>;
         } else {
-          return <div>{domainTour}</div>;
+          return <div>Nước ngoài</div>;
         }
       },
     },
@@ -112,7 +112,6 @@ function ListTour() {
 
   // handleView
   const handleModalViewTour = async (data) => {
-    console.log(">>> dataRecord", data);
     setDataModalView(data);
     setIsShowModalView(true);
   };
@@ -187,14 +186,13 @@ function ListTour() {
             pageSize: tableParams.pagination.pageSize,
             total: totalPage,
             showSizeChanger: true,
-            pageSizeOptions: ["1", "2", "3", "6", "9", "12"],
+            pageSizeOptions: ["1", "2", "3", "5", "9", "12"],
           }}
           onChange={handleTableChange}
           dataSource={dataSourceTour}
           columns={columns}
           bordered
         />
-        ;
       </div>
 
       <ModalViewTour
