@@ -12,6 +12,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "react-datepicker/dist/react-datepicker-cssmodules.css";
 import moment from "moment";
 import { toast } from "react-toastify";
+import { mutate } from "swr";
 
 import Select from "react-select";
 import { useEffect, useState } from "react";
@@ -30,9 +31,7 @@ function CreateCalendar() {
   const [allTour, setAllTour] = useState([]);
 
   // table
-  // const [dataTable, setDataTable] = useState([]);
   const [dataTable, setDataTable] = useState([]);
-  console.log(">> dataTable", dataTable);
 
   const fetchData = async () => {
     const res = await TourService.getAllTour();
@@ -107,8 +106,18 @@ function CreateCalendar() {
               </b>
             </div>
             <div>
-              <button>Update</button>
-              <button>Delete</button>
+              <button
+                onClick={handleDeleteCalendar}
+                className={cx("btn border border-primary mx-2")}
+              >
+                Update
+              </button>
+              <button
+                onClick={handleUpdateCalendar}
+                className={cx("btn border border-danger")}
+              >
+                Delete
+              </button>
             </div>
           </div>
         )),
@@ -117,12 +126,18 @@ function CreateCalendar() {
 
   const handleChangeSelect = (selectedOption) => {
     setSelectedOption(selectedOption);
-    filterTour(selectedOption.value);
+    if (selectedOption) {
+      filterTour(selectedOption.value);
+    }
   };
 
   const filterTour = (idTour) => {
-    const result = allTour?.filter((item) => item.idTour === idTour);
-    setDataTable(result);
+    if (idTour) {
+      const result = allTour?.filter((item) => item.idTour === idTour);
+      setDataTable(result);
+    } else {
+      setDataTable([]); // Reset the table when no option is selected
+    }
   };
 
   const checkValidate = () => {
@@ -145,6 +160,12 @@ function CreateCalendar() {
     return true;
   };
 
+  const handleClose = () => {
+    setNumberSeat("");
+    setStartDate(null);
+    setEndDate(null);
+  };
+
   const handleSubmitCalendar = async () => {
     const validate = checkValidate();
     if (!validate) {
@@ -160,27 +181,45 @@ function CreateCalendar() {
 
     if (res && res.data.EC === 0 && res.data.DT.id) {
       toast.success("Tạo lịch thành công ");
+
+      const newCalendar = {
+        id: res.data.DT.id,
+        numberSeat: res.data.DT.numberSeat,
+        startDay: res.data.DT.startDay,
+        endDay: res.data.DT.endDay,
+      };
+      const resIdTour = res.data.DT.idTour;
+      const targetTour = dataTable.find((tour) => tour.idTour === resIdTour);
+
+      if (targetTour) {
+        targetTour.calendar.push(newCalendar);
+      }
+
+      // setDataTable((prevData) => [...prevData, newCalendar]);
       handleClose();
       fetchData();
     }
   };
 
-  const handleClose = () => {
-    setNumberSeat("");
-    setStartDate(null);
-    setEndDate(null);
-    setSelectedOption(null);
+  const handleDeleteCalendar = () => {
+    alert("Xoa");
   };
+
+  const handleUpdateCalendar = () => {
+    alert("Update");
+  };
+
 
   return (
     <div className={cx("wraper")}>
       <div className={cx("bodyWrapper")}>
         <h1>Tạo Lịch cho Tour</h1>
-        <div className={cx("add", "border my-5 p-5")}>
+        <div className={cx("add", "border border-primary my-5 p-5")}>
           <Select
             value={selectedOption}
             onChange={handleChangeSelect}
             options={options}
+            className={cx("border border-primary rounded")}
           />
 
           <Form>
@@ -240,7 +279,12 @@ function CreateCalendar() {
           </Form>
 
           <div className={cx("text-center")}>
-            <button onClick={handleSubmitCalendar}>Taọ lịch</button>
+            <button
+              onClick={handleSubmitCalendar}
+              className={cx("btn btn-primary fs-4 px-5 ")}
+            >
+              Taọ lịch
+            </button>
           </div>
         </div>
         <div className={cx("tableList")}>
