@@ -20,19 +20,54 @@ const cx = className.bind(styles);
 function Tour() {
   const [numberTicket, setNumberTicket] = useState(0);
   const [tourDetail, setTourDetail] = useState({});
-  console.log("tourDetail", tourDetail);
+  const [calendarTour, setCalendarTour] = useState([]);
+  const [processTour, setProcessTour] = useState({});
   let { id } = useParams();
 
+  const [selectedCalendar, setSelectedCalendar] = useState({});
+  console.log("Đã chọn lịch ", selectedCalendar);
+
   const getTourById = async () => {
-    const res = await TourService.getTour({ id: id });
-    if (res && res.data.EC === 0 && res.data.DT.id) {
-      setTourDetail(res.data.DT);
+    try {
+      const res = await TourService.getTourDetailById({ id: id });
+      if (res && res.data.EC === 0 && res.data.DT.id) {
+        setTourDetail(res?.data?.DT);
+        setProcessTour(res?.data?.DT?.ProcessTour);
+        setCalendarTour(
+          res?.data?.DT?.Calendars?.map((item) => {
+            return {
+              ...item,
+              isSelected: false,
+            };
+          })
+        );
+      }
+    } catch (error) {
+      console.log("error", error);
     }
   };
 
   useEffect(() => {
     getTourById();
   }, []);
+
+  const handleBookingTour = () => {
+    alert("Booking Tour");
+  };
+
+  const handleSelectCalendar = (item) => {
+    console.log("handleSelectCalendar", item);
+    setSelectedCalendar(item);
+
+    let selectedCal = calendarTour?.map((calendar) => {
+      calendar.isSelected = false;
+      if (calendar.id === item.id) {
+        calendar.isSelected = !calendar.isSelected;
+      }
+      return calendar;
+    });
+    setCalendarTour(selectedCal);
+  };
 
   return (
     <div className={cx("wrapper")}>
@@ -88,36 +123,64 @@ function Tour() {
       {/* bgProcessTour */}
       <hr />
       <div className={cx("bgProcessTour")}>
-        <div className={cx("processTour")}>
-          <div className={cx("tab")}>
-            {tourDetail && tourDetail?.desriptionHTML && (
-              <div
-                dangerouslySetInnerHTML={{ __html: tourDetail.desriptionHTML }}
-                className={cx("desTour")}
-              ></div>
-            )}
+        <div className={cx("detailTour", "row")}>
+          <div className={cx("processTour", "col-lg-8 col-md-12 col-sm-12")}>
+            <div className={cx("desctiptionTour")}>
+              {tourDetail && tourDetail?.descriptionHTML && (
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: tourDetail.descriptionHTML,
+                  }}
+                  className={cx("desTour")}
+                ></div>
+              )}
+            </div>
+            <div className={cx("desProcessTour")}>
+              <h1>Chương trình Tour</h1>
+              {processTour && processTour?.descriptionHTML && (
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: processTour.descriptionHTML,
+                  }}
+                  className={cx("desTour")}
+                ></div>
+              )}
+            </div>
           </div>
 
-          <div className={cx("calendar")}>
+          <div id="calendar" className={cx("calendar", "col-4")}>
             <div className={cx("infoCalendar")}>
               <h1 className={cx("title", "fs-2")}>Lịch khởi hành và giá</h1>
               <p>Chọn ngày khởi hành : </p>
-              <div className={cx("d-flex justify-content-between my-4")}>
-                <p className={cx("rounded", "p-4 ", "date", "active")}>11/10</p>
-                <p className={cx("rounded", "p-4 ", "date")}>11/10</p>
-                <p className={cx("rounded", "p-4 ", "date")}>11/10</p>
-                <p className={cx("rounded", "p-4 ", "date")}>11/10</p>
+              <div
+                className={cx("d-flex flex-wrap justify-content-between my-4")}
+              >
+                {calendarTour &&
+                  calendarTour.map((item) => (
+                    <div
+                      onClick={() => handleSelectCalendar(item)}
+                      key={item.id}
+                      className={
+                        item.isSelected === true
+                          ? cx("rounded", "p-3 ", "date", "active")
+                          : cx("rounded", "p-3 ", "date")
+                      }
+                    >
+                      {item.startDay}
+                    </div>
+                  ))}
               </div>
+
               <div
                 className={cx(
-                  "my-5 d-flex border p-3 justify-content-between align-items-center"
+                  " d-flex border my-2  justify-content-between align-items-center p-3 rounded"
                 )}
               >
-                <p>Gía vé : </p>
-                <p className={cx("text-warning ", "fs-3", "fw-600px")}>
+                <div>Người lớn : </div>
+                <div className={cx("text-warning ", "fs-3", "fw-600px")}>
                   x 16.490.000
-                </p>
-                <p>
+                </div>
+                <div>
                   <IconMinus
                     className={cx("poiter")}
                     onClick={() => setNumberTicket(numberTicket - 1)}
@@ -127,22 +190,46 @@ function Tour() {
                     className={cx("poiter")}
                     onClick={() => setNumberTicket(numberTicket + 1)}
                   />
-                </p>
+                </div>
+              </div>
+
+              <div
+                className={cx(
+                  " d-flex border my-2  justify-content-between align-items-center p-3 rounded"
+                )}
+              >
+                <div className={cx("mx-3")}>Trẻ em : </div>
+                <div className={cx("text-warning ", "fs-3", "fw-600px")}>
+                  x 16.490.000
+                </div>
+                <div>
+                  <IconMinus
+                    className={cx("poiter")}
+                    onClick={() => setNumberTicket(numberTicket - 1)}
+                  />
+                  <span className="m-4 fs-3">{numberTicket}</span>
+                  <IconPlus
+                    className={cx("poiter")}
+                    onClick={() => setNumberTicket(numberTicket + 1)}
+                  />
+                </div>
               </div>
 
               <p className={cx("xanhBlueMo", "fs-3")}>
                 <IconExclamationCircle /> Liên hệ để xác nhận chỗ
               </p>
-              <div className={cx("d-flex justify-content-between my-5")}>
-                <p className={cx("fs-3")}>Tổng cộng : </p>
-                <h2 className={cx("fs-1", "text-warning", "fw-600px")}>
+              <div className={cx("d-flex justify-content-between  ")}>
+                <div className={cx("fs-3")}>Tổng cộng : </div>
+                <div className={cx("fs-1", "text-warning", "fw-600px")}>
                   82.450.000 vnd
-                </h2>
+                </div>
               </div>
 
               <div className={cx("d-flex justify-content-between")}>
                 <button className={cx("btnLienHe")}>Liên hệ tư vấn</button>
-                <button className={cx("btnYeuCau")}>Yêu cầu đặt</button>
+                <button className={cx("btnYeuCau")} onClick={handleBookingTour}>
+                  Yêu cầu đặt
+                </button>
               </div>
             </div>
             <div className={cx("advise")}>

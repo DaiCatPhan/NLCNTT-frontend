@@ -36,7 +36,7 @@ function Login() {
         return;
       }
 
-      const res = await AuthenticationService.loginApi({ 
+      const res = await AuthenticationService.loginApi({
         email,
         password,
       });
@@ -44,7 +44,6 @@ function Login() {
         const dataUser = res.data?.DT?.tokentData;
         const roleUser = dataUser?.role;
 
-        console.log(">> res bug", dataUser);
         dispatch(
           toggleLogin({
             name: dataUser.name,
@@ -110,9 +109,9 @@ function Login() {
 
               <span onClick={() => setIsShowPassword(!isShowPassWord)}>
                 {isShowPassWord ? (
-                  <IconEye className={cx("iconEye")} />
-                ) : (
                   <IconEyeOff className={cx("iconEye")} />
+                ) : (
+                  <IconEye className={cx("iconEye")} />
                 )}
               </span>
             </div>

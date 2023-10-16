@@ -130,25 +130,45 @@
   background-color: #ecf0f5;
 }
 
-.processTour {
-  display: flex;
-  gap: 40px;
-  min-height: 100vh;
+.detailTour {
   padding: 0 50px;
-  border: 1px solid black;
-  position: relative;
-  flex-wrap: wrap;
 }
 
-.processTour > .tab {
-  flex: 1;
+.detailTour > .processTour {
   border: 1px solid blue;
-  padding: 0 20px;
+  background-color: white;
+  .desctiptionTour {
+    border-bottom: 10px solid rgb(236 240 245);
+    padding: 20px 20px;
+
+    .desTour {
+      font-size: 18px;
+    }
+  }
+
+  .desProcessTour {
+    border-bottom: 10px solid rgb(236 240 245);
+    padding: 20px 20px;
+
+    img {
+      display: block;
+      margin: 0 auto;
+    }
+
+    h5 {
+      text-align: center;
+      font-size: 18px;
+    }
+
+    .desTour {
+      font-size: 18px;
+    }
+  }
 }
 
-.processTour > .calendar {
-  width: 360px;
-    
+.detailTour > .calendar {
+  border: 1px solid red;
+  padding: 0 20px;
 
   .infoCalendar {
     background-color: white;
@@ -217,4 +237,10 @@
     background-color: white;
     min-height: 200px;
   }
+}
+
+.atTop {
+  position: fixed;
+  top: 0;
+  right: 30px;
 }

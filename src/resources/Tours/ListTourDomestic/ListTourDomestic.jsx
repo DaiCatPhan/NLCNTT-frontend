@@ -8,10 +8,13 @@ const cx = className.bind(styles);
 
 function ListTourDomestic() {
   const [tours, setTours] = useState([]);
+  console.log("tours", tours);
 
   const getDataTours = async () => {
     const res = await TourService.getTour({ type: "noidia" });
+    console.log(res);
     if (res && res.data.EC === 0 && res.data.DT.length > 0) {
+      console.log("res", res);
       setTours(res.data.DT);
     }
   };

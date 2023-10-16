@@ -73,7 +73,7 @@ function Register() {
         email,
         name,
         gender,
-        password,
+        password, 
       });
       if (res && +res.data.EC === 0) {
         toast.success(res.data.EM);
