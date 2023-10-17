@@ -1,7 +1,7 @@
 import className from "classnames/bind";
 import styles from "./ListTour.module.scss";
-import { Link } from "react-router-dom";
 const cx = className.bind(styles);
+import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { Divider, Radio, Space, Table } from "antd";
 import { IconPlus } from "@tabler/icons-react";
@@ -14,7 +14,7 @@ function ListTour() {
   const [isShowModalView, setIsShowModalView] = useState(false);
   const [dataModalView, setDataModalView] = useState({});
   const [tableParams, setTableParams] = useState({
-    pagination: {
+    pagination: { 
       current: 1,
       pageSize: 5,
     },

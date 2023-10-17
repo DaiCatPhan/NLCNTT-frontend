@@ -33,6 +33,9 @@ const getTour = (rawData) => {
   return axios.get("/api/v1/tour/getTour", {
     params: {
       type: rawData.type,
+      id: rawData.id,
+      name: rawData.name,
+      domain: rawData.domain,
     },
   });
 };

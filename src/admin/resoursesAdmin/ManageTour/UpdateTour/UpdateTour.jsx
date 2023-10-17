@@ -28,7 +28,7 @@ function UpdateTour() {
   }
 
   // data
-  const [id, setId] = useState(searchParams.get("idTour"));
+  const [id, setId] = useState(searchParams?.get("idTour"));
   const [name, setName] = useState("");
   const [priceAdult, setPriceAdult] = useState("");
   const [priceChild, setPriceChild] = useState("");
