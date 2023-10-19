@@ -1,6 +1,8 @@
 import className from "classnames/bind";
 import styles from "./Tour.module.scss";
-import { useEffect, useState } from "react";
+const cx = className.bind(styles);
+
+import { useEffect, useState, useMemo } from "react";
 import {
   IconAlarm,
   IconCalendarDue,
@@ -12,21 +14,26 @@ import {
 } from "@tabler/icons-react";
 import { IconMinus } from "@tabler/icons-react";
 import { useParams } from "react-router-dom";
+import moment from "moment";
 
 import TourService from "../../../services/TourService";
-
-const cx = className.bind(styles);
+import ModalRegisterBooking from "./componentsTour/ModalRegisterBooking";
 
 function Tour() {
-  const [numberTicket, setNumberTicket] = useState(0);
+  let { id } = useParams();
+  const [numberTicketAdult, setNumberTicketAdult] = useState(1);
+  const [numberTicketChild, setNumberTicketChild] = useState(0);
+
   const [tourDetail, setTourDetail] = useState({});
   const [calendarTour, setCalendarTour] = useState([]);
   const [processTour, setProcessTour] = useState({});
-  let { id } = useParams();
 
   const [selectedCalendar, setSelectedCalendar] = useState({});
-  console.log("Đã chọn lịch ", selectedCalendar);
 
+  const [isShowModalRegisterBooking, setIsShowModalRegisterBooking] =
+    useState(false);
+
+  // Gọi API lấy dữ liệu
   const getTourById = async () => {
     try {
       const res = await TourService.getTourDetailById({ id: id });
@@ -51,12 +58,8 @@ function Tour() {
     getTourById();
   }, []);
 
-  const handleBookingTour = () => {
-    alert("Booking Tour");
-  };
-
+  // Lấy dữ liệu để hiển xử lí chọn lịch và active
   const handleSelectCalendar = (item) => {
-    console.log("handleSelectCalendar", item);
     setSelectedCalendar(item);
 
     let selectedCal = calendarTour?.map((calendar) => {
@@ -67,6 +70,56 @@ function Tour() {
       return calendar;
     });
     setCalendarTour(selectedCal);
+  };
+
+  // Xử lí mảnh lịch nhận về ban đầu để có mảng lịch lớn hơn ngày hiện tại để hiện ra dưới UI
+  const handleCalendarShow = useMemo(() => {
+    let futureDates = [];
+    var currentDate = new Date();
+
+    for (var i = 0; i < calendarTour?.length; i++) {
+      var eventStart = new Date(calendarTour[i].startDay);
+      if (eventStart >= currentDate) {
+        futureDates.push(calendarTour[i]);
+
+        if (calendarTour.length >= 3) {
+          break; // Đã có đủ 3 ngày lớn hơn ngày hiện tại
+        }
+      }
+    }
+
+    return futureDates;
+  }, [calendarTour]);
+
+  // Tính tổng tiền
+  const countMoney = useMemo(() => {
+    return (
+      Number(tourDetail?.priceAdult?.replace(/\./g, "")) * numberTicketAdult +
+      Number(tourDetail?.priceChild?.replace(/\./g, "")) * numberTicketChild
+    );
+  }, [calendarTour, numberTicketAdult, numberTicketChild]);
+
+  // Hàm xử lí ấn giảm vé Trẻ em mà không cho nó nhỏ hơn 0
+  const handleSetMinusNumberTicketChild = () => {
+    if (numberTicketChild > 0) {
+      setNumberTicketChild(numberTicketChild - 1);
+    } else {
+      setNumberTicketChild(0); // Đặt lại giá trị thành 0
+    }
+  };
+
+  // Hàm xử lí ấn giảm vé Người lớn mà không cho nó nhỏ hơn 0
+  const handleSetMinusNumberTicketAdult = () => {
+    if (numberTicketAdult >= 2) {
+      setNumberTicketAdult(numberTicketAdult - 1);
+    } else {
+      setNumberTicketAdult(1); // Đặt lại giá trị thành 0
+    }
+  };
+
+  const handleBookingTour = () => {
+    console.log({ idTOur: id, idCalendar: selectedCalendar.id });
+    setIsShowModalRegisterBooking(true);
   };
 
   return (
@@ -123,7 +176,7 @@ function Tour() {
       {/* bgProcessTour */}
       <hr />
       <div className={cx("bgProcessTour")}>
-        <div className={cx("detailTour", "row")}>
+        <div className={cx("detailTour", "row  ")}>
           <div className={cx("processTour", "col-lg-8 col-md-12 col-sm-12")}>
             <div className={cx("desctiptionTour")}>
               {tourDetail && tourDetail?.descriptionHTML && (
@@ -148,69 +201,82 @@ function Tour() {
             </div>
           </div>
 
-          <div id="calendar" className={cx("calendar", "col-4")}>
+          <div
+            id="calendar"
+            className={cx("calendar", "col-lg-4", "col-md-12")}
+          >
             <div className={cx("infoCalendar")}>
               <h1 className={cx("title", "fs-2")}>Lịch khởi hành và giá</h1>
               <p>Chọn ngày khởi hành : </p>
               <div
                 className={cx("d-flex flex-wrap justify-content-between my-4")}
               >
-                {calendarTour &&
-                  calendarTour.map((item) => (
+                {/* {calendarTour &&
+                  calendarTour.map((item) => ( */}
+
+                {handleCalendarShow &&
+                  handleCalendarShow.map((item) => (
                     <div
                       onClick={() => handleSelectCalendar(item)}
                       key={item.id}
                       className={
                         item.isSelected === true
-                          ? cx("rounded", "p-3 ", "date", "active")
+                          ? cx("rounded", "p-3", "date", "active")
                           : cx("rounded", "p-3 ", "date")
                       }
                     >
-                      {item.startDay}
+                      {moment(item?.startDay).format("DD-MM-YYYY")}
                     </div>
                   ))}
               </div>
 
               <div
                 className={cx(
-                  " d-flex border my-2  justify-content-between align-items-center p-3 rounded"
+                  " d-flex border my-4  justify-content-between align-items-center p-4 rounded flex-wrap"
                 )}
               >
                 <div>Người lớn : </div>
-                <div className={cx("text-warning ", "fs-3", "fw-600px")}>
-                  x 16.490.000
-                </div>
+                {tourDetail?.priceAdult && (
+                  <div className={cx("text-warning ", "fs-3", "fw-600px")}>
+                    x {tourDetail?.priceAdult}
+                  </div>
+                )}
+
                 <div>
                   <IconMinus
                     className={cx("poiter")}
-                    onClick={() => setNumberTicket(numberTicket - 1)}
+                    onClick={handleSetMinusNumberTicketAdult}
                   />
-                  <span className="m-4 fs-3">{numberTicket}</span>
+                  <span className="m-4 fs-3">{numberTicketAdult}</span>
                   <IconPlus
                     className={cx("poiter")}
-                    onClick={() => setNumberTicket(numberTicket + 1)}
+                    onClick={() => setNumberTicketAdult(numberTicketAdult + 1)}
                   />
                 </div>
               </div>
 
               <div
                 className={cx(
-                  " d-flex border my-2  justify-content-between align-items-center p-3 rounded"
+                  " d-flex border my-4  justify-content-between align-items-center p-4 rounded flex-wrap"
                 )}
               >
                 <div className={cx("mx-3")}>Trẻ em : </div>
-                <div className={cx("text-warning ", "fs-3", "fw-600px")}>
-                  x 16.490.000
-                </div>
+                {tourDetail?.priceChild && (
+                  <div className={cx("text-warning ", "fs-3", "fw-600px")}>
+                    x {tourDetail?.priceChild}
+                  </div>
+                )}
                 <div>
                   <IconMinus
                     className={cx("poiter")}
-                    onClick={() => setNumberTicket(numberTicket - 1)}
+                    onClick={handleSetMinusNumberTicketChild}
                   />
-                  <span className="m-4 fs-3">{numberTicket}</span>
+                  <span className="m-4 fs-3">{numberTicketChild}</span>
                   <IconPlus
                     className={cx("poiter")}
-                    onClick={() => setNumberTicket(numberTicket + 1)}
+                    onClick={() => {
+                      setNumberTicketChild(numberTicketChild + 1);
+                    }}
                   />
                 </div>
               </div>
@@ -218,69 +284,59 @@ function Tour() {
               <p className={cx("xanhBlueMo", "fs-3")}>
                 <IconExclamationCircle /> Liên hệ để xác nhận chỗ
               </p>
-              <div className={cx("d-flex justify-content-between  ")}>
+              <div
+                className={cx("d-flex justify-content-between  flex-wrap my-4")}
+              >
                 <div className={cx("fs-3")}>Tổng cộng : </div>
                 <div className={cx("fs-1", "text-warning", "fw-600px")}>
-                  82.450.000 vnd
+                  {countMoney?.toLocaleString("vi-VN")}
                 </div>
               </div>
 
-              <div className={cx("d-flex justify-content-between")}>
+              <div className={cx("d-flex justify-content-between flex-wrap")}>
                 <button className={cx("btnLienHe")}>Liên hệ tư vấn</button>
                 <button className={cx("btnYeuCau")} onClick={handleBookingTour}>
                   Yêu cầu đặt
                 </button>
               </div>
-            </div>
-            <div className={cx("advise")}>
-              <div className={cx(" p-3  px-5 border row")}>
-                <span className=" col-5">
-                  <IconCheck color="green" /> Bảo hiểm
-                </span>
-                <span className=" col-7">
-                  <IconCheck color="green" /> Bữa ăn
-                </span>
-              </div>
 
-              <div className={cx(" p-3  px-5 border row")}>
-                <span className=" col-5">
-                  <IconCheck color="green" /> Hướng dẫn
-                </span>
-                <span className=" col-7">
-                  <IconCheck color="green" /> Khách Sạn 4*
-                </span>
-              </div>
+              <div className={cx("advise", "border")}>
+                <div className={cx(" p-3  px-5   row")}>
+                  <span className=" col-5">
+                    <IconCheck color="green" /> Bảo hiểm
+                  </span>
+                  <span className=" col-7">
+                    <IconCheck color="green" /> Bữa ăn
+                  </span>
+                </div>
 
-              <div className={cx(" p-3  px-5 border row")}>
-                <span className=" col-5">
-                  <IconCheck color="green" /> Vé máy bay
-                </span>
-                <span className=" col-7">
-                  <IconCheck color="green" /> Vé tham quan
-                </span>
-              </div>
+                <div className={cx(" p-3  px-5   row")}>
+                  <span className=" col-5">
+                    <IconCheck color="green" /> Hướng dẫn
+                  </span>
+                  <span className=" col-7">
+                    <IconCheck color="green" /> Khách Sạn 4*
+                  </span>
+                </div>
 
-              <div className={cx(" p-3  px-5 border row")}>
-                <span className=" col-5">
-                  <IconCheck color="green" /> Visa
-                </span>
-                <span className=" col-7">
-                  <IconCheck color="green" /> Vui Chơi Giải Trí
-                </span>
-              </div>
-
-              <div className={cx(" p-3  px-5 border row")}>
-                <span className=" col-5">
-                  <IconCheck color="green" /> Xe đưa đón
-                </span>
-                <span className=" col-7">
-                  <IconCheck color="green" /> Nhà hàng 5*
-                </span>
+                <div className={cx(" p-3  px-5   row")}>
+                  <span className=" col-5">
+                    <IconCheck color="green" /> Vé máy bay
+                  </span>
+                  <span className=" col-7">
+                    <IconCheck color="green" /> Vé tham quan
+                  </span>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      <ModalRegisterBooking
+        isShowModalRegisterBooking={isShowModalRegisterBooking}
+        setIsShowModalRegisterBooking={setIsShowModalRegisterBooking}
+      />
     </div>
   );
 }

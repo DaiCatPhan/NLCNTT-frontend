@@ -3,6 +3,7 @@ import styles from "./Header.module.scss";
 import { Link, useLocation } from "react-router-dom";
 import Tippy from "@tippyjs/react/headless";
 import "tippy.js/dist/tippy.css"; // optional
+import { toast } from "react-toastify";
 
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,7 +15,7 @@ import useAuth from "../../../hook/useAuth";
 import AuthenticationService from "../../../services/AuthenticationService";
 import { IconChevronDown, IconUserCircle } from "@tabler/icons-react";
 const cx = className.bind(styles);
-import React from 'react';
+import React from "react";
 
 import { DownOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Dropdown, message, Space, Tooltip } from "antd";
@@ -30,6 +31,7 @@ function Header1() {
   async function handleClickLogout() {
     const res = await AuthenticationService.logoutApi();
     dispatch(logout());
+    toast.success("Đăng xuất thành công");
     navigate("/authentication/login");
   }
 
@@ -101,41 +103,33 @@ function Header1() {
 
   const items = [
     {
-      label: '1st menu item',
-      key: '1',
+      label: <Link to={""}> Đơn hàng của tôi</Link>,
+      key: "1",
       icon: <UserOutlined />,
     },
     {
-      label: '2nd menu item',
-      key: '2',
+      label: <Link to={""}> Hồ sơ của tôi</Link>,
+      key: "2",
       icon: <UserOutlined />,
     },
     {
-      label: '3rd menu item',
-      key: '3',
+      label: "Voucher của tôi",
+      key: "3",
       icon: <UserOutlined />,
-      
     },
     {
-      label: '4rd menu item',
-      key: '4',
-      icon: <UserOutlined />,
-      
-      
+      label: (
+        <button onClick={handleClickLogout} className={cx("w-100 rounded p-1 border-primary" )}>
+          Đăng xuất
+        </button>
+      ),
+      key: "4",
     },
   ];
 
-  
-  const handleMenuClick = (e) => {
-    message.info('Click on menu item.');
-    console.log('click', e);
-  };
   const menuProps = {
     items,
-    onClick: handleMenuClick,
   };
-
- 
 
   return (
     <div className={cx("wrapepr")}>
@@ -238,16 +232,13 @@ function Header1() {
                 Logout
               </button> */}
               <Space wrap>
-                 
                 <Dropdown.Button
                   menu={menuProps}
                   placement="bottom"
                   icon={<UserOutlined />}
                 >
-                 Tài khoản
+                  {profile && <p className={cx('text-primary')}>{profile.name}</p>}
                 </Dropdown.Button>
-                 
-                 
               </Space>
             </>
           )}

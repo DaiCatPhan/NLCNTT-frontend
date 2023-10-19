@@ -167,14 +167,14 @@
 }
 
 .detailTour > .calendar {
-  border: 1px solid red;
   padding: 0 20px;
-
+  border: 2px solid red;
   .infoCalendar {
     background-color: white;
-    min-height: 500px;
     padding: 20px;
     border: 1px solid blue;
+    position: sticky;
+    top: 0;
 
     .title {
       font-size: 20px;
@@ -231,11 +231,8 @@
   }
 
   .advise {
-    border: 1px solid red;
-
-    margin: 20px 0;
+    margin-top: 20px;
     background-color: white;
-    min-height: 200px;
   }
 }
 

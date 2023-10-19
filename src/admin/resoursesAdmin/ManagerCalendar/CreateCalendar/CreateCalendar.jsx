@@ -10,6 +10,7 @@ import { Space, Table, Tag } from "antd";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-datepicker/dist/react-datepicker-cssmodules.css";
+
 import moment from "moment";
 import { toast } from "react-toastify";
 import { mutate } from "swr";
@@ -96,13 +97,17 @@ function CreateCalendar() {
             <div>
               <b>
                 Ngày bắt đầu :
-                <span className={cx("text-primary")}>{address.startDay}</span>
+                <span className={cx("text-primary")}>
+                  {moment(address?.startDay).format("DD-MM-YYYY")}
+                </span>
               </b>
             </div>
             <div>
               <b>
                 Ngày kết thúc:
-                <span className={cx("text-danger")}> {address.endDay}</span>
+                <span className={cx("text-danger")}>
+                  {moment(address?.endDay).format("DD-MM-YYYY")}
+                </span>
               </b>
             </div>
             <div>
@@ -175,8 +180,8 @@ function CreateCalendar() {
     const res = await CalendarTour.create({
       idTour: selectedOption.value,
       numberSeat: numberSeat,
-      startDay: moment(startDate).format("DD-MM-YYYY"),
-      endDay: moment(endDate).format("DD-MM-YYYY"),
+      startDay: startDate,
+      endDay: endDate,
     });
 
     if (res && res.data.EC === 0 && res.data.DT.id) {
@@ -195,7 +200,6 @@ function CreateCalendar() {
         targetTour.calendar.push(newCalendar);
       }
 
-      // setDataTable((prevData) => [...prevData, newCalendar]);
       handleClose();
       fetchData();
     }
@@ -208,7 +212,6 @@ function CreateCalendar() {
   const handleUpdateCalendar = () => {
     alert("Update");
   };
-
 
   return (
     <div className={cx("wraper")}>
@@ -250,6 +253,7 @@ function CreateCalendar() {
                   </div>
 
                   <DatePicker
+                    style={{ width: "500px", height: "400px" }}
                     className={cx("customInput")}
                     selected={startDate}
                     onChange={(date) => setStartDate(date)}
