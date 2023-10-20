@@ -15,6 +15,13 @@ import {
 import { IconMinus } from "@tabler/icons-react";
 import { useParams } from "react-router-dom";
 import moment from "moment";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
+// Swal.fire({
+//   icon: "success",
+//   title: "<h1>Gửi yêu cầu thành công</h1>",
+//   html: "<h4>Sẽ liên hệ với quý khách sớm nhất . Xin cảm ơn </h4>",
+// });
 
 import TourService from "../../../services/TourService";
 import ModalRegisterBooking from "./componentsTour/ModalRegisterBooking";
@@ -30,6 +37,7 @@ function Tour() {
 
   const [selectedCalendar, setSelectedCalendar] = useState({});
 
+  // Component Modal ResBooking
   const [isShowModalRegisterBooking, setIsShowModalRegisterBooking] =
     useState(false);
 
@@ -82,7 +90,7 @@ function Tour() {
       if (eventStart >= currentDate) {
         futureDates.push(calendarTour[i]);
 
-        if (calendarTour.length >= 3) {
+        if (futureDates.length >= 3) {
           break; // Đã có đủ 3 ngày lớn hơn ngày hiện tại
         }
       }
@@ -117,8 +125,18 @@ function Tour() {
     }
   };
 
-  const handleBookingTour = () => {
+  // Hàm nhận dữ liệu người dùng đăng ký nhận từ component con ModalRegisterBooking
+  const getModalResgisterBooking = (data) => {
+    console.log("getModalResgisterBooking", data);
     console.log({ idTOur: id, idCalendar: selectedCalendar.id });
+
+    
+  };
+
+  const handleBookingTour = () => {
+    if (!selectedCalendar.id) {
+      return toast.warning("Chọn lịch để đặt Tour ");
+    }
     setIsShowModalRegisterBooking(true);
   };
 
@@ -336,6 +354,7 @@ function Tour() {
       <ModalRegisterBooking
         isShowModalRegisterBooking={isShowModalRegisterBooking}
         setIsShowModalRegisterBooking={setIsShowModalRegisterBooking}
+        getModalResgisterBooking={getModalResgisterBooking}
       />
     </div>
   );

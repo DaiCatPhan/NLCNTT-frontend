@@ -10,29 +10,61 @@ import Form from "react-bootstrap/Form";
 import { IconAsterisk } from "@tabler/icons-react";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
+import { toast } from "react-toastify";
+
+import useAuth from "../../../../../hook/useAuth";
 
 function ModalRegisterBooking(props) {
-  const { isShowModalRegisterBooking, setIsShowModalRegisterBooking } = props;
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
+  const { isLogged, role, profile } = useAuth();
+
+  const {
+    getModalResgisterBooking,
+    isShowModalRegisterBooking,
+    setIsShowModalRegisterBooking,
+  } = props;
+  const [email, setEmail] = useState(profile?.email || "");
+  const [name, setName] = useState(profile?.name || "");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
 
   const handleClose = () => {
-    setEmail("");
-    setName("");
     setPhone("");
     setAddress("");
     setIsShowModalRegisterBooking(false);
   };
 
+  const validate = () => {
+    if (!email) {
+      toast.warning("Hãy nhập email !!!");
+      return false;
+    }
+    if (!name) {
+      toast.warning("Hãy nhập name !!!");
+      return false;
+    }
+    if (!phone) {
+      toast.warning("Hãy nhập phone !!!");
+      return false;
+    }
+    const phonePattern = /^\d{10}$/;
+    if (!phonePattern.test(phone)) {
+      toast.warning(" Vui lòng nhập đúng định dạng số điện thoại  !!!");
+      return false;
+    }
+    if (!address) {
+      toast.warning("Hãy nhập address !!!");
+      return false;
+    }
+    return true;
+  };
+
   const handleSubmitForm = async () => {
-    // Swal.fire("Good job!", "You clicked the button!", "success");
-    Swal.fire({
-      icon: "success",
-      title: "<h1>Gửi yêu cầu thành công</h1>",
-      html: "<h4>Sẽ liên hệ với quý khách sớm nhất . Xin cảm ơn </h4>",
-    });
+    const checkVad = validate();
+    if (!checkVad) {
+      return;
+    }
+    getModalResgisterBooking({ email, name, phone, address });
+    handleClose();
   };
 
   return (
@@ -62,7 +94,7 @@ function ModalRegisterBooking(props) {
                 </Form.Label>
                 <Form.Control
                   type="text"
-                  className={cx("py-3")}
+                  className={cx("py-3 fs-4")}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -78,7 +110,7 @@ function ModalRegisterBooking(props) {
                 </Form.Label>
                 <Form.Control
                   type="text"
-                  className={cx("py-3")}
+                  className={cx("py-3 fs-4")}
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
@@ -94,7 +126,7 @@ function ModalRegisterBooking(props) {
                 </Form.Label>
                 <Form.Control
                   type="text"
-                  className={cx("py-3")}
+                  className={cx("py-3 fs-4")}
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                 />
@@ -108,7 +140,7 @@ function ModalRegisterBooking(props) {
                 <Form.Label>Địa chỉ</Form.Label>
                 <Form.Control
                   type="text"
-                  className={cx("py-3")}
+                  className={cx("py-3 fs-4")}
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
                 />
@@ -118,7 +150,7 @@ function ModalRegisterBooking(props) {
           <Modal.Footer>
             <div className={cx("text-center w-100")}>
               <button className={cx("btnReg")} onClick={handleSubmitForm}>
-                <p>Gửi lại yêu cầu</p>
+                <p>Gửi yêu cầu</p>
               </button>
             </div>
           </Modal.Footer>
