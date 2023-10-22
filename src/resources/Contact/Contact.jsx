@@ -1,9 +1,9 @@
 import className from "classnames/bind";
 import styles from "./Contact.module.scss";
+const cx = className.bind(styles);
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-const cx = className.bind(styles);
 
 function Contact() {
   return (

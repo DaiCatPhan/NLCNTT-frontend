@@ -6,6 +6,7 @@ import NotFoundPage from "../admin/component/NotFoundPage";
 // Layout
 import NoneLayout from "../layouts/NoneLayout";
 import AdminLayout from "../layouts/AdminLayout";
+import ProfileUserLayout from "../layouts/ProfileUserLayout";
 
 // +++++++++++++++++++++++++++++++++++++++++++++++++++ ADMIN +++++++++++++++++++++++++++++++++++++++++
 import HomeAdmin from "../admin/resoursesAdmin/HomeAdmin";
@@ -44,6 +45,10 @@ import Contact from "../resources/Contact";
 import ListTourDomestic from "../resources/Tours/ListTourDomestic";
 import ListTourForeign from "../resources/Tours/ListTourForeign";
 import Tour from "../resources/Tours/Tour";
+
+// Profile User
+import Order from "../resources/ProfileUser/Order";
+import InfoUser from "../resources/ProfileUser/InfoUser";
 
 // TEST UI
 import TestUi from "../testUI";
@@ -94,6 +99,10 @@ const publicRoutes = [
   },
 
   //================== END ADMIN ================================
+
+  // Profile User
+  { path: "/profile/infoUser", component: InfoUser, layout: ProfileUserLayout },
+  { path: "/profile/orderUser", component: Order, layout: ProfileUserLayout },
 
   // TEST UI
   { path: "/testUI", component: TestUi, layout: NoneLayout },

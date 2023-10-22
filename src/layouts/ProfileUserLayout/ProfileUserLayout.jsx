@@ -1,5 +1,5 @@
 import className from "classnames/bind";
-import styles from "./AdminLayout.module.scss";
+import styles from "./ProfileUserLayout.module.scss";
 const cx = className.bind(styles);
 
 import { Link } from "react-router-dom";
@@ -8,30 +8,26 @@ import useAuth from "../../hook/useAuth";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import NavBarAdmin from "../../admin/component/NavBarAdmin";
-import HeaderAdmin from "../../admin/component/HeaderAdmin";
+import Header from "../components/Header";
+import NavbarProfile from "../components/NavbarProfileUser";
 import NotPermissionPage from "../../admin/component/NotPermissionPage";
 
-function AdminLayout({ children }) {
+function ProfileUserLayout({ children }) {
   const navigate = useNavigate();
   const { isLogged, role, profile } = useAuth();
 
-  if (!isLogged) {
-    return <NotPermissionPage />;
-  }
-
-  if (role && role !== "admin") {
-    return <NotPermissionPage />;
-  }
+  // if (!isLogged) {
+  //   return <NotPermissionPage />;
+  // }
 
   return (
     <div className={cx("wrapper")}>
       <header className={cx("header")}>
-        <HeaderAdmin />
+        <Header />
       </header>
       <div className={cx("main")}>
         <div>
-          <NavBarAdmin /> 
+          <NavbarProfile />
         </div>
         <div className={cx("content")}>{children}</div>
       </div>
@@ -39,4 +35,4 @@ function AdminLayout({ children }) {
   );
 }
 
-export default AdminLayout;
+export default ProfileUserLayout; 
