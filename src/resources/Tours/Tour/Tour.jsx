@@ -17,13 +17,10 @@ import { useParams } from "react-router-dom";
 import moment from "moment";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
-// Swal.fire({
-//   icon: "success",
-//   title: "<h1>Gửi yêu cầu thành công</h1>",
-//   html: "<h4>Sẽ liên hệ với quý khách sớm nhất . Xin cảm ơn </h4>",
-// });
 
 import TourService from "../../../services/TourService";
+import CustomerService from "../../../services/CustomerService";
+import BookingTourService from "../../../services/BookingTourService";
 import ModalRegisterBooking from "./componentsTour/ModalRegisterBooking";
 
 function Tour() {
@@ -36,6 +33,9 @@ function Tour() {
   const [processTour, setProcessTour] = useState({});
 
   const [selectedCalendar, setSelectedCalendar] = useState({});
+
+  // show success booking tour
+  const [showSuccess, setShowSuccess] = useState(false);
 
   // Component Modal ResBooking
   const [isShowModalRegisterBooking, setIsShowModalRegisterBooking] =
@@ -125,12 +125,64 @@ function Tour() {
     }
   };
 
-  // Hàm nhận dữ liệu người dùng đăng ký nhận từ component con ModalRegisterBooking
-  const getModalResgisterBooking = (data) => {
-    console.log("getModalResgisterBooking", data);
-    console.log({ idTOur: id, idCalendar: selectedCalendar.id });
+  // Show thanh công khi đặt Tour xong
 
+  const showSuccessSwal = () => {
+    showSuccess &&
+      Swal.fire({
+        icon: "success",
+        title: "<h1>Gửi yêu cầu thành công</h1>",
+        html: "<h4>Sẽ liên hệ với quý khách sớm nhất. Xin cảm ơn.</h4",
+      });
+  };
+
+  const handleCloseModalBooking = () => {
     
+  };
+
+  // Hàm nhận dữ liệu người dùng đăng ký nhận từ component con ModalRegisterBooking
+  const getModalResgisterBooking = async (data) => {
+    // Xử lí cập nhật dữ liệu or tạo mới
+    if (data) {
+      var idCus;
+      const resfindOrCreateCustomer = await CustomerService.findOrCreate(data);
+
+      // Trường hợp đã đăng nhập
+      if (resfindOrCreateCustomer && resfindOrCreateCustomer.data.EC === 1) {
+        idCus = resfindOrCreateCustomer?.data?.DT?.InfoCusUpdated?.id;
+      }
+
+      // Trường hợp ch đăng nhập
+      if (resfindOrCreateCustomer && resfindOrCreateCustomer.data.EC === 0) {
+        idCus = resfindOrCreateCustomer?.data?.DT?.id;
+      }
+
+      // Booking Tour
+
+      const bookingTour = await BookingTourService.createBookingTour({
+        idCustomer: idCus,
+        idCalendar: selectedCalendar?.id,
+        money: countMoney?.toLocaleString("vi-VN"),
+        numberTicketAdult: numberTicketAdult,
+        numberTicketChild: numberTicketChild,
+      });
+
+      if (
+        bookingTour &&
+        bookingTour.data?.EC === 0 &&
+        bookingTour.data?.DT?.id
+      ) {
+        console.log("resbookingTour >>>", bookingTour);
+        // bật modal đặc tour thành công
+
+        setShowSuccess(true);
+        showSuccessSwal();
+
+        setTimeout(() => {
+          Swal.close();
+        }, 2000);
+      }
+    }
   };
 
   const handleBookingTour = () => {
