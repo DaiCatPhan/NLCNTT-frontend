@@ -46,7 +46,7 @@ function Register() {
       return false;
     }
 
-    if(password.length < 5){
+    if (password.length < 5) {
       toast.error("Password phải có ít nhất 5 ký tự !!!");
       return false;
     }
@@ -55,7 +55,6 @@ function Register() {
       toast.error("Nhập thiếu dữ liệu confirm password !!!");
       return false;
     }
-
 
     if (password != confirmPassword) {
       toast.error("password và confirm password không giống nhau !!!");
@@ -69,11 +68,11 @@ function Register() {
     e.preventDefault();
     let checkIsValidate = isValidInputs();
     if (checkIsValidate === true) {
-      const res = await AuthenticationService.registerApi({ 
+      const res = await AuthenticationService.registerApi({
         email,
         name,
         gender,
-        password, 
+        password,
       });
       if (res && +res.data.EC === 0) {
         toast.success(res.data.EM);
@@ -97,7 +96,7 @@ function Register() {
         {/* Email */}
         <div className={cx("form-group")}>
           <label className={cx("form-label", "text-warning")} htmlFor="email">
-            Email: <span> (ex: NguyenVanA12345@gmai.com)</span>
+            Email: <span> (ex: NguyenVanA@gmail.com)</span>
           </label>
           <input
             className={cx(

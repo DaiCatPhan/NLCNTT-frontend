@@ -55,13 +55,10 @@ const items2 = [
     key: "5",
 
     children: [
-      {
-        label: <Link to={"/calendar-listCalendarTour"}>List Calendar</Link>,
-        key: "5-1",
-      },
+       
       {
         label: <Link to={"/calendar-createCalendarTour"}>Create Calendar</Link>,
-        key: "5-2",
+        key: "5-1",
       },
     ],
   },

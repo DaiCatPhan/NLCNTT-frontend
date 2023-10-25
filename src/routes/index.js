@@ -16,7 +16,6 @@ import Dashboard from "../admin/resoursesAdmin/Dashboard";
 import ListUser from "../admin/resoursesAdmin/ManageUser/ListUser";
 
 // Module CALENDAR
-import ListCalendar from "../admin/resoursesAdmin/ManagerCalendar/ListCalendar";
 import CreateCalendar from "../admin/resoursesAdmin/ManagerCalendar/CreateCalendar";
 
 // Module TOUR
@@ -87,11 +86,7 @@ const publicRoutes = [
   },
 
   // CALENDAR
-  {
-    path: "/calendar-listCalendarTour",
-    component: ListCalendar,
-    layout: AdminLayout,
-  },
+
   {
     path: "/calendar-createCalendarTour",
     component: CreateCalendar,

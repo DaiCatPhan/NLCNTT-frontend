@@ -9,7 +9,6 @@ import {
   IconCheck,
   IconExclamationCircle,
   IconMapPin,
-  IconMapPinFilled,
   IconPlus,
 } from "@tabler/icons-react";
 import { IconMinus } from "@tabler/icons-react";
@@ -21,6 +20,8 @@ import Swal from "sweetalert2";
 import TourService from "../../../services/TourService";
 import CustomerService from "../../../services/CustomerService";
 import BookingTourService from "../../../services/BookingTourService";
+import CalendarTourService from "../../../services/CalendarTourService";
+
 import ModalRegisterBooking from "./componentsTour/ModalRegisterBooking";
 
 function Tour() {
@@ -33,13 +34,11 @@ function Tour() {
   const [processTour, setProcessTour] = useState({});
 
   const [selectedCalendar, setSelectedCalendar] = useState({});
-
-  // show success booking tour
-  const [showSuccess, setShowSuccess] = useState(false);
-
   // Component Modal ResBooking
   const [isShowModalRegisterBooking, setIsShowModalRegisterBooking] =
     useState(false);
+
+  console.log(">>>> selectedCalendar", selectedCalendar);
 
   // Gọi API lấy dữ liệu
   const getTourById = async () => {
@@ -125,63 +124,79 @@ function Tour() {
     }
   };
 
-  // Show thanh công khi đặt Tour xong
-
-  const showSuccessSwal = () => {
-    showSuccess &&
-      Swal.fire({
-        icon: "success",
-        title: "<h1>Gửi yêu cầu thành công</h1>",
-        html: "<h4>Sẽ liên hệ với quý khách sớm nhất. Xin cảm ơn.</h4",
-      });
+  // Xử lí sau khi đặc tour thành công
+  const handleCloseModalBooking = () => {
+    setSelectedCalendar({});
+    getTourById();
   };
 
-  const handleCloseModalBooking = () => {
-    
+  const showSuccessSwal = () => {
+    const alertInstance = Swal.fire({
+      icon: "success",
+      title: "<h1>Gửi yêu cầu thành công</h1>",
+      html: "<h4>Sẽ liên hệ với quý khách sớm nhất. Xin cảm ơn.</h4",
+    });
+
+    setTimeout(() => {
+      alertInstance.close();
+    }, 2000);
   };
 
   // Hàm nhận dữ liệu người dùng đăng ký nhận từ component con ModalRegisterBooking
   const getModalResgisterBooking = async (data) => {
-    // Xử lí cập nhật dữ liệu or tạo mới
-    if (data) {
-      var idCus;
-      const resfindOrCreateCustomer = await CustomerService.findOrCreate(data);
+    try {
+      // Xử lí cập nhật dữ liệu or tạo mới
+      if (data) {
+        // Update số chỗ ngồi trong lịch của 1 tour đó
+        const registeredSeatsUpdate =
+          await CalendarTourService.updateRegisteredSeats({
+            registeredSeats: numberTicketAdult + numberTicketChild,
+            idCalendar: selectedCalendar?.id,
+          });
 
-      // Trường hợp đã đăng nhập
-      if (resfindOrCreateCustomer && resfindOrCreateCustomer.data.EC === 1) {
-        idCus = resfindOrCreateCustomer?.data?.DT?.InfoCusUpdated?.id;
+        // Trường hợp hết chỗ để đăng ký
+        if (registeredSeatsUpdate?.data?.EC === 2) {
+          toast.warning(registeredSeatsUpdate?.data?.EM);
+          return;
+        }
+
+        var idCus;
+        const resfindOrCreateCustomer = await CustomerService.findOrCreate(
+          data
+        );
+
+        // Trường hợp đã đăng nhập
+        if (resfindOrCreateCustomer && resfindOrCreateCustomer.data.EC === 1) {
+          idCus = resfindOrCreateCustomer?.data?.DT?.InfoCusUpdated?.id;
+        }
+
+        // Trường hợp ch đăng nhập
+        if (resfindOrCreateCustomer && resfindOrCreateCustomer.data.EC === 0) {
+          idCus = resfindOrCreateCustomer?.data?.DT?.id;
+        }
+
+        // Đặt Tour
+
+        const bookingTour = await BookingTourService.createBookingTour({
+          idCustomer: idCus,
+          idCalendar: selectedCalendar?.id,
+          money: countMoney?.toLocaleString("vi-VN"),
+          numberTicketAdult: numberTicketAdult,
+          numberTicketChild: numberTicketChild,
+        });
+
+        if (
+          bookingTour &&
+          bookingTour.data?.EC === 0 &&
+          bookingTour.data?.DT?.id
+        ) {
+          // bật modal đặc tour thành công
+          showSuccessSwal();
+          handleCloseModalBooking();
+        }
       }
-
-      // Trường hợp ch đăng nhập
-      if (resfindOrCreateCustomer && resfindOrCreateCustomer.data.EC === 0) {
-        idCus = resfindOrCreateCustomer?.data?.DT?.id;
-      }
-
-      // Booking Tour
-
-      const bookingTour = await BookingTourService.createBookingTour({
-        idCustomer: idCus,
-        idCalendar: selectedCalendar?.id,
-        money: countMoney?.toLocaleString("vi-VN"),
-        numberTicketAdult: numberTicketAdult,
-        numberTicketChild: numberTicketChild,
-      });
-
-      if (
-        bookingTour &&
-        bookingTour.data?.EC === 0 &&
-        bookingTour.data?.DT?.id
-      ) {
-        console.log("resbookingTour >>>", bookingTour);
-        // bật modal đặc tour thành công
-
-        setShowSuccess(true);
-        showSuccessSwal();
-
-        setTimeout(() => {
-          Swal.close();
-        }, 2000);
-      }
+    } catch (error) {
+      console.log("error >>>", error);
     }
   };
 
@@ -281,9 +296,6 @@ function Tour() {
               <div
                 className={cx("d-flex flex-wrap justify-content-between my-4")}
               >
-                {/* {calendarTour &&
-                  calendarTour.map((item) => ( */}
-
                 {handleCalendarShow &&
                   handleCalendarShow.map((item) => (
                     <div
@@ -351,9 +363,21 @@ function Tour() {
                 </div>
               </div>
 
-              <p className={cx("xanhBlueMo", "fs-3")}>
-                <IconExclamationCircle /> Liên hệ để xác nhận chỗ
-              </p>
+              <div className={cx("d-flex justify-content-between flex-wrap")}>
+                <p className={cx("xanhBlueMo", "fs-3")}>
+                  <IconExclamationCircle /> Liên hệ để xác nhận chỗ
+                </p>
+
+                {selectedCalendar?.registeredSeats && (
+                  <p className={cx("fs-3")}>
+                    Số chỗ :
+                    {+selectedCalendar?.numberSeat -
+                      +selectedCalendar?.registeredSeats ||
+                      selectedCalendar?.numberSeat}
+                  </p>
+                )}
+              </div>
+
               <div
                 className={cx("d-flex justify-content-between  flex-wrap my-4")}
               >

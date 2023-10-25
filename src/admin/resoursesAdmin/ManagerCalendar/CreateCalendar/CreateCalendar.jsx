@@ -2,7 +2,6 @@ import className from "classnames/bind";
 import styles from "./CreateCalendar.module.scss";
 const cx = className.bind(styles);
 
-import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { IconAsterisk } from "@tabler/icons-react";
 import { Space, Table, Tag } from "antd";
@@ -19,7 +18,7 @@ import Select from "react-select";
 import { useEffect, useState } from "react";
 
 import TourService from "../../../../services/TourService";
-import CalendarTour from "../../../../services/CalendarTour";
+import CalendarTourService from "../../../../services/CalendarTourService";
 
 function CreateCalendar() {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -42,6 +41,7 @@ function CreateCalendar() {
         idTour: item.id,
         key: item.id,
         imageTour: item.image,
+        durationTour: item.duration,
         calendar: item.Calendars,
       }));
       setAllTour(allTourCus);
@@ -66,13 +66,19 @@ function CreateCalendar() {
       key: "nameTour",
     },
 
+    // {
+    //   title: "Ảnh Tour",
+    //   dataIndex: "imageTour",
+    //   key: "imageTour",
+    //   render: (image) => (
+    //     <img src={image} alt="Hình ảnh" width="150" height="150" />
+    //   ),
+    // },
+
     {
-      title: "Ảnh Tour",
-      dataIndex: "imageTour",
-      key: "imageTour",
-      render: (image) => (
-        <img src={image} alt="Hình ảnh" width="150" height="150" />
-      ),
+      title: "Thời gian  Tour",
+      dataIndex: "durationTour",
+      key: "durationTour",
     },
 
     {
@@ -177,7 +183,7 @@ function CreateCalendar() {
       return;
     }
 
-    const res = await CalendarTour.create({
+    const res = await CalendarTourService.create({
       idTour: selectedOption.value,
       numberSeat: numberSeat,
       startDay: startDate,

@@ -16,6 +16,12 @@ const update = (rawData) => {
   return axios.put("/api/v1/tour/updateTour", rawData);
 };
 
+const updateRegisteredSeats = (rawData) => {
+  console.log("rawData", rawData);
+  return axios.patch("/api/v1/calendar/updateRegisteredSeats", rawData);
+};
+
 export default {
   create,
+  updateRegisteredSeats,
 };

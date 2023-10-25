@@ -82,7 +82,7 @@ function Login() {
 
           <div className={cx("form-group")}>
             <label className={cx("form-label")} htmlFor="email">
-              <span>Email: (nvt@student.ctu.edu.vn )</span>
+              <span>Email: ( NguyenVanA@gmail.com  )</span>
             </label>
             <input
               placeholder="Email address or number phone"
