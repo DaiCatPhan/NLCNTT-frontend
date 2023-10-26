@@ -2,29 +2,31 @@ import className from "classnames/bind";
 import styles from "./Tour.module.scss";
 const cx = className.bind(styles);
 
-import { useEffect, useState, useMemo } from "react";
 import {
   IconAlarm,
   IconCalendarDue,
   IconCheck,
   IconExclamationCircle,
   IconMapPin,
+  IconMinus,
   IconPlus,
 } from "@tabler/icons-react";
-import { IconMinus } from "@tabler/icons-react";
-import { useParams } from "react-router-dom";
 import moment from "moment";
+import { useEffect, useMemo, useState } from "react";
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 
 import TourService from "../../../services/TourService";
-import CustomerService from "../../../services/CustomerService";
-import BookingTourService from "../../../services/BookingTourService";
-import CalendarTourService from "../../../services/CalendarTourService";
 
+import ModalLoginBooking from "./componentsTour/ModalLoginBooking";
 import ModalRegisterBooking from "./componentsTour/ModalRegisterBooking";
 
+import useAuth from "../../../hook/useAuth";
+
 function Tour() {
+  const { isLogged, role, profile } = useAuth();
+
   let { id } = useParams();
   const [numberTicketAdult, setNumberTicketAdult] = useState(1);
   const [numberTicketChild, setNumberTicketChild] = useState(0);
@@ -38,7 +40,8 @@ function Tour() {
   const [isShowModalRegisterBooking, setIsShowModalRegisterBooking] =
     useState(false);
 
-  console.log(">>>> selectedCalendar", selectedCalendar);
+  // Component Modal Login Booking
+  const [isShowModalLoginBooking, setIsShowModalLoginBooking] = useState(false);
 
   // Gọi API lấy dữ liệu
   const getTourById = async () => {
@@ -142,69 +145,52 @@ function Tour() {
     }, 2000);
   };
 
-  // Hàm nhận dữ liệu người dùng đăng ký nhận từ component con ModalRegisterBooking
-  const getModalResgisterBooking = async (data) => {
-    try {
-      // Xử lí cập nhật dữ liệu or tạo mới
-      if (data) {
-        // Update số chỗ ngồi trong lịch của 1 tour đó
-        const registeredSeatsUpdate =
-          await CalendarTourService.updateRegisteredSeats({
-            registeredSeats: numberTicketAdult + numberTicketChild,
-            idCalendar: selectedCalendar?.id,
-          });
-
-        // Trường hợp hết chỗ để đăng ký
-        if (registeredSeatsUpdate?.data?.EC === 2) {
-          toast.warning(registeredSeatsUpdate?.data?.EM);
-          return;
-        }
-
-        var idCus;
-        const resfindOrCreateCustomer = await CustomerService.findOrCreate(
-          data
-        );
-
-        // Trường hợp đã đăng nhập
-        if (resfindOrCreateCustomer && resfindOrCreateCustomer.data.EC === 1) {
-          idCus = resfindOrCreateCustomer?.data?.DT?.InfoCusUpdated?.id;
-        }
-
-        // Trường hợp ch đăng nhập
-        if (resfindOrCreateCustomer && resfindOrCreateCustomer.data.EC === 0) {
-          idCus = resfindOrCreateCustomer?.data?.DT?.id;
-        }
-
-        // Đặt Tour
-
-        const bookingTour = await BookingTourService.createBookingTour({
-          idCustomer: idCus,
-          idCalendar: selectedCalendar?.id,
-          money: countMoney?.toLocaleString("vi-VN"),
-          numberTicketAdult: numberTicketAdult,
-          numberTicketChild: numberTicketChild,
-        });
-
-        if (
-          bookingTour &&
-          bookingTour.data?.EC === 0 &&
-          bookingTour.data?.DT?.id
-        ) {
-          // bật modal đặc tour thành công
-          showSuccessSwal();
-          handleCloseModalBooking();
-        }
-      }
-    } catch (error) {
-      console.log("error >>>", error);
-    }
+  // Xử lí Modal đăng ký Tour
+  const handleResTourByModalBooking = async () => {
+    alert("handleResTourByModalBooking");
   };
 
-  const handleBookingTour = () => {
+  // Xử lí Modal chưa đăng nhập
+  const handleLoginByModalLoginBooking = async (email, password) => {
+    console.log("handleResTourByModalBooking", { email, password });
+  };
+
+  const handleBookingTour = async () => {
     if (!selectedCalendar.id) {
       return toast.warning("Chọn lịch để đặt Tour ");
     }
-    setIsShowModalRegisterBooking(true);
+
+    if (isLogged) {
+      setIsShowModalRegisterBooking(true);
+    } else {
+      setIsShowModalLoginBooking(true);
+    }
+
+    const handleDataBookingTour = {
+      emmailCus: profile?.email,
+      idCalendar: selectedCalendar?.id,
+      money: countMoney?.toLocaleString("vi-VN"),
+      numberTicketAdult: numberTicketAdult,
+      numberTicketChild: numberTicketChild,
+    };
+
+    // const bookingTour = await BookingTourService.createBookingTour({
+    //   idCustomer: idCus,
+    //   idCalendar: selectedCalendar?.id,
+    //   money: countMoney?.toLocaleString("vi-VN"),
+    //   numberTicketAdult: numberTicketAdult,
+    //   numberTicketChild: numberTicketChild,
+    // });
+
+    // if (
+    //   bookingTour &&
+    //   bookingTour.data?.EC === 0 &&
+    //   bookingTour.data?.DT?.id
+    // ) {
+    //   // bật modal đặc tour thành công
+    //   showSuccessSwal();
+    //   handleCloseModalBooking();
+    // }
   };
 
   return (
@@ -368,14 +354,7 @@ function Tour() {
                   <IconExclamationCircle /> Liên hệ để xác nhận chỗ
                 </p>
 
-                {selectedCalendar?.registeredSeats && (
-                  <p className={cx("fs-3")}>
-                    Số chỗ :
-                    {+selectedCalendar?.numberSeat -
-                      +selectedCalendar?.registeredSeats ||
-                      selectedCalendar?.numberSeat}
-                  </p>
-                )}
+                <p className={cx("fs-3")}>Số chỗ :</p>
               </div>
 
               <div
@@ -430,7 +409,20 @@ function Tour() {
       <ModalRegisterBooking
         isShowModalRegisterBooking={isShowModalRegisterBooking}
         setIsShowModalRegisterBooking={setIsShowModalRegisterBooking}
-        getModalResgisterBooking={getModalResgisterBooking}
+        handleResTourByModalBooking={handleResTourByModalBooking}
+        data={{
+          nameTour: tourDetail?.name,
+          image: tourDetail?.image,
+          numberTicketAdult: numberTicketAdult,
+          numberTicketChild: numberTicketChild,
+          countMoney: countMoney,
+        }}
+      />
+
+      <ModalLoginBooking
+        isShowModalLoginBooking={isShowModalLoginBooking}
+        setIsShowModalLoginBooking={setIsShowModalLoginBooking}
+        handleLoginByModalLoginBooking={handleLoginByModalLoginBooking}
       />
     </div>
   );

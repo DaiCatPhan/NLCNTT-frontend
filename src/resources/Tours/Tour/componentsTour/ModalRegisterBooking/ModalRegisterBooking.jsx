@@ -1,16 +1,17 @@
 import className from "classnames/bind";
+import { useState } from "react";
 import styles from "./ModalRegisterBooking.module.scss";
-import { useEffect, useState, useMemo } from "react";
 const cx = className.bind(styles);
 
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
+// import Button from "react-bootstrap/Button";
+// import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 
+import { Modal } from "antd";
+
 import { IconAsterisk } from "@tabler/icons-react";
-import Swal from "sweetalert2";
-import "sweetalert2/src/sweetalert2.scss";
 import { toast } from "react-toastify";
+import "sweetalert2/src/sweetalert2.scss";
 
 import useAuth from "../../../../../hook/useAuth";
 
@@ -18,18 +19,16 @@ function ModalRegisterBooking(props) {
   const { isLogged, role, profile } = useAuth();
 
   const {
-    getModalResgisterBooking,
     isShowModalRegisterBooking,
     setIsShowModalRegisterBooking,
+    handleResTourByModalBooking,
+    data,
   } = props;
+
   const [email, setEmail] = useState(profile?.email || "");
   const [name, setName] = useState(profile?.name || "");
-  const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
 
   const handleClose = () => {
-    setPhone("");
-    setAddress("");
     setIsShowModalRegisterBooking(false);
   };
 
@@ -42,59 +41,49 @@ function ModalRegisterBooking(props) {
       toast.warning("Hãy nhập name !!!");
       return false;
     }
-    if (!phone) {
-      toast.warning("Hãy nhập phone !!!");
-      return false;
-    }
-    const phonePattern = /^\d{10}$/;
-    if (!phonePattern.test(phone)) {
-      toast.warning(" Vui lòng nhập đúng định dạng số điện thoại  !!!");
-      return false;
-    }
-    if (!address) {
-      toast.warning("Hãy nhập address !!!");
-      return false;
-    }
+
     return true;
   };
 
-  const handleSubmitForm = async () => {
+  const handleOk = async () => {
     const checkVad = validate();
     if (!checkVad) {
       return;
     }
-    getModalResgisterBooking({ email, name, phone, address });
+    handleResTourByModalBooking();
     handleClose();
   };
 
   return (
     <div className={cx("wrapper")}>
       <div className={cx("bodyWrapper")}>
-        <Modal show={isShowModalRegisterBooking} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title></Modal.Title>
-          </Modal.Header>
-          <Modal.Body className={cx("modalBody")}>
+        <Modal
+          open={isShowModalRegisterBooking}
+          onCancel={handleClose}
+          okText="Xác nhận"
+          cancelText="Hủy"
+          style={{ top: "50px" }}
+          onOk={handleOk}
+        >
+          <div>
             <div className={cx("mb-4")}>
-              <h1>
+              <h2>
                 <b>Yêu cầu đặt</b>
-              </h1>
+              </h2>
               <p className={cx("text-secondary")}>
                 Quý khách vui lòng nhập thông tin liên hệ bên dưới
               </p>
             </div>
-            <Form>
+            <Form className={cx("fse-20px")}>
               {/* Email */}
               <Form.Group
                 className="mb-3"
                 controlId="exampleForm.ControlInput1"
               >
-                <Form.Label>
-                  Email <IconAsterisk height={10} width={10} color="red" />
-                </Form.Label>
+                <Form.Label>Email</Form.Label>
                 <Form.Control
                   type="text"
-                  className={cx("py-3 fs-4")}
+                  className={cx("py-3", "fse-20px")}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -105,55 +94,50 @@ function ModalRegisterBooking(props) {
                 className="mb-3"
                 controlId="exampleForm.ControlInput1"
               >
-                <Form.Label>
-                  Họ và tên <IconAsterisk height={10} width={10} color="red" />{" "}
-                </Form.Label>
+                <Form.Label>Họ và tên</Form.Label>
                 <Form.Control
                   type="text"
-                  className={cx("py-3 fs-4")}
+                  className={cx("py-3 ", "fse-20px")}
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
               </Form.Group>
 
-              {/* So dien thoai */}
-              <Form.Group
-                className="mb-3"
-                controlId="exampleForm.ControlInput1"
-              >
-                <Form.Label>
-                  Điện thoại <IconAsterisk height={10} width={10} color="red" />
-                </Form.Label>
-                <Form.Control
-                  type="text"
-                  className={cx("py-3 fs-4")}
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                />
-              </Form.Group>
+              <div className={cx("py-3")}>
+                <div>Tên Tour : {data?.nameTour}</div>
+              </div>
 
-              {/* Dia chi */}
-              <Form.Group
-                className="mb-3"
-                controlId="exampleForm.ControlInput1"
+              <div
+                className={cx(
+                  "d-flex justify-content-between border py-3 rounded"
+                )}
               >
-                <Form.Label>Địa chỉ</Form.Label>
-                <Form.Control
-                  type="text"
-                  className={cx("py-3 fs-4")}
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                />
-              </Form.Group>
+                <div className={cx("px-2")}>
+                  Số vé người lớn : {data?.numberTicketAdult}
+                </div>
+                <div className={cx("px-2")}>
+                  Số vé trẻ em : {data?.numberTicketChild}
+                </div>
+              </div>
+
+              <div
+                className={cx(
+                  "d-flex justify-content-between border py-3 my-4 rounded"
+                )}
+              >
+                <div className={cx("px-2")}>
+                  Tổng tiền thanh toán :{" "}
+                  {data?.countMoney.toLocaleString("vi-VN")} VND
+                </div>
+              </div>
             </Form>
-          </Modal.Body>
-          <Modal.Footer>
-            <div className={cx("text-center w-100")}>
-              <button className={cx("btnReg")} onClick={handleSubmitForm}>
-                <p>Gửi yêu cầu</p>
-              </button>
-            </div>
-          </Modal.Footer>
+          </div>
+
+          {/* <div className={cx("text-center w-100")}>
+            <button className={cx("btnReg")} onClick={handleSubmitForm}>
+              <p>Gửi yêu cầu</p>
+            </button>
+          </div> */}
         </Modal>
       </div>
     </div>
