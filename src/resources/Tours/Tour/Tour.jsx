@@ -17,7 +17,13 @@ import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 
+import { useDispatch } from "react-redux";
+import { toggleLogin } from "../../../redux/reducers/userSlice";
+import { useNavigate } from "react-router-dom";
+
 import TourService from "../../../services/TourService";
+import BookingTourService from "../../../services/BookingTourService";
+import AuthenticationService from "../../../services/AuthenticationService";
 
 import ModalLoginBooking from "./componentsTour/ModalLoginBooking";
 import ModalRegisterBooking from "./componentsTour/ModalRegisterBooking";
@@ -26,6 +32,8 @@ import useAuth from "../../../hook/useAuth";
 
 function Tour() {
   const { isLogged, role, profile } = useAuth();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   let { id } = useParams();
   const [numberTicketAdult, setNumberTicketAdult] = useState(1);
@@ -36,6 +44,9 @@ function Tour() {
   const [processTour, setProcessTour] = useState({});
 
   const [selectedCalendar, setSelectedCalendar] = useState({});
+
+  console.log("selectedCalendar", selectedCalendar);
+
   // Component Modal ResBooking
   const [isShowModalRegisterBooking, setIsShowModalRegisterBooking] =
     useState(false);
@@ -68,20 +79,6 @@ function Tour() {
     getTourById();
   }, []);
 
-  // Lấy dữ liệu để hiển xử lí chọn lịch và active
-  const handleSelectCalendar = (item) => {
-    setSelectedCalendar(item);
-
-    let selectedCal = calendarTour?.map((calendar) => {
-      calendar.isSelected = false;
-      if (calendar.id === item.id) {
-        calendar.isSelected = !calendar.isSelected;
-      }
-      return calendar;
-    });
-    setCalendarTour(selectedCal);
-  };
-
   // Xử lí mảnh lịch nhận về ban đầu để có mảng lịch lớn hơn ngày hiện tại để hiện ra dưới UI
   const handleCalendarShow = useMemo(() => {
     let futureDates = [];
@@ -90,6 +87,11 @@ function Tour() {
     for (var i = 0; i < calendarTour?.length; i++) {
       var eventStart = new Date(calendarTour[i].startDay);
       if (eventStart >= currentDate) {
+        if (futureDates.length === 0) {
+          // Đánh dấu phần tử đầu tiên là mặc định được chọn
+          calendarTour[i].isSelected = true;
+          setSelectedCalendar(calendarTour[i]);
+        }
         futureDates.push(calendarTour[i]);
 
         if (futureDates.length >= 3) {
@@ -101,13 +103,30 @@ function Tour() {
     return futureDates;
   }, [calendarTour]);
 
+  const handleSelectCalendar = (item) => {
+    setSelectedCalendar(item);
+    calendarTour?.map((calendar) => {
+      calendar.isSelected = false;
+      if (calendar.id === item.id) {
+        calendar.isSelected = !calendar.isSelected;
+      }
+      return calendar;
+    });
+  };
+
   // Tính tổng tiền
   const countMoney = useMemo(() => {
+    console.log(selectedCalendar?.priceAdult);
+    console.log(selectedCalendar?.priceChild);
+    console.log(numberTicketAdult);
+    console.log(numberTicketAdult);
     return (
-      Number(tourDetail?.priceAdult?.replace(/\./g, "")) * numberTicketAdult +
-      Number(tourDetail?.priceChild?.replace(/\./g, "")) * numberTicketChild
+      Number(selectedCalendar?.priceAdult?.replace(/\./g, "")) *
+        numberTicketAdult +
+      Number(selectedCalendar?.priceChild?.replace(/\./g, "")) *
+        numberTicketChild
     );
-  }, [calendarTour, numberTicketAdult, numberTicketChild]);
+  }, [selectedCalendar, numberTicketAdult, numberTicketChild]);
 
   // Hàm xử lí ấn giảm vé Trẻ em mà không cho nó nhỏ hơn 0
   const handleSetMinusNumberTicketChild = () => {
@@ -147,12 +166,46 @@ function Tour() {
 
   // Xử lí Modal đăng ký Tour
   const handleResTourByModalBooking = async () => {
-    alert("handleResTourByModalBooking");
+    try {
+      const bookingTour = await BookingTourService.createBookingTour({
+        emailCus: profile?.email,
+        idCalendar: selectedCalendar?.id,
+        numberTicketAdult: numberTicketAdult,
+        numberTicketChild: numberTicketChild,
+      });
+      if (
+        bookingTour &&
+        bookingTour.data?.EC === 0 &&
+        bookingTour.data?.DT?.id
+      ) {
+        // bật modal đặc tour thành công
+        showSuccessSwal();
+        handleCloseModalBooking();
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
   };
 
   // Xử lí Modal chưa đăng nhập
   const handleLoginByModalLoginBooking = async (email, password) => {
-    console.log("handleResTourByModalBooking", { email, password });
+    const res = await AuthenticationService.loginApi({ email, password });
+
+    if (res?.data?.EC == 0) {
+      const dataUser = res.data?.DT?.tokentData;
+
+      dispatch(
+        toggleLogin({
+          name: dataUser.name,
+          email: dataUser.email,
+          role: dataUser.role,
+        })
+      );
+
+      toast.success("Đăng nhập thành công !!!");
+    } else {
+      toast.error(res.data.EM);
+    }
   };
 
   const handleBookingTour = async () => {
@@ -165,32 +218,6 @@ function Tour() {
     } else {
       setIsShowModalLoginBooking(true);
     }
-
-    const handleDataBookingTour = {
-      emmailCus: profile?.email,
-      idCalendar: selectedCalendar?.id,
-      money: countMoney?.toLocaleString("vi-VN"),
-      numberTicketAdult: numberTicketAdult,
-      numberTicketChild: numberTicketChild,
-    };
-
-    // const bookingTour = await BookingTourService.createBookingTour({
-    //   idCustomer: idCus,
-    //   idCalendar: selectedCalendar?.id,
-    //   money: countMoney?.toLocaleString("vi-VN"),
-    //   numberTicketAdult: numberTicketAdult,
-    //   numberTicketChild: numberTicketChild,
-    // });
-
-    // if (
-    //   bookingTour &&
-    //   bookingTour.data?.EC === 0 &&
-    //   bookingTour.data?.DT?.id
-    // ) {
-    //   // bật modal đặc tour thành công
-    //   showSuccessSwal();
-    //   handleCloseModalBooking();
-    // }
   };
 
   return (
@@ -304,9 +331,9 @@ function Tour() {
                 )}
               >
                 <div>Người lớn : </div>
-                {tourDetail?.priceAdult && (
+                {selectedCalendar?.priceAdult && (
                   <div className={cx("text-warning ", "fs-3", "fw-600px")}>
-                    x {tourDetail?.priceAdult}
+                    x {selectedCalendar?.priceAdult}
                   </div>
                 )}
 
@@ -329,9 +356,9 @@ function Tour() {
                 )}
               >
                 <div className={cx("mx-3")}>Trẻ em : </div>
-                {tourDetail?.priceChild && (
+                {selectedCalendar?.priceChild && (
                   <div className={cx("text-warning ", "fs-3", "fw-600px")}>
-                    x {tourDetail?.priceChild}
+                    x {selectedCalendar?.priceChild}
                   </div>
                 )}
                 <div>
@@ -416,7 +443,10 @@ function Tour() {
           numberTicketAdult: numberTicketAdult,
           numberTicketChild: numberTicketChild,
           countMoney: countMoney,
+          startDay: selectedCalendar?.startDay,
+          endDay: selectedCalendar?.endDay,
         }}
+        profile={profile}
       />
 
       <ModalLoginBooking

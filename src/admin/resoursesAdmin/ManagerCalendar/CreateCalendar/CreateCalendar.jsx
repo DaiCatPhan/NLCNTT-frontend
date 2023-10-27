@@ -5,17 +5,13 @@ const cx = className.bind(styles);
 import Form from "react-bootstrap/Form";
 import { IconAsterisk } from "@tabler/icons-react";
 import { Space, Table, Tag } from "antd";
-
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import "react-datepicker/dist/react-datepicker-cssmodules.css";
+import { DatePicker } from "antd";
 
 import moment from "moment";
 import { toast } from "react-toastify";
-import { mutate } from "swr";
 
 import Select from "react-select";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import TourService from "../../../../services/TourService";
 import CalendarTourService from "../../../../services/CalendarTourService";
@@ -25,13 +21,15 @@ function CreateCalendar() {
   const [options, setOptions] = useState([]);
 
   const [numberSeat, setNumberSeat] = useState("");
+  const [priceAdult, setPriceAdult] = useState("");
+  const [priceChild, setPriceChild] = useState("");
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
 
   const [allTour, setAllTour] = useState([]);
 
+
   // table
-  const [dataTable, setDataTable] = useState([]);
 
   const fetchData = async () => {
     const res = await TourService.getAllTour();
@@ -43,6 +41,8 @@ function CreateCalendar() {
         imageTour: item.image,
         durationTour: item.duration,
         calendar: item.Calendars,
+        priceAdultTour: item.priceAdult,
+        priceChildTour: item.priceChild,
       }));
       setAllTour(allTourCus);
       const result = [];
@@ -59,21 +59,123 @@ function CreateCalendar() {
     fetchData();
   }, []);
 
+  const dataTable =
+    useMemo(() => {
+      if (allTour && allTour.length > 0) {
+        const dataTable = allTour.filter(
+          (item) => item.idTour === selectedOption?.value
+        );
+
+        setPriceAdult(dataTable[0]?.priceAdultTour);
+        setPriceChild(dataTable[0]?.priceChildTour);
+
+        return dataTable;
+      }
+    }, [selectedOption, allTour]) || [];
+
+  const handleChangeSelect = (selectedOption) => {
+    setSelectedOption(selectedOption);
+  };
+
+  const checkValidate = () => {
+    if (!selectedOption) {
+      toast.warning("Chưa chọn Tour !!!!");
+      return false;
+    }
+    if (!numberSeat) {
+      toast.warning("Chưa nhập số chỗ ngồi !!!!");
+      return false;
+    }
+    if (!priceAdult) {
+      toast.warning("Chưa nhập giá vé người lớn !!!!");
+      return false;
+    }
+    if (!priceChild) {
+      toast.warning("Chưa nhập giá vé trẻ em !!!!");
+      return false;
+    }
+    const regex = /^\d{1,3}(\.\d{3})*$/;
+    if (!regex.test(priceAdult)) {
+      toast.warning("Nhập giá vé người lớn chưa đúng định dạng !!!!");
+      return false;
+    }
+    if (!regex.test(priceChild)) {
+      toast.warning("Nhập giá vé trẻ em chưa đúng định dạng !!!!");
+      return false;
+    }
+    if (!startDate) {
+      toast.warning("Chưa nhập ngày bắt đầu  !!!!");
+      return false;
+    }
+    if (!endDate) {
+      toast.warning("Chưa nhập ngày kết thúc !!!!");
+      return false;
+    }
+    return true;
+  };
+
+  const handleClose = () => {
+    setNumberSeat("");
+    setPriceAdult("");
+    setPriceChild("");
+    setStartDate(null);
+    setEndDate(null);
+  };
+
+  const onChangeDatePickerStartDay = (date) => {
+    setStartDate(date);
+  };
+
+  const onChangeDatePickerEndDay = (date) => {
+    setEndDate(date);
+  };
+
+  const disabledDate = (current) => {
+    return current && current < new Date();
+  };
+
+  const disabledEndDate = (current) => {
+    return current && current < startDate;
+  };
+
+  // Tạo lịch
+
+  const handleSubmitCalendar = async () => {
+    const validate = checkValidate();
+    if (!validate) {
+      return;
+    }
+
+    const res = await CalendarTourService.create({
+      idTour: selectedOption.value,
+      numberSeat: numberSeat,
+      priceAdult: priceAdult.replace(/\./g, ""),
+      priceChild: priceChild.replace(/\./g, ""),
+      startDay: startDate,
+      endDay: endDate,
+    });
+
+    if (res && res.data.EC === 0 && res.data.DT.id) {
+      toast.success("Tạo lịch thành công ");
+      handleClose();
+      fetchData();
+    }
+  };
+
+  const handleDeleteCalendar = () => {
+    alert("Xoa");
+  };
+
+  const handleUpdateCalendar = () => {
+    alert("Update");
+  };
+
   const columns = [
     {
       title: "Tên Tour",
       dataIndex: "nameTour",
       key: "nameTour",
     },
-
-    // {
-    //   title: "Ảnh Tour",
-    //   dataIndex: "imageTour",
-    //   key: "imageTour",
-    //   render: (image) => (
-    //     <img src={image} alt="Hình ảnh" width="150" height="150" />
-    //   ),
-    // },
 
     {
       title: "Thời gian  Tour",
@@ -91,7 +193,7 @@ function CreateCalendar() {
           <div
             key={address.id}
             className={cx(
-              "border m-2 d-flex justify-content-between p-3 border-warning"
+              "border m-2 d-flex justify-content-between p-3 border-warning align-items-center"
             )}
           >
             <div>
@@ -100,23 +202,45 @@ function CreateCalendar() {
             <div>
               <b>Chỗ ngồi : {address.numberSeat}</b>
             </div>
-            <div>
-              <b>
-                Ngày bắt đầu :
-                <span className={cx("text-primary")}>
-                  {moment(address?.startDay).format("DD-MM-YYYY")}
-                </span>
-              </b>
+
+            {/*  Gia ve */}
+            <div className={cx("border ")}>
+              <div>
+                <b>
+                  Giá người lớn :
+                  <span className={cx("text-primary")}>
+                    {address?.priceAdult?.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                  </span>
+                </b>
+              </div>
+              <div>
+                <b>
+                  Giá vé trẻ em:
+                  <span className={cx("text-danger")}>
+                    {address?.priceChild?.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                  </span>
+                </b>
+              </div>
             </div>
             <div>
-              <b>
-                Ngày kết thúc:
-                <span className={cx("text-danger")}>
-                  {moment(address?.endDay).format("DD-MM-YYYY")}
-                </span>
-              </b>
+              <div>
+                <b>
+                  Ngày bắt đầu :
+                  <span className={cx("text-primary")}>
+                    {moment(address?.startDay).format("DD-MM-YYYY")}
+                  </span>
+                </b>
+              </div>
+              <div>
+                <b>
+                  Ngày kết thúc:
+                  <span className={cx("text-danger")}>
+                    {moment(address?.endDay).format("DD-MM-YYYY")}
+                  </span>
+                </b>
+              </div>
             </div>
-            <div>
+            <div className={cx("")}>
               <button
                 onClick={handleDeleteCalendar}
                 className={cx("btn border border-primary mx-2")}
@@ -134,90 +258,6 @@ function CreateCalendar() {
         )),
     },
   ];
-
-  const handleChangeSelect = (selectedOption) => {
-    setSelectedOption(selectedOption);
-    if (selectedOption) {
-      filterTour(selectedOption.value);
-    }
-  };
-
-  const filterTour = (idTour) => {
-    if (idTour) {
-      const result = allTour?.filter((item) => item.idTour === idTour);
-      setDataTable(result);
-    } else {
-      setDataTable([]); // Reset the table when no option is selected
-    }
-  };
-
-  const checkValidate = () => {
-    if (!selectedOption) {
-      toast.warning("Chưa chọn Tour !!!!");
-      return false;
-    }
-    if (!numberSeat) {
-      toast.warning("Chưa nhập số chỗ ngồi !!!!");
-      return false;
-    }
-    if (!startDate) {
-      toast.warning("Chưa nhập ngày bắt đầu  !!!!");
-      return false;
-    }
-    if (!endDate) {
-      toast.warning("Chưa nhập ngày kết thúc !!!!");
-      return false;
-    }
-    return true;
-  };
-
-  const handleClose = () => {
-    setNumberSeat("");
-    setStartDate(null);
-    setEndDate(null);
-  };
-
-  const handleSubmitCalendar = async () => {
-    const validate = checkValidate();
-    if (!validate) {
-      return;
-    }
-
-    const res = await CalendarTourService.create({
-      idTour: selectedOption.value,
-      numberSeat: numberSeat,
-      startDay: startDate,
-      endDay: endDate,
-    });
-
-    if (res && res.data.EC === 0 && res.data.DT.id) {
-      toast.success("Tạo lịch thành công ");
-
-      const newCalendar = {
-        id: res.data.DT.id,
-        numberSeat: res.data.DT.numberSeat,
-        startDay: res.data.DT.startDay,
-        endDay: res.data.DT.endDay,
-      };
-      const resIdTour = res.data.DT.idTour;
-      const targetTour = dataTable.find((tour) => tour.idTour === resIdTour);
-
-      if (targetTour) {
-        targetTour.calendar.push(newCalendar);
-      }
-
-      handleClose();
-      fetchData();
-    }
-  };
-
-  const handleDeleteCalendar = () => {
-    alert("Xoa");
-  };
-
-  const handleUpdateCalendar = () => {
-    alert("Update");
-  };
 
   return (
     <div className={cx("wraper")}>
@@ -258,14 +298,15 @@ function CreateCalendar() {
                     </Form.Label>
                   </div>
 
-                  <DatePicker
-                    style={{ width: "500px", height: "400px" }}
-                    className={cx("customInput")}
-                    selected={startDate}
-                    onChange={(date) => setStartDate(date)}
-                    dateFormat="dd/MM/yyyy"
-                    minDate={new Date()}
-                  />
+                  <Space direction="vertical">
+                    <DatePicker
+                      format={"DD/MM/YYYY"}
+                      onChange={onChangeDatePickerStartDay}
+                      className={cx("customInput")}
+                      disabledDate={disabledDate}
+                      value={startDate}
+                    />
+                  </Space>
                 </div>
 
                 <div className={cx("")}>
@@ -276,17 +317,50 @@ function CreateCalendar() {
                       <span className={cx("fs-4", "text-secondary")}></span>
                     </Form.Label>
                   </div>
-                  <DatePicker
-                    className={cx("customInput")}
-                    selected={endDate}
-                    onChange={(date) => setEndDate(date)}
-                    dateFormat="dd/MM/yyyy"
-                    minDate={startDate}
-                  />
+
+                  <Space direction="vertical">
+                    <DatePicker
+                      format={"DD/MM/YYYY"}
+                      onChange={onChangeDatePickerEndDay}
+                      className={cx("customInput")}
+                      disabledDate={disabledEndDate}
+                      value={endDate}
+                    />
+                  </Space>
                 </div>
               </div>
             </Form.Group>
           </Form>
+
+          <div className={cx("row my-5")}>
+            <div className={cx("col-6")}>
+              <Form.Label className={cx("")}>
+                Nhập giá vé người lớn ( 2.000.000 ){" "}
+                <IconAsterisk height={10} color="red" />
+              </Form.Label>
+              <Form.Control
+                placeholder="Giá vé người lớn"
+                className={cx("customInput")}
+                spellCheck={false}
+                defaultValue={priceAdult}
+                onChange={(e) => setPriceAdult(e.target.value)}
+              />
+            </div>
+
+            <div className={cx("col-6")}>
+              <Form.Label className={cx("")}>
+                Nhập giá vé trẻ em ( 1.500.000 )
+                <IconAsterisk height={10} color="red" />
+              </Form.Label>
+              <Form.Control
+                placeholder="Giá vé trẻ em"
+                className={cx("customInput")}
+                spellCheck={false}
+                defaultValue={priceChild}
+                onChange={(e) => setPriceChild(e.target.value)}
+              />
+            </div>
+          </div>
 
           <div className={cx("text-center")}>
             <button

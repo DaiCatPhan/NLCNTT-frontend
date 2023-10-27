@@ -1,55 +1,29 @@
 import className from "classnames/bind";
-import { useState } from "react";
 import styles from "./ModalRegisterBooking.module.scss";
 const cx = className.bind(styles);
 
-// import Button from "react-bootstrap/Button";
-// import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
+import moment from "moment";
 
 import { Modal } from "antd";
 
-import { IconAsterisk } from "@tabler/icons-react";
 import { toast } from "react-toastify";
 import "sweetalert2/src/sweetalert2.scss";
 
-import useAuth from "../../../../../hook/useAuth";
-
 function ModalRegisterBooking(props) {
-  const { isLogged, role, profile } = useAuth();
-
   const {
     isShowModalRegisterBooking,
     setIsShowModalRegisterBooking,
     handleResTourByModalBooking,
     data,
+    profile,
   } = props;
-
-  const [email, setEmail] = useState(profile?.email || "");
-  const [name, setName] = useState(profile?.name || "");
 
   const handleClose = () => {
     setIsShowModalRegisterBooking(false);
   };
 
-  const validate = () => {
-    if (!email) {
-      toast.warning("Hãy nhập email !!!");
-      return false;
-    }
-    if (!name) {
-      toast.warning("Hãy nhập name !!!");
-      return false;
-    }
-
-    return true;
-  };
-
   const handleOk = async () => {
-    const checkVad = validate();
-    if (!checkVad) {
-      return;
-    }
     handleResTourByModalBooking();
     handleClose();
   };
@@ -62,7 +36,7 @@ function ModalRegisterBooking(props) {
           onCancel={handleClose}
           okText="Xác nhận"
           cancelText="Hủy"
-          style={{ top: "50px" }}
+          style={{ top: "20px" }}
           onOk={handleOk}
         >
           <div>
@@ -76,40 +50,31 @@ function ModalRegisterBooking(props) {
             </div>
             <Form className={cx("fse-20px")}>
               {/* Email */}
-              <Form.Group
-                className="mb-3"
-                controlId="exampleForm.ControlInput1"
-              >
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type="text"
-                  className={cx("py-3", "fse-20px")}
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </Form.Group>
 
-              {/* Ho va ten */}
-              <Form.Group
-                className="mb-3"
-                controlId="exampleForm.ControlInput1"
-              >
-                <Form.Label>Họ và tên</Form.Label>
-                <Form.Control
-                  type="text"
-                  className={cx("py-3 ", "fse-20px")}
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </Form.Group>
+              <div className={cx("py-3")}>
+                <div>Email : {profile?.email}</div>
+              </div>
+
+              <div className={cx("py-3")}>
+                <div>Họ và tên : {profile?.name}</div>
+              </div>
 
               <div className={cx("py-3")}>
                 <div>Tên Tour : {data?.nameTour}</div>
               </div>
 
+              <div className={cx("py-3  d-flex justify-content-between")}>
+                <div>
+                  Ngày khởi hành : {moment(data?.startDay).format("DD-MM-YYYY")}
+                </div>
+                <div>
+                  Ngày kết thúc : {moment(data?.endDay).format("DD-MM-YYYY")}
+                </div>
+              </div>
+
               <div
                 className={cx(
-                  "d-flex justify-content-between border py-3 rounded"
+                  "d-flex my-2 justify-content-between border py-3 rounded"
                 )}
               >
                 <div className={cx("px-2")}>
@@ -132,12 +97,6 @@ function ModalRegisterBooking(props) {
               </div>
             </Form>
           </div>
-
-          {/* <div className={cx("text-center w-100")}>
-            <button className={cx("btnReg")} onClick={handleSubmitForm}>
-              <p>Gửi yêu cầu</p>
-            </button>
-          </div> */}
         </Modal>
       </div>
     </div>

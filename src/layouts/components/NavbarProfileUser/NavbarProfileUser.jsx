@@ -19,17 +19,17 @@ const { Header, Content, Footer, Sider } = Layout;
 const items2 = [
   {
     icon: <IconHome2 />,
-    label: <Link to={"/homeadmin"}>Home</Link>,
+    label: <Link to={"/"}>Home</Link>,
     key: "1",
   },
   {
     icon: <IconLayoutDashboard />,
-    label: <Link to={"/dashboard"}>Đơn hàng của tôi</Link>,
+    label: <Link to={"/profile/orderUser"}>Đơn hàng của tôi</Link>,
     key: "2",
   },
   {
     icon: <IconUser />,
-    label: <Link to={"/user-listUser"}>Hồ sơ của tôi</Link>,
+    label: <Link to={"/profile/infoUser"}>Hồ sơ của tôi</Link>,
     key: "3",
   },
   {

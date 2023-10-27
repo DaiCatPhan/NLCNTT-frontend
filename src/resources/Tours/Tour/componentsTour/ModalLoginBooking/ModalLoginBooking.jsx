@@ -79,7 +79,6 @@ function ModalLoginBooking(props) {
               {/* Email */}
               <Form.Group
                 className="mb-3"
-                controlId="exampleForm.ControlInput1"
               >
                 <Form.Label>
                   Email <IconAsterisk height={10} width={10} color="red" />
@@ -95,13 +94,12 @@ function ModalLoginBooking(props) {
               {/* Ho va ten */}
               <Form.Group
                 className="mb-3"
-                controlId="exampleForm.ControlInput1"
               >
                 <Form.Label>
                   Password <IconAsterisk height={10} width={10} color="red" />{" "}
                 </Form.Label>
                 <Form.Control
-                  type="text"
+                  type="password"
                   className={cx("py-3 fs-4")}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}

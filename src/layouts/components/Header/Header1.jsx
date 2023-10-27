@@ -103,12 +103,12 @@ function Header1() {
 
   const items = [
     {
-      label: <Link to={""}> Đơn hàng của tôi</Link>,
+      label: <Link to={"/profile/orderUser"}> Đơn hàng của tôi</Link>,
       key: "1",
       icon: <UserOutlined />,
     },
     {
-      label: <Link to={""}> Hồ sơ của tôi</Link>,
+      label: <Link to={"/profile/infoUser"}> Hồ sơ của tôi</Link>,
       key: "2",
       icon: <UserOutlined />,
     },
@@ -119,7 +119,10 @@ function Header1() {
     },
     {
       label: (
-        <button onClick={handleClickLogout} className={cx("w-100 rounded p-1 border-primary" )}>
+        <button
+          onClick={handleClickLogout}
+          className={cx("w-100 rounded p-1 border-primary")}
+        >
           Đăng xuất
         </button>
       ),
@@ -237,7 +240,9 @@ function Header1() {
                   placement="bottom"
                   icon={<UserOutlined />}
                 >
-                  {profile && <p className={cx('text-primary')}>{profile.name}</p>}
+                  {profile && (
+                    <p className={cx("text-primary")}>{profile.name}</p>
+                  )}
                 </Dropdown.Button>
               </Space>
             </>
