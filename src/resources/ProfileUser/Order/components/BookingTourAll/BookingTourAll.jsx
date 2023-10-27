@@ -2,7 +2,9 @@ import className from "classnames/bind";
 import styles from "./BookingTourAll.module.scss";
 const cx = className.bind(styles);
 
-function BookingTourAll() {
+function BookingTourAll(props) {
+  const { data } = props;
+  console.log("dataPassAll", data);
   return (
     <div className={cx("wrapper")}>
       <div className={cx("bodyWrapper")}>

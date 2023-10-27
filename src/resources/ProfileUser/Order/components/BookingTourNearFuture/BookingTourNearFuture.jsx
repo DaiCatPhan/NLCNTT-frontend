@@ -2,7 +2,9 @@ import className from "classnames/bind";
 import styles from "./BookingTourNearFuture.module.scss";
 const cx = className.bind(styles);
 
-function BookingTourNearFuture() {
+function BookingTourNearFuture(props) {
+  const { data } = props;
+  console.log("data", data.length);
   return (
     <div className={cx("wrapper")}>
       <div className={cx("bodyWrapper")}>

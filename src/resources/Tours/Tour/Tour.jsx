@@ -87,13 +87,7 @@ function Tour() {
     for (var i = 0; i < calendarTour?.length; i++) {
       var eventStart = new Date(calendarTour[i].startDay);
       if (eventStart >= currentDate) {
-        if (futureDates.length === 0) {
-          // Đánh dấu phần tử đầu tiên là mặc định được chọn
-          calendarTour[i].isSelected = true;
-          setSelectedCalendar(calendarTour[i]);
-        }
         futureDates.push(calendarTour[i]);
-
         if (futureDates.length >= 3) {
           break; // Đã có đủ 3 ngày lớn hơn ngày hiện tại
         }
@@ -103,6 +97,8 @@ function Tour() {
     return futureDates;
   }, [calendarTour]);
 
+  console.log(">>>>", handleCalendarShow);
+
   const handleSelectCalendar = (item) => {
     setSelectedCalendar(item);
     calendarTour?.map((calendar) => {
@@ -110,16 +106,11 @@ function Tour() {
       if (calendar.id === item.id) {
         calendar.isSelected = !calendar.isSelected;
       }
-      return calendar;
     });
   };
 
   // Tính tổng tiền
   const countMoney = useMemo(() => {
-    console.log(selectedCalendar?.priceAdult);
-    console.log(selectedCalendar?.priceChild);
-    console.log(numberTicketAdult);
-    console.log(numberTicketAdult);
     return (
       Number(selectedCalendar?.priceAdult?.replace(/\./g, "")) *
         numberTicketAdult +
@@ -148,8 +139,8 @@ function Tour() {
 
   // Xử lí sau khi đặc tour thành công
   const handleCloseModalBooking = () => {
-    setSelectedCalendar({});
-    getTourById();
+    // setSelectedCalendar({});
+    // getTourById();
   };
 
   const showSuccessSwal = () => {
@@ -181,6 +172,8 @@ function Tour() {
         // bật modal đặc tour thành công
         showSuccessSwal();
         handleCloseModalBooking();
+      } else {
+        toast.error(bookingTour?.data.EM);
       }
     } catch (error) {
       console.log("error", error);
