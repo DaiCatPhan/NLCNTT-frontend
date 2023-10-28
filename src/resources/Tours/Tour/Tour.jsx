@@ -79,6 +79,8 @@ function Tour() {
     getTourById();
   }, []);
 
+  //
+
   // Xử lí mảnh lịch nhận về ban đầu để có mảng lịch lớn hơn ngày hiện tại để hiện ra dưới UI
   const handleCalendarShow = useMemo(() => {
     let futureDates = [];
@@ -94,10 +96,15 @@ function Tour() {
       }
     }
 
+    futureDates.forEach((item, index) => {
+      if (index === 0) {
+        item.isSelected = true;
+        setSelectedCalendar(item);
+      }
+    });
+
     return futureDates;
   }, [calendarTour]);
-
-  console.log(">>>>", handleCalendarShow);
 
   const handleSelectCalendar = (item) => {
     setSelectedCalendar(item);
@@ -308,7 +315,8 @@ function Tour() {
                       onClick={() => handleSelectCalendar(item)}
                       key={item.id}
                       className={
-                        item.isSelected === true
+                        // item.isSelected === true
+                        item.id === selectedCalendar.id
                           ? cx("rounded", "p-3", "date", "active")
                           : cx("rounded", "p-3 ", "date")
                       }
