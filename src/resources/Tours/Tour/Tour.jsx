@@ -45,8 +45,6 @@ function Tour() {
 
   const [selectedCalendar, setSelectedCalendar] = useState({});
 
-  console.log("selectedCalendar", selectedCalendar);
-
   // Component Modal ResBooking
   const [isShowModalRegisterBooking, setIsShowModalRegisterBooking] =
     useState(false);
@@ -382,7 +380,9 @@ function Tour() {
                   <IconExclamationCircle /> Liên hệ để xác nhận chỗ
                 </p>
 
-                <p className={cx("fs-3")}>Số chỗ :</p>
+                <p className={cx("fs-3")}>
+                  Số chỗ : {selectedCalendar?.remainingSeats}
+                </p>
               </div>
 
               <div
