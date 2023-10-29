@@ -4,16 +4,20 @@ const cx = className.bind(styles);
 
 import {
   IconAlarm,
+  IconBus,
   IconCalendarDue,
   IconCheck,
+  IconClockHour10,
   IconExclamationCircle,
   IconMapPin,
   IconMinus,
   IconPlus,
+  IconShip,
+  IconZeppelin,
 } from "@tabler/icons-react";
 import moment from "moment";
 import { useEffect, useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams , Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 
@@ -160,6 +164,16 @@ function Tour() {
     }, 2000);
   };
 
+  const handleIconVehicle = (vehicle) => {
+    if (vehicle === "xedulich") {
+      return <IconBus />;
+    } else if (vehicle === "maybay") {
+      return <IconZeppelin />;
+    } else {
+      return <IconShip />;
+    }
+  };
+
   // Xử lí Modal đăng ký Tour
   const handleResTourByModalBooking = async () => {
     try {
@@ -220,60 +234,34 @@ function Tour() {
 
   return (
     <div className={cx("wrapper")}>
-      <div className={cx("logo")}>
-        <figure className={cx("figure")}>
-          <img className={cx("imageTour")} src={tourDetail?.image} alt="1" />
-        </figure>
-        <h1 className={cx("logoTitle")}>{tourDetail?.name}</h1>
-
-        {/* description */}
-
-        <div className={cx("contactLogo", "text-white", "fs-2")}>
-          <div className={cx("info")}>
-            <div className={cx("iconTime")}>
-              <IconAlarm width={40} height={40} color="white" />
-            </div>
-            <div className={cx("infoTime")}>
-              <div className={cx("infoTimeTitle")}>Thời gian</div>
-              <div className={cx("infoTimeDesc")}>4 NGÀY / 3 ĐÊM</div>
-            </div>
-          </div>
-
-          <div className={cx("info")}>
-            <div className={cx("iconTime")}>
-              <IconMapPin width={40} height={40} color="white" />
-            </div>
-            <div className={cx("infoTime")}>
-              <div className={cx("infoTimeTitle")}>Điểm đến</div>
-              <div className={cx("infoTimeDesc")}>Miền Bắc</div>
-            </div>
-          </div>
-
-          <div className={cx("info")}>
-            <div className={cx("iconTime")}>
-              <IconCalendarDue width={40} height={40} color="white" />
-            </div>
-            <div className={cx("infoTime")}>
-              <div className={cx("infoTimeTitle")}>Thời gian khởi hành</div>
-              <div className={cx("infoTimeDesc")}>Not specified yet</div>
-            </div>
-          </div>
-          <div className={cx("buyTicket")}>
-            <button className={cx("buttonBuyTicket")}>Đặt vé ngay</button>
-          </div>
-        </div>
-      </div>
-
-      <div className={cx("DescTour", "my-5")}>
-        <h1 className={cx("titleDescTour")}>{tourDetail?.name}</h1>
-        <div className={cx("lineDescTour")}></div>
-      </div>
-
       {/* bgProcessTour */}
-      <hr />
       <div className={cx("bgProcessTour")}>
+        <div className={cx("DescTour")}>
+          <h1>{tourDetail?.name}</h1>
+        </div>
         <div className={cx("detailTour", "row  ")}>
           <div className={cx("processTour", "col-lg-8 col-md-12 col-sm-12")}>
+            <div>
+              <img
+                className={cx("w-100", "imageTour")}
+                src={tourDetail?.image}
+                alt="notFound"
+              />
+              <div
+                className={cx(
+                  "border d-flex justify-content-between py-3 mb-3",
+                  "bge3e7ed"
+                )}
+              >
+                <div className={cx("mx-5")}>
+                  {" "}
+                  <IconClockHour10 className={cx("mb-2")} /> 5 Ngày 4 Đêm
+                </div>
+                <div className={cx("mx-5")}>
+                  Phương tiện : {handleIconVehicle(tourDetail?.vehicle)}
+                </div>
+              </div>
+            </div>
             <div className={cx("desctiptionTour")}>
               {tourDetail && tourDetail?.descriptionHTML && (
                 <div
@@ -332,7 +320,7 @@ function Tour() {
                 <div>Người lớn : </div>
                 {selectedCalendar?.priceAdult && (
                   <div className={cx("text-warning ", "fs-3", "fw-600px")}>
-                    x {selectedCalendar?.priceAdult}
+                    x {selectedCalendar?.priceAdult.replace(/(\d)(?=(\d{3})+$)/g, '$1.')}
                   </div>
                 )}
 
@@ -357,7 +345,7 @@ function Tour() {
                 <div className={cx("mx-3")}>Trẻ em : </div>
                 {selectedCalendar?.priceChild && (
                   <div className={cx("text-warning ", "fs-3", "fw-600px")}>
-                    x {selectedCalendar?.priceChild}
+                    x {selectedCalendar?.priceChild.replace(/(\d)(?=(\d{3})+$)/g, '$1.')}
                   </div>
                 )}
                 <div>
@@ -395,7 +383,9 @@ function Tour() {
               </div>
 
               <div className={cx("d-flex justify-content-between flex-wrap")}>
-                <button className={cx("btnLienHe")}>Liên hệ tư vấn</button>
+                <Link to={"/lien-he"}>
+                  <button className={cx("btnLienHe")}>Liên hệ tư vấn</button>
+                </Link>
                 <button className={cx("btnYeuCau")} onClick={handleBookingTour}>
                   Yêu cầu đặt
                 </button>

@@ -1,25 +1,28 @@
 import className from "classnames/bind";
 import styles from "./Login.module.scss";
+const cx = className.bind(styles);
+
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { IconEyeOff, IconEye } from "@tabler/icons-react";
 import { toast } from "react-toastify";
-import { SyncOutlined } from "@ant-design/icons";
+import ReactLoading from "react-loading";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Alert, Space, Spin } from "antd";
+
+import { IconEyeOff, IconEye } from "@tabler/icons-react";
+
 import HeaderNone from "../../layouts/components/HeaderNone";
 import AuthenticationService from "../../services/AuthenticationService";
 import useAuth from "../../hook/useAuth";
 import { useDispatch } from "react-redux";
 import { toggleLogin } from "../../redux/reducers/userSlice";
 
-const cx = className.bind(styles);
-
 function Login() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [isShowPassWord, setIsShowPassword] = useState(false);
-  const [loadingIcon, setloadingIcon] = useState(false);
+  const [loading, setloading] = useState(false);
   const navigate = useNavigate();
   const { isLogged, role, profile } = useAuth();
   const dispatch = useDispatch();
@@ -35,6 +38,8 @@ function Login() {
         toast.error("Vui lòng nhập mật khẩu");
         return;
       }
+
+      setloading(true);
 
       const res = await AuthenticationService.loginApi({
         email,
@@ -53,6 +58,9 @@ function Login() {
         );
 
         toast.success("Đăng nhập thành công !!!");
+
+        setloading(false);
+
         if (roleUser === "admin") {
           navigate("/homeadmin");
         } else {
@@ -82,7 +90,7 @@ function Login() {
 
           <div className={cx("form-group")}>
             <label className={cx("form-label")} htmlFor="email">
-              <span>Email: ( NguyenVanA@gmail.com  )</span>
+              <span>Email: ( NguyenVanA@gmail.com )</span>
             </label>
             <input
               placeholder="Email address or number phone"
@@ -116,16 +124,26 @@ function Login() {
               </span>
             </div>
           </div>
-          <button
-            className={cx("btn_register", { active: email && password })}
-            disabled={email && password ? false : true}
-            onClick={(e) => handleLoginSDTorEmail(e)}
-          >
-            {loadingIcon && (
-              <SyncOutlined spin style={{ fontSize: 16, fontWeight: 800 }} />
-            )}
-            &nbsp; Login
-          </button>
+          {loading ? (
+            <div>
+              <button
+                className={cx("btn_register", { active: email && password })}
+                disabled={email && password ? false : true}
+                onClick={(e) => handleLoginSDTorEmail(e)}
+              >
+                <Spin></Spin>
+                Login
+              </button>
+            </div>
+          ) : (
+            <button
+              className={cx("btn_register", { active: email && password })}
+              disabled={email && password ? false : true}
+              onClick={(e) => handleLoginSDTorEmail(e)}
+            >
+              Login
+            </button>
+          )}
         </form>
       </div>
     </div>

@@ -28,7 +28,6 @@ function CreateCalendar() {
 
   const [allTour, setAllTour] = useState([]);
 
-
   // table
 
   const fetchData = async () => {
@@ -94,7 +93,7 @@ function CreateCalendar() {
       toast.warning("Chưa nhập giá vé trẻ em !!!!");
       return false;
     }
-    const regex = /^\d{1,3}(\.\d{3})*$/;
+    const regex = /^(\d{1,3}(\.\d{3})*|\d+)$/
     if (!regex.test(priceAdult)) {
       toast.warning("Nhập giá vé người lớn chưa đúng định dạng !!!!");
       return false;
@@ -342,7 +341,7 @@ function CreateCalendar() {
                 placeholder="Giá vé người lớn"
                 className={cx("customInput")}
                 spellCheck={false}
-                defaultValue={priceAdult}
+                defaultValue={priceAdult?.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                 onChange={(e) => setPriceAdult(e.target.value)}
               />
             </div>
@@ -356,7 +355,7 @@ function CreateCalendar() {
                 placeholder="Giá vé trẻ em"
                 className={cx("customInput")}
                 spellCheck={false}
-                defaultValue={priceChild}
+                defaultValue={priceChild?.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                 onChange={(e) => setPriceChild(e.target.value)}
               />
             </div>

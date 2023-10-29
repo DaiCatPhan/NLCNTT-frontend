@@ -18,6 +18,7 @@ function CardDomain({ tour }) {
           />
           <div className={cx("underLine")}> </div>
         </figure>
+
         <div className={cx("articlePreview")}>
           <div className={cx("cardbody")}>
             <h2 className={cx("black", "uppercase", "hideTextDot")}>
@@ -42,6 +43,8 @@ function CardDomain({ tour }) {
             </div>
           </div>
         </div>
+
+        
       </div>
     </div>
   );

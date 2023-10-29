@@ -42,6 +42,9 @@ import Contact from "../resources/Contact";
 
 // Tour
 import ListTourDomestic from "../resources/Tours/ListTourDomestic";
+import TourMienBac from "../resources/Tours/ListTourDomestic/MienBac";
+import TourMienTrung from "../resources/Tours/ListTourDomestic/MienTrung";
+import TourMienNam from "../resources/Tours/ListTourDomestic/MienNam";
 import ListTourForeign from "../resources/Tours/ListTourForeign";
 import Tour from "../resources/Tours/Tour";
 
@@ -104,6 +107,9 @@ const publicRoutes = [
 
   // AllTypeTour
 
+  { path: "/tours/Domestic/MienBac", component: TourMienBac },
+  { path: "/tours/Domestic/MienTrung", component: TourMienTrung },
+  { path: "/tours/Domestic/MienNam", component: TourMienNam },
   { path: "/tours/Domestic", component: ListTourDomestic },
   { path: "/tours/Foreign", component: ListTourForeign },
 

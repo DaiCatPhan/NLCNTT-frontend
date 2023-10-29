@@ -3,9 +3,7 @@ import styles from "./Order.module.scss";
 const cx = className.bind(styles);
 import { Tabs } from "antd";
 
-import BookingTourNearFuture from "./components/BookingTourNearFuture";
-import BookingTourPass from "./components/BookingTourPass";
-import BookingTourAll from "./components/BookingTourAll";
+import BookingTourOrder from "./components/BookingTourOrder";
 import { useEffect, useMemo, useState } from "react";
 
 import CustomerService from "../../../services/CustomerService";
@@ -58,20 +56,19 @@ function Order() {
   const items = [
     {
       key: "1",
-      label: "Lịch sử chuyến đã đi",
-      children: <BookingTourPass data={bookingPass} />,
+      label: "Chuyến đi sắp tới",
+      children: <BookingTourOrder dataProps={bookingFuture} />,
     },
-
     {
       key: "2",
-      label: "Chuyến đi sắp tới",
-      children: <BookingTourNearFuture data={bookingFuture} />,
+      label: "Lịch sử chuyến đã đi",
+      children: <BookingTourOrder dataProps={bookingPass} />,
     },
 
     {
       key: "3",
       label: "Tất cả chuyến đi",
-      children: <BookingTourAll data={allBooking} />,
+      children: <BookingTourOrder dataProps={allBooking} />,
     },
   ];
   return (

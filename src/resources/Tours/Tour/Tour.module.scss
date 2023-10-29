@@ -10,119 +10,30 @@
   color: #26bed6;
 }
 
-.logo {
-  width: 100%;
-  position: relative;
-  margin-bottom: 100px;
-}
-
-.figure {
-  width: 100%;
-}
-
 .imageTour {
   width: 100%;
-  height: 500px;
+  height: 450px;
   text-align: center;
-  border-radius: 10px;
   object-fit: cover;
 }
 
-.logoTitle {
-  width: 100%;
-  text-align: center;
-  z-index: 100;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  font-size: 60px;
+.DescTour {
+  color: #003c71;
+  padding: 10px 50px;
 
-  font-weight: 800;
+  h1 {
+    font-weight: 900;
+    font-size: 38px;
+  }
 }
 
-// Contact Logo
-
-.contactLogo {
-  width: 80%;
-  height: 140px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  border-radius: 10px;
-  position: absolute;
-  top: 98%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  background: linear-gradient(
-    90deg,
-    hsla(333, 100%, 53%, 1) 0%,
-    hsla(33, 94%, 57%, 1) 100%
-  );
-
-  .info {
-    display: flex;
-    align-items: center;
-  }
-
-  .iconTime {
-    svg {
-      font-size: 25px;
-    }
-    margin-right: 10px;
-  }
-
-  .buttonBuyTicket {
-    color: white;
-    padding: 10px 45px;
-    border: none;
-    background-color: blue;
-
-    &:hover {
-      transform: scale(1.1);
-    }
-  }
+.bge3e7ed {
+  background-color: #e3e7ed;
+  color: #50535d;
+  font-weight: bold;
 }
 
 // ===================
-
-.DescTour {
-  text-align: center;
-  width: 800px;
-  margin: 0 auto;
-
-  .infoTimeTitle {
-    font-size: 23px;
-    color: white;
-  }
-
-  .infoTimeDesc {
-    font-size: 28px;
-    font-weight: 800;
-    color: white;
-  }
-
-  .titleDescTour {
-    font-weight: 800;
-    font-size: 35px;
-  }
-
-  .pagDescTour {
-    margin-top: 10px;
-    font-size: 18px;
-  }
-
-  .lineDescTour {
-    height: 10px;
-    background: linear-gradient(
-      90deg,
-      hsla(17, 95%, 50%, 1) 0%,
-      hsla(42, 94%, 57%, 1) 100%
-    );
-  }
-}
 
 // bgProcessTour
 
@@ -135,9 +46,8 @@
 }
 
 .detailTour > .processTour {
-  border: 1px solid blue;
-  background-color: white;
   .desctiptionTour {
+    background-color: white;
     border-bottom: 10px solid rgb(236 240 245);
     padding: 20px 20px;
 
@@ -147,6 +57,8 @@
   }
 
   .desProcessTour {
+    background-color: white;
+
     border-bottom: 10px solid rgb(236 240 245);
     padding: 20px 20px;
 
@@ -168,11 +80,9 @@
 
 .detailTour > .calendar {
   padding: 0 20px;
-  border: 2px solid red;
   .infoCalendar {
     background-color: white;
     padding: 20px;
-    border: 1px solid blue;
     position: sticky;
     top: 0;
 
