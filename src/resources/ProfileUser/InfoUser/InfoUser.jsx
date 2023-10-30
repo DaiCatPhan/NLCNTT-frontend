@@ -1,17 +1,25 @@
 import className from "classnames/bind";
 import styles from "./InfoUser.module.scss";
 const cx = className.bind(styles);
+import { toast } from "react-toastify";
 
 import {
   IconBrandFacebookFilled,
   IconBrandGoogle,
   IconBrandGithubFilled,
-  IconBrandGithub,
 } from "@tabler/icons-react";
 
+import useAuth from "../../../hook/useAuth";
+import { useState } from "react";
+
 function InfoUser() {
+  const { profile } = useAuth();
+  const [name, setName] = useState(profile?.name);
+  const [email, setEmail] = useState(profile?.email);
+  const [phone, setPhone] = useState("");
+
   const handleUpdateCus = async () => {
-    alert("handleUpdateCus");
+    toast.success("Cập nhật thông tin cá nhân thành công");
   };
   return (
     <div className={cx("wrapper")}>
@@ -81,7 +89,20 @@ function InfoUser() {
               <input
                 type="text "
                 className={cx("form-control fs-4")}
-                value={"Phan Dai Cat"}
+                value={name}
+                onChange={(e) => setPhone(e.target.name)}
+              />
+            </div>
+          </div>
+
+          <div className={cx("row my-3  d-flex align-items-center")}>
+            <div className={cx("col-4 text-secondary  ", "fw500")}>Email</div>
+            <div className={cx("col-auto flex-grow-1")}>
+              <input
+                type="text "
+                className={cx("form-control fs-4")}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
           </div>
@@ -94,18 +115,8 @@ function InfoUser() {
               <input
                 type="text "
                 className={cx("form-control fs-4")}
-                value={"0328472724"}
-              />
-            </div>
-          </div>
-
-          <div className={cx("row my-3  d-flex align-items-center")}>
-            <div className={cx("col-4 text-secondary  ", "fw500")}>Email</div>
-            <div className={cx("col-auto flex-grow-1")}>
-              <input
-                type="text "
-                className={cx("form-control fs-4")}
-                value={"phandaicat@gmail.com"}
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
               />
             </div>
           </div>

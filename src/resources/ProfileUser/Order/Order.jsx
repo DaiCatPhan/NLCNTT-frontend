@@ -57,7 +57,7 @@ function Order() {
     {
       key: "1",
       label: "Chuyến đi sắp tới",
-      children: <BookingTourOrder dataProps={bookingFuture} />,
+      children: <BookingTourOrder fetchDataOrder={fetchDataOrder} dataProps={bookingFuture} deleted={true} />, 
     },
     {
       key: "2",

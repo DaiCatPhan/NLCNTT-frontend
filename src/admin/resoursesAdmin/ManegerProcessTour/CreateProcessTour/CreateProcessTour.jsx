@@ -62,31 +62,35 @@ function CreateProcessTour() {
   };
 
   const handleSubmit = async () => {
-    const check = checkValidate();
+    try {
+      const check = checkValidate();
 
-    if (!check) {
-      return;
-    }
+      if (!check) {
+        return;
+      }
 
-    setIsShowSpin(true);
+      setIsShowSpin(true);
 
-    const res = await ProcessTourService.createProcessTour({
-      idTour: idTour,
-      nameProcessTour: nameProcessTour,
-      descriptionHTML: descriptionHTML,
-      descriptionTEXT: descriptionTEXT,
-    });
+      const res = await ProcessTourService.createProcessTour({
+        idTour: +idTour,
+        nameProcessTour: nameProcessTour,
+        descriptionHTML: descriptionHTML,
+        descriptionTEXT: descriptionTEXT,
+      });
 
-    if (res && res.data.DT.id && res.data.EC === 0) {
-      toast.success(res.data.EM);
-      handleClose();
-      setTimeout(() => {
+      if (res && res.data.DT.id && res.data.EC === 0) {
+        toast.success(res.data.EM);
+        handleClose();
+        setTimeout(() => {
+          navigate("/process-listProcessTour");
+        }, 700);
+        setIsShowSpin(false);
+      } else {
+        toast.warning(res.data.EM);
         navigate("/process-listProcessTour");
-      }, 700);
-      setIsShowSpin(false);
-    } else {
-      toast.warning(res.data.EM);
-      navigate("/process-listProcessTour");
+      }
+    } catch (error) {
+      console.log("error", error);
     }
   };
 

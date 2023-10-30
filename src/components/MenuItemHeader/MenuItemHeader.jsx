@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 const cx = className.bind(styles);
 function MenuItemHeader({ data }) {
-  console.log("url Header >>>>", data);
   return (
     <div className={cx("wrapper")}>
       <h3 className={cx("title")}>

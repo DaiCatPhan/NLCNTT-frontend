@@ -2,22 +2,31 @@ import className from "classnames/bind";
 import styles from "./BookingTourOrder.module.scss";
 const cx = className.bind(styles);
 import moment from "moment";
+import { IconX } from "@tabler/icons-react";
+import ModalDeleteBookingTour from "../ModalDeleteBookingTour";
+import { useState } from "react";
 
 function BookingTourOrder(props) {
-  const { dataProps } = props;
+  const { dataProps, deleted, fetchDataOrder } = props;
+  const [isShowModalDeleteBooking, setIsShowModalDeleteBooking] =
+    useState(false);
+  const [dataDelete, setDataDelete] = useState({});
+
+  const handleDeleteOrder = (data) => {
+    setDataDelete(data);
+    setIsShowModalDeleteBooking(true);
+  };
 
   return (
     <div className={cx("wrapper")}>
       <div className={cx("bodyWrapper")}>
-
-
-
-        {dataProps &&
-          dataProps.length > 0 ?
-          (dataProps.map((data, index) => (
+        {dataProps && dataProps.length > 0 ? (
+          dataProps.map((data, index) => (
             <div
               key={data.id}
-              className={cx("row border border-secondary my-4")}
+              className={cx(
+                "row border border-secondary my-4 position-relative"
+              )}
             >
               <div
                 className={cx(
@@ -31,32 +40,34 @@ function BookingTourOrder(props) {
                   src={data?.Calendar?.Tour?.image}
                   alt="notFound"
                 />
-                <div className={cx("mx-3")}>
+                <div className={cx("mx-3  w-100")}>
                   <div>{data?.Calendar?.Tour?.name}</div>
                   <div className={cx("mt-2")}>
-                    <div className={cx("d-flex justify-content-between")}>
+                    <div className={cx("d-flex justify-content-between ")}>
                       <p>
                         Giá vé người lớn :{" "}
                         {data?.Calendar?.priceAdult.replace(
                           /(\d)(?=(\d{3})+$)/g,
                           "$1."
-                        )} vnd
+                        )}{" "}
+                        vnd
                       </p>
                       <p>
                         Giá vé trẻ em :{" "}
                         {data?.Calendar?.priceChild.replace(
                           /(\d)(?=(\d{3})+$)/g,
                           "$1."
-                        )} vnd
+                        )}{" "}
+                        vnd
                       </p>
                     </div>
                     <div className={cx("d-flex justify-content-between")}>
                       <p>Số vé người lớn : {data?.numberTicketAdult}</p>
                       <p>Số vé trẻ em : {data?.numberTicketChild} </p>
-                      <p>Tổng tiền : {data?.money.replace(
-                          /(\d)(?=(\d{3})+$)/g,
-                          "$1."
-                        )} vnd </p>
+                      <p>
+                        Tổng tiền :{" "}
+                        {data?.money.replace(/(\d)(?=(\d{3})+$)/g, "$1.")} vnd{" "}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -82,13 +93,28 @@ function BookingTourOrder(props) {
                   Ngày kết thúc tour :{" "}
                   {moment(data?.Calendar?.endDay).format("DD-MM-YYYY")}
                 </div>
+
+                {deleted && (
+                  <IconX
+                    className={cx("btnDelete")}
+                    onClick={() => handleDeleteOrder(data)}
+                  />
+                )}
               </div>
             </div>
-          ))) : (
-            <div>Chưa có lịch trình nào !!!</div>
-          )
-        }
+          ))
+        ) : (
+          <div>Chưa có lịch trình nào !!!</div>
+        )}
       </div>
+
+      <ModalDeleteBookingTour
+        isShowModalDeleteBooking={isShowModalDeleteBooking}
+        setIsShowModalDeleteBooking={setIsShowModalDeleteBooking}
+        dataDelete={dataDelete}
+        setDataDelete={setDataDelete}
+        fetchDataOrder={fetchDataOrder}
+      />
     </div>
   );
 }

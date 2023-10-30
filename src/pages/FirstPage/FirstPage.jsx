@@ -249,52 +249,7 @@ function FirstPage() {
         </section>
 
         <section id="remember" className={cx("remember")}>
-          <h1 className={cx("title")}>
-            KHOẢNH KHẮC <span className={cx("text-danger")}>ĐÁNG NHỚ</span>
-          </h1>
-          <p className={cx("des")}>
-            Mỗi hành trình là một câu chuyện. VTourist luôn lữu giữ những kỷ
-            niệm quý giá khi được đồng hành cùng du khách.
-          </p>
-          <div className={cx("cardListRememver")}>
-            <div className={cx("card")}>
-              <img
-                className={cx("image")}
-                src="https://vtourist.com.vn/wp-content/uploads/2023/04/Hinh-doan-My-2.jpg"
-                alt=""
-              />
-              <p>Tượng nữ thần tự do</p>
-            </div>
-
-            <div className={cx("card")}>
-              <img
-                className={cx("image")}
-                src="https://vtourist.com.vn/wp-content/uploads/2023/04/Hinh-doan-My-2.jpg"
-                alt=""
-              />
-              <p>Tượng nữ thần tự do</p>
-            </div>
-
-            <div className={cx("card")}>
-              <img
-                className={cx("image")}
-                src="https://vtourist.com.vn/wp-content/uploads/2023/04/Hinh-doan-My-2.jpg"
-                alt=""
-              />
-              <p>Tượng nữ thần tự do</p>
-            </div>
-          </div>
-        </section>
-
-        <section>
-          <div className={cx("")}>
-            <h1>CLICK NGAY BAY ĐI MỸ</h1>
-            <p>Để được giải đáp thắc mắc sớm nhất, LIÊN HỆ NGAY:</p>
-            <div>
-              <button>Message</button>
-              <button>Hotline</button>
-            </div>
-          </div>
+           
         </section>
       </div>
     </div>

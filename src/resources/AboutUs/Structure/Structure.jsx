@@ -23,7 +23,7 @@ function Structure() {
               <div className={cx("members")}>
                 <Member
                   url={
-                    "https://scontent.fsgn5-11.fna.fbcdn.net/v/t39.30808-6/371792714_1728959110885660_5503769153923947505_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=52f669&_nc_ohc=gIpBhpsKIJ8AX8zgNjz&_nc_ht=scontent.fsgn5-11.fna&oh=00_AfB-i0cVDpaXiNPM7fHCT16tED4zzmbkahfHJrVlDTZP7A&oe=6505837F"
+                    "https://res.cloudinary.com/dylppkwa9/image/upload/v1698661964/DaiCat/Nha_Vy_cxlecp.jpg"
                   }
                   username={"Dương Nhã Vy"}
                   position={"Chủ tịch hội đồng quản trị"}

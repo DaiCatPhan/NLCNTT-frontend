@@ -14,7 +14,7 @@ function ListTour() {
   const [isShowModalView, setIsShowModalView] = useState(false);
   const [dataModalView, setDataModalView] = useState({});
   const [tableParams, setTableParams] = useState({
-    pagination: { 
+    pagination: {
       current: 1,
       pageSize: 5,
     },
@@ -53,14 +53,20 @@ function ListTour() {
       key: "duration",
     },
     {
-      title: "Tổng thời gian ",
+      title: "Giá vé người lớn ",
       dataIndex: "priceAdult",
       key: "priceAdult",
+      render: (priceAdult) => {
+        return <div>{priceAdult?.replace(/(\d)(?=(\d{3})+$)/g, "$1.")} </div>;
+      },
     },
     {
-      title: "Tổng thời gian ",
+      title: "Giá vé trẻ em ",
       dataIndex: "priceChild",
       key: "priceChild",
+      render: (priceChild) => {
+        return <div>{priceChild?.replace(/(\d)(?=(\d{3})+$)/g, "$1.")} </div>;
+      },
     },
     {
       title: "Miền",

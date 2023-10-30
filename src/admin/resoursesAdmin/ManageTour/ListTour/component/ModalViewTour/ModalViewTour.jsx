@@ -18,24 +18,21 @@ function ModalViewTour(rawData) {
 
   const handleClose = () => {
     setIsShowModalView(false);
-    setDataModalView("");
   };
-
-  console.log(dataModalView);
 
   return (
     <div className={cx("wrapper")}>
       <Modal show={isShowModalView} onHide={handleClose} size="lg">
         <Modal.Header>
           <Modal.Title>
-            <div className={cx(" border fs-3")}>
+            <div className={cx("  fs-3")}>
               <b>Tên Tour : {dataModalView?.name}</b>
             </div>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className={cx("wrapper")}>
-            <div className={cx("border")}>
+            <div className={cx("")}>
               <img
                 className={cx("imageTour")}
                 src={dataModalView?.image}
@@ -62,12 +59,32 @@ function ModalViewTour(rawData) {
                 </div>
 
                 <div className={cx("d-flex  justify-content-between g-10 ")}>
-                  <div className={cx("border  flex-grow-1 mx-2 fs-3 text-center rounded border-primary")}>
-                    Giá Tour người lớn : {dataModalView?.priceAdult}
+                  <div
+                    className={cx(
+                      "border  flex-grow-1 mx-2 fs-3 text-center rounded border-primary"
+                    )}
+                  >
+                    Giá Tour người lớn :{" "}
+                    {dataModalView?.priceAdult?.replace(
+                      /(\d)(?=(\d{3})+(?!\d))/g,
+                      "$1."
+                    ) || 0}{" "}
+                    VND
                   </div>
 
-                  <div className={cx("border  flex-grow-1 mx-2 fs-3 rounded border-primary text-center")}>
-                    Giá Tour trẻ em : {dataModalView?.priceChild}
+                  <div
+                    className={cx(
+                      "border  flex-grow-1 mx-2 fs-3 rounded border-primary text-center"
+                    )}
+                  >
+                    Giá Tour trẻ em :{" "}
+                    {(dataModalView &&
+                      dataModalView?.priceChild?.replace(
+                        /(\d)(?=(\d{3})+(?!\d))/g,
+                        "$1."
+                      )) ||
+                      0}{" "}
+                    VND
                   </div>
                 </div>
               </div>

@@ -13,7 +13,6 @@ function ModalViewProcessTour(rawData) {
     setDataModalViewProcessTour,
   } = rawData;
 
-
   const handleClose = () => {
     setIsShowModalViewProcessTour(false);
     setDataModalViewProcessTour(" ");
@@ -38,16 +37,16 @@ function ModalViewProcessTour(rawData) {
         <Modal.Body className={cx("wrapperBody")}>
           <div className={cx("process")}>
             <img
-              className={cx("w-100",'imgTour')}
+              className={cx("w-100", "imgTour")}
               src={dataModalViewProcessTour.imageTour}
               alt="notFound"
             />
             <div
               className={cx(
-                " p-3 fs-4 d-flex justify-content-between  align-items-center border border-danger"
+                " p-3 fs-4 d-flex justify-content-between  align-items-center border"
               )}
             >
-              <div className={cx("w-30px")}>
+              <div className={cx("w-30px ")}>
                 ID TOUR : {dataModalViewProcessTour.idTour}
               </div>
               <div className={cx("text-truncate")}>
@@ -58,7 +57,7 @@ function ModalViewProcessTour(rawData) {
             <div
               className={cx("desHTML")}
               dangerouslySetInnerHTML={{
-                __html: dataModalViewProcessTour.descriptionHTMLProcessTour, 
+                __html: dataModalViewProcessTour.descriptionHTMLProcessTour,
               }}
             ></div>
           </div>

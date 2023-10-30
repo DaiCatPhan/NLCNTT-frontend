@@ -20,6 +20,7 @@ import ProcessTourService from "../../../../services/ProcessTourService";
 
 function UpdateProcessTour() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigavie = useNavigate();
   const [idTour, setIdTour] = useState(searchParams?.get("idTour"));
 
   const [idProcessTour, setIdProcessTour] = useState(0);
@@ -37,6 +38,7 @@ function UpdateProcessTour() {
       const res = await ProcessTourService.readProcessTourbyId({
         idTour: idTour,
       });
+
       if (res && res.data.DT.id && res.data.EC === 0) {
         const data = res?.data?.DT;
         setNameTour(data?.name);
@@ -58,6 +60,11 @@ function UpdateProcessTour() {
   }
 
   const checkValidate = () => {
+    if (!idProcessTour) {
+      toast.error("Chưa tạo chương trình Tour . Không thể cập nhật !!!");
+      navigative("/process-listProcessTour");
+      return false;
+    }
     if (!nameProcessTour) {
       toast.error("Nhập thiếu Tên chương trình Tour");
       return false;

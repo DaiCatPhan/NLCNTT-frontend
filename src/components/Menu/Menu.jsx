@@ -8,7 +8,6 @@ import MenuItemHeader from "../MenuItemHeader";
 const cx = className.bind(styles);
 
 function Menu({ children, items = [] }) {
-  console.log('items' , items);
   const renderItems = () => {
     return items.map((item, index) => (
       <MenuItemHeader key={index} data={item} />
