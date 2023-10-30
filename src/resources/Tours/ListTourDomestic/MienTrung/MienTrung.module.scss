@@ -7,13 +7,12 @@
   }
 }
 
-// List Tour
-.bodyWrapper {
-  margin: 10px 100px;
-}
+ 
 
 .gallery {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
-  gap: 25px;
+  gap: 45px;
+  margin-bottom: 100px;
 }

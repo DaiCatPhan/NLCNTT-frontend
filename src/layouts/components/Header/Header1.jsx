@@ -63,41 +63,22 @@ function Header1() {
     },
   ];
 
-  const domainInCountry = [
+  const DOMAIN_COUNTRYS = [
     {
       id: 1,
-      url: "",
+      url: "/tours/Domestic/MienBac",
       title: "Miền Bắc",
     },
 
     {
       id: 2,
-      url: "",
+      url: "/tours/Domestic/MienTrung",
       title: "Miền Trung",
     },
     {
       id: 3,
-      url: "",
+      url: "/tours/Domestic/MienNam",
       title: "Miền Nam",
-    },
-  ];
-
-  const domainInInternational = [
-    {
-      id: 1,
-      url: "",
-      title: "Châu Á",
-    },
-
-    {
-      id: 2,
-      url: "",
-      title: "Châu Phi",
-    },
-    {
-      id: 3,
-      url: "",
-      title: "Châu Mĩ",
     },
   ];
 
@@ -173,21 +154,19 @@ function Header1() {
 
             {/* Tour quốc tế */}
             <li className={cx("itemLink")}>
-              <Menu items={domainInInternational}>
-                <Link
-                  className={cx("link", {
-                    active: url.includes("/tours/Foreign"),
-                  })}
-                  to={"/tours/Foreign"}
-                >
-                  Tour quốc tế
-                </Link>
-              </Menu>
+              <Link
+                className={cx("link", {
+                  active: url.includes("/tours/Foreign"),
+                })}
+                to={"/tours/Foreign"}
+              >
+                Tour quốc tế
+              </Link>
             </li>
 
             {/* Tour trong nước */}
             <li className={cx("itemLink")}>
-              <Menu items={domainInCountry}>
+              <Menu items={DOMAIN_COUNTRYS}>
                 <Link
                   className={cx("link", {
                     active: url.includes("/tours/Domestic"),

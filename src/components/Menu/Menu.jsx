@@ -8,11 +8,11 @@ import MenuItemHeader from "../MenuItemHeader";
 const cx = className.bind(styles);
 
 function Menu({ children, items = [] }) {
-  
+  console.log('items' , items);
   const renderItems = () => {
     return items.map((item, index) => (
-      <MenuItemHeader key={index} data={item} /> 
-    )); 
+      <MenuItemHeader key={index} data={item} />
+    ));
   };
 
   return (
@@ -24,7 +24,8 @@ function Menu({ children, items = [] }) {
         <div className={cx("menu")} tabIndex="-1" {...attrs}>
           {renderItems()}
         </div>
-      )}>
+      )}
+    >
       {children}
     </Tippy>
   );

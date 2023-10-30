@@ -18,7 +18,7 @@ function ListTourDomestic() {
     }
   };
   useEffect(() => {
-    getDataTours();
+    getDataTours();  
   }, []);
 
   return (

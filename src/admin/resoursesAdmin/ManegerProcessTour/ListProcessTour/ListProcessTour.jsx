@@ -61,7 +61,7 @@ function ListProcessTour() {
       });
       const totalRows = res?.data?.DT?.totalRows;
 
-      setDataSourceTour(result.sort((a, b) => b.idTour - a.idTour));
+      setDataSourceTour(result);
       setTotalPage(totalRows);
     }
   };
@@ -76,6 +76,11 @@ function ListProcessTour() {
       title: "Tên Tour",
       dataIndex: "nameTour",
       key: "name",
+    },
+    {
+      title: "Miền",
+      dataIndex: "domainTour",
+      key: "mien",
     },
     {
       title: "Tên chương trình tour",
@@ -164,7 +169,6 @@ function ListProcessTour() {
   };
 
   const handleModalDeleteProcessTour = (record) => {
-    console.log(">> idTour", record);
     setIsShowModalDeleteProcessTour(true);
     setDataModalDeleteProcessTour(record);
   };

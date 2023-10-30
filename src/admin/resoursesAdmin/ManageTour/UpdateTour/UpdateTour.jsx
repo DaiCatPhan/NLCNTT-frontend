@@ -131,8 +131,8 @@ function UpdateTour() {
       const formData = new FormData();
       formData.append("id", id);
       formData.append("name", name);
-      formData.append("priceAdult", priceAdult);
-      formData.append("priceChild", priceChild);
+      formData.append("priceAdult", priceAdult.replace(/\./g, ""));
+      formData.append("priceChild", priceChild.replace(/\./g, ""));
       formData.append("duration", duration);
       formData.append("type", type);
       formData.append("descriptionHTML", descriptionHTML);
@@ -207,7 +207,8 @@ function UpdateTour() {
               <div className={cx("row my-5")}>
                 <div className={cx("col-lg-6 ", "col-md-12")}>
                   <Form.Label className={cx("")}>
-                    Giá Tour người lớn <IconAsterisk height={10} color="red" />
+                    Giá Tour người lớn <IconAsterisk height={10} color="red" />{" "}
+                    (ex : 2.500.000)
                   </Form.Label>
                   <Form.Control
                     placeholder="Giá Tour người lớn"
@@ -220,7 +221,7 @@ function UpdateTour() {
                 <div className={cx("col-lg-6 ", "col-md-12")}>
                   <Form.Label>
                     Gía Tour trẻ em
-                    <IconAsterisk height={10} color="red" />
+                    <IconAsterisk height={10} color="red" /> (ex : 1.500.000)
                     <span className={cx("fs-4", "text-secondary")}></span>
                   </Form.Label>
                   <Form.Control
