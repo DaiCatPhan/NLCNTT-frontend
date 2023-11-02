@@ -6,7 +6,7 @@ const cx = className.bind(styles);
 
 function CardDomain({ tour }) {
   return (
-    <div className={cx("wrapper")}>
+    <div className={cx("wrapper")}> 
       <div className={cx("article")}>
         <figure className={cx("figure")}>
           <div className={cx("contactPrice")}>Giá liên hệ</div>

@@ -10,6 +10,49 @@ import { useEffect, useRef, useState } from "react";
 const cx = className.bind(styles);
 
 function FirstPage() {
+  const lovePlace = [
+    {
+      id: 1,
+      name: "Nha Trang",
+      url: "https://cdn1.ivivu.com/iVivu/2023/03/02/10/nhatrang-show.webp",
+    },
+    {
+      id: 2,
+      name: "Đà Nẵng",
+      url: "https://cdn1.ivivu.com/iVivu/2023/03/02/10/danang-show.webp",
+    },
+    {
+      id: 3,
+      name: "Phan Thiết",
+      url: "https://cdn1.ivivu.com/iVivu/2023/03/02/10/phanthiet-show.webp",
+    },
+    {
+      id: 4,
+      name: "Phú Yên",
+      url: "https://cdn1.ivivu.com/iVivu/2023/03/02/10/phuyen-show.webp",
+    },
+    {
+      id: 5,
+      name: "Phú Quốc",
+      url: "https://cdn1.ivivu.com/iVivu/2023/03/02/10/phuquoc-show.webp",
+    },
+    {
+      id: 6,
+      name: "Đà lạc",
+      url: "https://cdn1.ivivu.com/iVivu/2023/03/02/10/dalat-show.webp",
+    },
+    {
+      id: 7,
+      name: "Quy nhơn",
+      url: "https://cdn1.ivivu.com/iVivu/2023/03/02/10/quynhon-show.webp",
+    },
+    {
+      id: 8,
+      name: "Vũng Tàu",
+      url: "https://cdn1.ivivu.com/iVivu/2023/03/02/10/vungtau-show.webp",
+    },
+  ];
+
   const imgList = [
     {
       id: "anh1",
@@ -167,6 +210,7 @@ function FirstPage() {
           </div>
         </section>
 
+        {/*introduction  */}
         <section id="introduction" className={cx("introduction")}>
           <motion.div
             initial={{ opacity: 0, scale: 0, translateY: -80 }}
@@ -182,6 +226,13 @@ function FirstPage() {
               <div className={cx("lineIntro")}></div>
             </div>
           </motion.div>
+        </section>
+
+        {/*  Điểm đến yêu thích trong nước */}
+        <section id="lovePlace" className={cx("lovePlace")}>
+          <div>Điểm đến yêu thích trong nước</div>
+          <div>Lên rừng xuống biển. Trọn vẹn Việt Nam</div>
+          <div></div>
         </section>
 
         <section id="paragraph" className={cx("paragraph")}>
@@ -248,9 +299,7 @@ function FirstPage() {
           </div>
         </section>
 
-        <section id="remember" className={cx("remember")}>
-           
-        </section>
+        <section id="remember" className={cx("remember")}></section>
       </div>
     </div>
   );
