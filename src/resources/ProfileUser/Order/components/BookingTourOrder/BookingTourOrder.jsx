@@ -30,7 +30,7 @@ function BookingTourOrder(props) {
             >
               <div
                 className={cx(
-                  " p-0 col-lg-8  d-flex  align-items-center ",
+                  " p-0 col-lg-7  d-flex  align-items-center ",
                   "borderRight"
                 )}
               >
@@ -99,6 +99,23 @@ function BookingTourOrder(props) {
                     className={cx("btnDelete")}
                     onClick={() => handleDeleteOrder(data)}
                   />
+                )}
+              </div>
+
+              <div
+                className={cx(
+                  "col   d-flex flex-column justify-content-center align-items-center",
+                  "borderLeft"
+                )}
+              >
+                {data?.status === "0" ? (
+                  <div className={cx("text-warning")}>
+                    <b>Chưa duyệt</b>
+                  </div>
+                ) : (
+                  <div className={cx("text-primary")}>
+                    <b>Đã duyệt</b>
+                  </div>
                 )}
               </div>
             </div>

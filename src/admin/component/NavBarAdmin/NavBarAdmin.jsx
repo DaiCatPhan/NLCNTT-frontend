@@ -1,20 +1,23 @@
 import className from "classnames/bind";
 import styles from "./NavBarAdmin.module.scss";
+const cx = className.bind(styles);
 import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 
-const cx = className.bind(styles);
 import React from "react";
 
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import {
+  IconAlignBoxCenterStretch,
   IconHome2,
   IconLayoutDashboard,
   IconSettings,
+  IconShoppingCart,
   IconTournament,
   IconUser,
 } from "@tabler/icons-react";
 import { IconCalendarCheck } from "@tabler/icons-react";
+import { IconChartBar } from "@tabler/icons-react";
 const { Header, Content, Footer, Sider } = Layout;
 const items2 = [
   {
@@ -55,7 +58,6 @@ const items2 = [
     key: "5",
 
     children: [
-       
       {
         label: <Link to={"/calendar-createCalendarTour"}>Create Calendar</Link>,
         key: "5-1",
@@ -63,7 +65,7 @@ const items2 = [
     ],
   },
   {
-    icon: <IconCalendarCheck />,
+    icon: <IconAlignBoxCenterStretch />,
     label: <Link to={""}>Manager Process Tour</Link>,
     key: "6",
 
@@ -75,14 +77,19 @@ const items2 = [
     ],
   },
   {
-    icon: <IconCalendarCheck />,
-    label: <Link to={""}>Manager Booking Tour</Link>,
+    icon: <IconShoppingCart />,
+    label: <Link to={"/booking-listBookingTour"}>Manager Booking Tour</Link>,
     key: "7",
+  },
+  {
+    icon: <IconChartBar />,
+    label: <Link to={"/statistical-listStatistical"}>Manager Statistics</Link>,
+    key: "8",
   },
   {
     icon: <IconSettings />,
     label: <Link to={""}>Setting</Link>,
-    key: "8",
+    key: "9",
   },
 ];
 function NavBarAdmin3() {

@@ -24,9 +24,9 @@ function CardDomain({ tour }) {
             <h2 className={cx("black", "uppercase", "hideTextDot")}>
               {tour.name}
             </h2>
-            {tour?.type === "noidia" && (
+            {tour?.type === "noidia" ? (
               <p className={cx("text-secondary", "fs-4")}> Tour nội điạ</p>
-            )}
+            ) : (<p className={cx("text-secondary", "fs-4")}> Tour quốc tế</p>)}
             <div className={cx("line")}></div>
             <div className={cx("duration")}>
               <IconClockHour1 height={20} width={20} />

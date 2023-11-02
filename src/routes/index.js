@@ -31,6 +31,12 @@ import UpdateProcessTour from "../admin/resoursesAdmin/ManegerProcessTour/Update
 // Module STAFF
 import StaffDetail from "../admin/resoursesAdmin/ManageUser/StaffDetail";
 
+// Module BOOKING_TOUR
+import ListBookingTour from "../admin/resoursesAdmin/ManagerBookingTour/ListBookingTour";
+
+// Module STATICTICAL_TOUR
+import StaticsticalTour from "../admin/resoursesAdmin/ManagerStatistical/StaticsticalTour";
+
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++ USER +++++++++++++++++++++++++++++++++++++++++++++
 
 import Structure from "../resources/AboutUs/Structure";
@@ -93,6 +99,19 @@ const publicRoutes = [
   {
     path: "/calendar-createCalendarTour",
     component: CreateCalendar,
+    layout: AdminLayout,
+  },
+
+  // BOOKING_TOUR
+  {
+    path: "/booking-listBookingTour",
+    component: ListBookingTour,
+    layout: AdminLayout,
+  },
+  // STATISTICAL
+  {
+    path: "/statistical-listStatistical",
+    component: StaticsticalTour,
     layout: AdminLayout,
   },
 

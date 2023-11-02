@@ -94,7 +94,7 @@ function FirstPage() {
       des: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.Praesent in mauris eu tortor porttitor accumsan. Lorem ipsumdolor sit amet, consectetuer adipiscing elit. Praesent inmauris eu tortor porttitor accumsan.",
     },
     {
-      id: "3",
+      id: "3",  
       title: "BEACH",
       url: "https://img.freepik.com/free-photo/tropical-beach_74190-188.jpg?w=1800&t=st=1687169672~exp=1687170272~hmac=b66f9b9c1e344cbfe6fe2e5f65e94ebb8d418dad2e2af2b892ad9ac60e9eb79c",
       des: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.Praesent in mauris eu tortor porttitor accumsan. Lorem ipsumdolor sit amet, consectetuer adipiscing elit. Praesent inmauris eu tortor porttitor accumsan.",

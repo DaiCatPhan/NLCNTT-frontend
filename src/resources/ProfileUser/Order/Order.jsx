@@ -35,20 +35,16 @@ function Order() {
 
   // Lọc ra những tour đã đi rồi
   const bookingPass = useMemo(() => {
-    const dateCurrent = new Date();
     const result = allBooking.filter((item) => {
-      const dateItem = new Date(item.Calendar.startDay);
-      return dateItem < dateCurrent;
+      return item.status === "2";
     });
     return result;
   }, [allBooking]);
 
-  // Lọc ra những tour trong tương lại
+  // Lọc ra những tour chuẩn bị đi
   const bookingFuture = useMemo(() => {
-    const dateCurrent = new Date();
     const result = allBooking.filter((item) => {
-      const dateItem = new Date(item.Calendar.startDay);
-      return dateItem >= dateCurrent;
+      return item.status === "0" || item.status === "1";
     });
     return result;
   }, [allBooking]);
@@ -57,18 +53,18 @@ function Order() {
     {
       key: "1",
       label: "Chuyến đi sắp tới",
-      children: <BookingTourOrder fetchDataOrder={fetchDataOrder} dataProps={bookingFuture} deleted={true} />, 
+      children: (
+        <BookingTourOrder
+          fetchDataOrder={fetchDataOrder}
+          dataProps={bookingFuture}
+          deleted={true}
+        />
+      ),
     },
     {
       key: "2",
       label: "Lịch sử chuyến đã đi",
       children: <BookingTourOrder dataProps={bookingPass} />,
-    },
-
-    {
-      key: "3",
-      label: "Tất cả chuyến đi",
-      children: <BookingTourOrder dataProps={allBooking} />,
     },
   ];
   return (
