@@ -6,36 +6,39 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 const cx = className.bind(styles);
 
+import TourService from "../../../services/TourService";
+
 function ListTourForeign() {
   const [tours, setTours] = useState([]);
 
+  console.log(tours);
+
+  const fetchData = async () => {
+    const res = await TourService.getTour({ type: "nuocngoai" });
+    if (res && res.data.DT.length > 0 && res.data.EC === 0) {
+      setTours(res.data.DT);
+    }
+  };
+
   useEffect(() => {
-    axios
-      .get("http://localhost:3000/tour/getToursDomestic")
-      .then((tours) => {
-        if (tours.data.err == 2) {
-          setTours(tours.data.mes);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    fetchData();
   }, []);
 
   return (
     <div className={cx("wrapper")}>
-      <div className={cx("domainTour")}>
-        <h1>TOUR NƯỚC NGOÀI</h1>
-        <div></div>
-      </div>
-      <div className={cx("background")}>
-        <section className={cx("gallery")}>
-          {tours?.map((tour) => (
-            <Link key={tour.id} to={`/tours/${tour.id}`}>
-              <CardDomain tour={tour} />
-            </Link>
-          ))}
-        </section>
+      <div className={cx("bodyWrapper")}>
+        <div className={cx("domainTour")}>
+          <h1>TOUR QUỐC TẾ</h1>
+        </div>
+        <div className={cx("background")}>
+          <section className={cx("gallery")}>
+            {tours?.map((tour) => (
+              <Link key={tour.id} to={`/tours/${tour.id}`}>
+                <CardDomain tour={tour} />
+              </Link>
+            ))}
+          </section>
+        </div>
       </div>
     </div>
   );

@@ -40,6 +40,8 @@ const getTour = (rawData) => {
   });
 };
 
+ 
+
 export default {
   createTour,
   getTourDetailById,

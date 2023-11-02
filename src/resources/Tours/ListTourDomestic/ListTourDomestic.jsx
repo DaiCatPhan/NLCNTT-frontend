@@ -12,7 +12,6 @@ function ListTourDomestic() {
 
   const getDataTours = async () => {
     const res = await TourService.getTour({ type: "noidia" });
-    console.log(res);
     if (res && res.data.EC === 0 && res.data.DT.length > 0) {
       setTours(res.data.DT);
     }

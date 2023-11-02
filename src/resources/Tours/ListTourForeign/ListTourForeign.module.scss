@@ -1,33 +1,18 @@
 // Header
 .domainTour {
-  text-align: center;
-  padding: 50px;
-
   h1 {
+    text-align: center;
+    padding: 20px 0 20px 0;
     font-size: 50px;
   }
-
-  div {
-    margin: 0 auto;
-    height: 7px;
-    width: 50%;
-    background: -webkit-linear-gradient(
-      90deg,
-      hsla(335, 91%, 70%, 1) 0%,
-      hsla(49, 89%, 61%, 1) 100%
-    );
-  }
 }
 
-// List Tour
-.background {
-  margin: 10px 100px;
-}
+ 
 
 .gallery {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
-  // text-align: center;
-  // justify-content: space-between;
-  gap: 25px;
+  gap: 45px;
+  margin-bottom: 100px;
 }
