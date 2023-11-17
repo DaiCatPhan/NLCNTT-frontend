@@ -10,13 +10,22 @@ const deleteBookingTour = (rawData) => {
   });
 };
 
-const readById = (id) => {
-  return axios.post("/api/v1/booking/read", {
-    params: { id },
-  });
+const read = (rawData) => {
+  return axios.get(`/api/v1/booking/read?${rawData}`);
+};
+
+const readAll = (rawData) => {
+  return axios.get(`/api/v1/booking/readAll?${rawData}`);
+};
+
+const update = (rawData) => {
+  return axios.put(`/api/v1/booking/update`, rawData);
 };
 
 export default {
   createBookingTour,
   deleteBookingTour,
+  read,
+  readAll,
+  update,
 };

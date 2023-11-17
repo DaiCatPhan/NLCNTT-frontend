@@ -78,8 +78,15 @@ const items2 = [
   },
   {
     icon: <IconShoppingCart />,
-    label: <Link to={"/booking-listBookingTour"}>Manager Booking Tour</Link>,
+    label: <Link>Manager Booking Tour</Link>,
     key: "7",
+
+    children: [
+      {
+        label: <Link to={"/booking-listBookingTour"}>CRUD</Link>,
+        key: "7-1",
+      },
+    ],
   },
   {
     icon: <IconChartBar />,
