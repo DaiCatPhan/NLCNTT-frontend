@@ -14,9 +14,10 @@ import { useState } from "react";
 
 function InfoUser() {
   const { profile } = useAuth();
+
   const [name, setName] = useState(profile?.name);
   const [email, setEmail] = useState(profile?.email);
-  const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState(profile?.phone || "");
 
   const handleUpdateCus = async () => {
     toast.success("Cập nhật thông tin cá nhân thành công");
@@ -24,18 +25,7 @@ function InfoUser() {
   return (
     <div className={cx("wrapper")}>
       <div className={cx("bodyWrapper")}>
-        <div className={cx("text-center")}>
-          <img
-            src="https://vapa.vn/wp-content/uploads/2022/12/hinh-nen-dep-hd-001.jpg"
-            alt="notFound"
-            height={150}
-            width={150}
-            className={cx("imageInfo")}
-          />
-          <div>Upload hình mới</div>
-        </div>
-
-        <div className={cx("mt-5")}>
+        <div className={cx("mt-5 ")}>
           <div className={cx("row my-3   d-flex align-items-center")}>
             <div className={cx("col-4 text-secondary  ", "fw500")}>
               Kết nối Facebook
