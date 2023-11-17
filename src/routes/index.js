@@ -118,8 +118,8 @@ const publicRoutes = [
   //================== END ADMIN ================================
 
   // Profile User
-  { path: "/profile/infoUser", component: InfoUser, layout: ProfileUserLayout },
-  { path: "/profile/orderUser", component: Order, layout: ProfileUserLayout },
+  { path: "/profile/infoUser", component: InfoUser },
+  { path: "/profile/orderUser", component: Order },
 
   // TEST UI
   { path: "/testUI", component: TestUi, layout: NoneLayout },

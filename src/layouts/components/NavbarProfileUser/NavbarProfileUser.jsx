@@ -60,7 +60,7 @@ function NavBarProfileUser() {
           <Menu
             className={cx("menu")}
             mode="inline"
-            defaultSelectedKeys={["1"]}
+            defaultSelectedKeys={["2"]}
             defaultOpenKeys={["sub1"]}
             style={{
               height: "100%",

@@ -16,9 +16,9 @@ function ProfileUserLayout({ children }) {
   const navigate = useNavigate();
   const { isLogged, role, profile } = useAuth();
 
-  // if (!isLogged) {
-  //   return <NotPermissionPage />;
-  // }
+  if (!isLogged) {
+    return <NotPermissionPage />;
+  }
 
   return (
     <div className={cx("wrapper")}>
