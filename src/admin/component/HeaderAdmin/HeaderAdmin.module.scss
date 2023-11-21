@@ -57,11 +57,10 @@
   right: 3px;
   top: 72px;
   min-width: 240px;
-  border: 1px solid var(--text-gray);
   border-radius: 10px;
   opacity: 0;
   transition: 1s;
-  background-color: pink;
+  background-color: rgb(233, 213, 216);
   z-index: 1;
   display: none;
 }
@@ -75,12 +74,7 @@
   text-align: start;
   margin-left: 17px;
 
-  .name {
-    color: var(--text);
-  }
-  .email {
-    color: var(--gray);
-  }
+  
 }
 
 .items ul {
@@ -88,7 +82,7 @@
 }
 
 .items ul li {
-  padding: 10px;
+  padding: 0 10px;
 }
 
 .items ul li a {

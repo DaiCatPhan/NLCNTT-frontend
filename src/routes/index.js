@@ -14,6 +14,7 @@ import Dashboard from "../admin/resoursesAdmin/Dashboard";
 
 // Module USER
 import ListUser from "../admin/resoursesAdmin/ManageUser/ListUser";
+import ListCustomer from "../admin/resoursesAdmin/ManageUser/ListCustomer";
 
 // Module CALENDAR
 import CreateCalendar from "../admin/resoursesAdmin/ManagerCalendar/CreateCalendar";
@@ -71,6 +72,7 @@ const publicRoutes = [
 
   { path: "/user-listUser/:id", component: StaffDetail, layout: AdminLayout },
   { path: "/user-listUser", component: ListUser, layout: AdminLayout },
+  { path: "/user-listCustomer", component: ListCustomer, layout: AdminLayout },
 
   // TOUR
   { path: "/tour-listTour", component: ListTour, layout: AdminLayout },

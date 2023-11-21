@@ -12,7 +12,12 @@ const fetchDataCusOrderByEmail = (rawData) => {
   });
 };
 
+const readPanigation_Customer = (dataCreate) => {
+  return axios.get("/api/v1/customer/readPanigation");
+};
+
 export default {
   findOrCreate,
   fetchDataCusOrderByEmail,
+  readPanigation_Customer,
 };

@@ -108,9 +108,6 @@ function ListTour() {
           <Link to={`/tour-updateTour/?idTour=${record.id}`}>
             <button className={cx("btn", "btn-warning")}>Update</button>
           </Link>
-          <Link>
-            <button className={cx("btn", "btn-danger")}>Delete</button>
-          </Link>
         </Space>
       ),
     },
@@ -161,13 +158,13 @@ function ListTour() {
   return (
     <div className={cx("wrapper")}>
       <h1>ListTour</h1>
-      <div className={cx("listTour", "p-5", "border border-primary")}>
+      <div className={cx("listTour", "p-5")}>
         <div
           className={cx(
-            "border d-flex justify-content-between align-items-center"
+            " my-3 d-flex justify-content-between align-items-center"
           )}
         >
-          <div className={cx("border border-danger")}>
+          <div>
             <Link to={"/process-listProcessTour"}>
               <button className={cx("btn btn-primary fs-5 mx-2")}>
                 Manager Process Tour

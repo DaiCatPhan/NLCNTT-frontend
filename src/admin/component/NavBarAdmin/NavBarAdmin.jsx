@@ -106,7 +106,7 @@ const items2 = [
   },
   {
     icon: <IconSettings />,
-    label: <Link to={""}>Setting</Link>,
+    label: <Link>Setting</Link>,
     key: "9",
   },
 ];

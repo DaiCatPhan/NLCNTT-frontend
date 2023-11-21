@@ -1,5 +1,7 @@
 import className from "classnames/bind";
 import styles from "./ListUser.module.scss";
+const cx = className.bind(styles);
+
 import { Link } from "react-router-dom";
 import axios from "../../../../services/customize-axios";
 import { SearchOutlined } from "@ant-design/icons";
@@ -23,7 +25,6 @@ import ModalDeleteUser from "../component/ModalDeleteUser";
 import UserService from "../../../../services/UserService";
 import useAuth from "../../../../hook/useAuth";
 
-const cx = className.bind(styles);
 
 function ListUser() {
   const { isLogged, role, profile } = useAuth();
@@ -186,7 +187,7 @@ function ListUser() {
           phone: user.phone,
           gender: user.gender,
           role: user.role,
-          email: user.email, 
+          email: user.email,
           key: user.id,
           image: user.image,
           createdAt: user.createdAt,
@@ -351,8 +352,8 @@ function ListUser() {
 
   return (
     <div className={cx("wrapper")}>
-      <div className="m-5   ">
-        <div className={cx("btn_function")}>
+      <div className="m-5">
+        <div className={cx("btn_function", "my-3")}>
           <div className={cx("csv")}>
             <label htmlFor="import" className="btn btn-primary py-1 fs-5">
               <IconFileExport /> Import
@@ -412,8 +413,6 @@ function ListUser() {
           handleUpdateListUser={getUsers}
         />
       </div>
-      <div className="mt-3 px-2">{profile?.email}</div>
-      <div className="mt-3 px-2">{role}</div>
     </div>
   );
 }

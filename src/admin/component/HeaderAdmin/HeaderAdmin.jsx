@@ -5,15 +5,20 @@ const cx = className.bind(styles);
 import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
+import { DownOutlined, UserOutlined } from "@ant-design/icons";
+import { Button, Dropdown, message, Space, Tooltip } from "antd";
+import { IconBellRinging } from "@tabler/icons-react";
+
 import { IconBrandMessenger, IconUser } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../redux/reducers/userSlice";
 
 import AuthenticationService from "../../../services/AuthenticationService";
-import { IconBellRinging } from "@tabler/icons-react";
+import useAuth from "../../../hook/useAuth";
 
 function HeaderAdmin() {
+  const { isLogged, role, profile } = useAuth();
   const [isShowFormInfo, setIsShowFormInfo] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -58,25 +63,13 @@ function HeaderAdmin() {
         {/* Form */}
         <div className={cx("formInfo", { active: isShowFormInfo })}>
           <div className={cx("infoUser")}>
-            <p className={cx("name")}>Phan Dai cat</p>
-            <p className={cx("email")}>daicat@gmail.com</p>
+            <p className={cx(" ")}>{profile?.name || ""}</p>
+            <p className={cx(" ")}>{profile?.email || ""}</p>
           </div>
           <hr />
 
           <div className={cx("items")}>
             <ul>
-              <li>
-                <Link>
-                  <IconUser /> My profile
-                </Link>
-              </li>
-
-              <li>
-                <Link>
-                  <IconUser /> My profile
-                </Link>
-              </li>
-
               <li>
                 <Link onClick={handleClickLogout}>
                   <IconUser /> Log out
