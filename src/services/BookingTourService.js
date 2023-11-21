@@ -22,10 +22,15 @@ const update = (rawData) => {
   return axios.put(`/api/v1/booking/update`, rawData);
 };
 
+const revenue = (rawData) => {
+  return axios.get(`/api/v1/booking/revenue?${rawData}`);
+};
+
 export default {
   createBookingTour,
   deleteBookingTour,
   read,
   readAll,
   update,
+  revenue,
 };

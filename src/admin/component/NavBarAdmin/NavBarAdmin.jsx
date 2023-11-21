@@ -90,8 +90,19 @@ const items2 = [
   },
   {
     icon: <IconChartBar />,
-    label: <Link to={"/statistical-listStatistical"}>Manager Statistics</Link>,
+    label: <Link>Manager Statistics</Link>,
     key: "8",
+
+    children: [
+      {
+        label: <Link to={"/statistical-listStatistical"}>Revenue</Link>,
+        key: "8-1",
+      },
+      {
+        label: <Link to={"/statistical-chart"}>Chart Months</Link>,
+        key: "8-2",
+      },
+    ],
   },
   {
     icon: <IconSettings />,

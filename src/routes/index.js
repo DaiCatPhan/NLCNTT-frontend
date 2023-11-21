@@ -36,6 +36,7 @@ import ListBookingTour from "../admin/resoursesAdmin/ManagerBookingTour/ListBook
 
 // Module STATICTICAL_TOUR
 import StaticsticalTour from "../admin/resoursesAdmin/ManagerStatistical/StaticsticalTour";
+import ChartStatistical from "../admin/resoursesAdmin/ManagerStatistical/ChartStatistical";
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++ USER +++++++++++++++++++++++++++++++++++++++++++++
 
@@ -112,6 +113,11 @@ const publicRoutes = [
   {
     path: "/statistical-listStatistical",
     component: StaticsticalTour,
+    layout: AdminLayout,
+  },
+  {
+    path: "/statistical-chart",
+    component: ChartStatistical,
     layout: AdminLayout,
   },
 
