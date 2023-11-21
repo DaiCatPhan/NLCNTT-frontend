@@ -300,7 +300,7 @@ function FirstPage() {
         </section>
 
         <section className={cx("lovePlaceNext")}>
-          <div className={cx("row border px-5")}>
+          <div className={cx("row   px-5")}>
             <div className={cx("col-lg-8")}>
               <div className={cx("row  ")}>
                 <img
