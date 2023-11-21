@@ -94,7 +94,7 @@ function FirstPage() {
       des: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.Praesent in mauris eu tortor porttitor accumsan. Lorem ipsumdolor sit amet, consectetuer adipiscing elit. Praesent inmauris eu tortor porttitor accumsan.",
     },
     {
-      id: "3",  
+      id: "3",
       title: "BEACH",
       url: "https://img.freepik.com/free-photo/tropical-beach_74190-188.jpg?w=1800&t=st=1687169672~exp=1687170272~hmac=b66f9b9c1e344cbfe6fe2e5f65e94ebb8d418dad2e2af2b892ad9ac60e9eb79c",
       des: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.Praesent in mauris eu tortor porttitor accumsan. Lorem ipsumdolor sit amet, consectetuer adipiscing elit. Praesent inmauris eu tortor porttitor accumsan.",
@@ -230,8 +230,38 @@ function FirstPage() {
 
         {/*  Điểm đến yêu thích trong nước */}
         <section id="lovePlace" className={cx("lovePlace")}>
-          <div>Điểm đến yêu thích trong nước</div>
-          <div>Lên rừng xuống biển. Trọn vẹn Việt Nam</div>
+          <div className={cx("row   text-center my-5 mx-5")}>
+            <div className={cx("col-lg")}>
+              <div className={cx("position-relative")}>
+                <img
+                  src="https://cdn1.ivivu.com/iVivu/2023/05/23/19/chon-2.jpg"
+                  alt="notFound"
+                  width={275}
+                  height={360}
+                />
+              </div>
+            </div>
+            <div className={cx("col-lg")}>
+              <div>
+                <img
+                  src="https://cdn1.ivivu.com/iVivu/2022/01/14/16/chon-4.jpg"
+                  alt="notFound"
+                  width={275}
+                  height={360}
+                />
+              </div>
+            </div>
+            <div className={cx("col-lg")}>
+              <div>
+                <img
+                  src="https://cdn1.ivivu.com/iVivu/2023/06/01/18/tb1.png"
+                  alt="notFound"
+                  width={275}
+                  height={360}
+                />
+              </div>
+            </div>
+          </div>
           <div></div>
         </section>
 
@@ -266,6 +296,43 @@ function FirstPage() {
             >
               <source src="https://youtu.be/go_9xztCLp4" type="video/mp4" />
             </video>
+          </div>
+        </section>
+
+        <section className={cx("lovePlaceNext")}>
+          <div className={cx("row border px-5")}>
+            <div className={cx("col-lg-8")}>
+              <div className={cx("row  ")}>
+                <img
+                  src="https://cdn1.ivivu.com/iVivu/2023/03/02/10/phuquoc-show.webp"
+                  alt="not"
+                  className={cx("w-100")}
+                />
+              </div>
+              <div className={cx("row my-2")}>
+                <div className={cx("col-lg ")}>
+                  <img
+                    src="https://cdn1.ivivu.com/iVivu/2023/03/02/10/dalat-show.webp"
+                    alt="not"
+                    className={cx("w-100")}
+                  />
+                </div>
+                <div className={cx(" col-lg ")}>
+                  <img
+                    src="https://cdn1.ivivu.com/iVivu/2023/03/02/10/quynhon-show.webp"
+                    alt="not"
+                    className={cx("w-100")}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className={cx("col-lg-4")}>
+              <img
+                src="https://cdn1.ivivu.com/iVivu/2023/03/02/10/vungtau-show.webp"
+                alt="not"
+                className={cx("w-100")}
+              />
+            </div>
           </div>
         </section>
 

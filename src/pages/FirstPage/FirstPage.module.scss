@@ -106,7 +106,6 @@
 }
 
 // Introduction =====================================
- 
 
 .intro {
   text-align: center;
@@ -128,7 +127,11 @@
 //   Điểm đến yêu thích trong nước ======================
 
 .lovePlace {
-  
+  margin-bottom: 80px;
+}
+
+.lovePlaceNext {
+  margin: 100px 0;
 }
 
 //  Paragraph ============================================
@@ -177,8 +180,6 @@
   text-align: center;
 }
 
- 
-
 .figure {
   width: 350px;
   height: 300px;
@@ -209,7 +210,6 @@
 
 .cardList {
   width: 100%;
-  border: 1px solid blue;
   background-color: rgba(255, 192, 203, 0.199);
 }
 
@@ -270,5 +270,4 @@
 // =========== Remember ==================
 
 .remember {
-  
 }
