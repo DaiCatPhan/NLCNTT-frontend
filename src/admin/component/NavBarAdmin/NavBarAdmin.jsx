@@ -32,6 +32,11 @@ const items2 = [
   },
   {
     icon: <IconUser />,
+    label: <Link to={"/user-listCustomer"}>Manager Customer</Link>,
+    key: "13",
+  },
+  {
+    icon: <IconUser />,
     label: <Link to={"/user-listUser"}>Manager Staff</Link>,
     key: "3",
   },

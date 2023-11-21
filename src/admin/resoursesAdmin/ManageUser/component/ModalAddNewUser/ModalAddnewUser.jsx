@@ -11,8 +11,6 @@ import UserService from "../../../../../services/UserService";
 const cx = className.bind(styles);
 
 function ModalAddNewUser(props) {
-  
-
   const { show, handleClose, handleUpdateListUser } = props;
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -94,7 +92,6 @@ function ModalAddNewUser(props) {
   };
   return (
     <div className={cx("wrapper")}>
-      {console.log(">>> ModalAddNew")}
       <Modal
         show={show}
         onHide={handleClose}
