@@ -14,7 +14,14 @@ function StaticsticalTour() {
   const fetchData = async () => {
     const res = await BookingTourService.revenue(`month=${month}`);
     if (res && res.data.EC === 0) {
-      setRevenueList(res.data.DT);
+      const cusdata = res.data.DT.map((item) => {
+        return {
+          ...item,
+          key: item.tour.id,
+        };
+      });
+
+      setRevenueList(cusdata);
     }
   };
 

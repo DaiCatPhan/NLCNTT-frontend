@@ -46,7 +46,7 @@ function ListBookingTour() {
       title: "Tổng tiền đơn ",
       dataIndex: "money",
       key: "money",
-      render: (money) => <div>{money.toLocaleString("vi-VN")}</div>,
+      render: (money) => <div>{parseFloat(money)?.toLocaleString("vi-VN")} đ</div>,
     },
     {
       title: "Trạng thái",
@@ -61,10 +61,10 @@ function ListBookingTour() {
       render: (Calendar) => (
         <div className={cx(" ")}>
           <div>
-            Ngày khởi hành : {moment(Calendar?.startDay).format("YYYY-MM-DD")}
+            Ngày khởi hành : {moment(Calendar?.startDay).format("DD-MM-YYYY")}
           </div>
           <div>
-            Ngày kết thúc : {moment(Calendar?.endDay).format("YYYY-MM-DD")}
+            Ngày kết thúc : {moment(Calendar?.endDay).format("DD-MM-YYYY")}
           </div>
         </div>
       ),
@@ -119,7 +119,7 @@ function ListBookingTour() {
       key: "Action",
       render: (record) => {
         return (
-          <div>
+          <div className={cx("poiter")}>
             <IconEdit
               onClick={() => handleUpdateBooking(record)}
               color="blue"

@@ -16,9 +16,9 @@ function History() {
           <SideBar />
         </Col>
         <Col xs={16}>
-          <h1 className={cx("historyTitle")}>LỊCH SỬ PHÁT TRIỂN</h1>
+          <h1 className={cx("historyTitle", "mt-5")}>LỊCH SỬ PHÁT TRIỂN</h1>
           <div className={cx("contentRight")}>
-            <Carousel >
+            <Carousel>
               <Carousel.Item>
                 <div className={cx("carousel")}>
                   <img

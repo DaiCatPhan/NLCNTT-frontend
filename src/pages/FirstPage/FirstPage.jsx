@@ -287,7 +287,7 @@ function FirstPage() {
             <button className={cx("button", "btn")}>Xem thêm</button>
           </div>
           <div>
-            <video
+            {/* <video
               ref={videoRef}
               className={cx("video")}
               width="750"
@@ -295,7 +295,15 @@ function FirstPage() {
               controls
             >
               <source src="https://youtu.be/go_9xztCLp4" type="video/mp4" />
-            </video>
+            </video> */}
+
+            <img
+              ref={videoRef}
+              height={500}
+              width={750}
+              src="https://cdn1.ivivu.com/iVivu/2023/11/03/18/us-bangkok-th-header-cr.jpg"
+              alt="notFound"
+            />
           </div>
         </section>
 

@@ -1,6 +1,7 @@
 import className from "classnames/bind";
 import styles from "./ModalUpdateBooking.module.scss";
 const cx = className.bind(styles);
+import moment from "moment";
 
 import { Modal } from "antd";
 import { useState } from "react";
@@ -56,6 +57,16 @@ function ModalUpdateBooking(drops) {
   const handleChangeSelect = (value) => {
     setStatus(value);
   };
+
+  const handleSelect = (number) => {
+    if (number == 0) {
+      return "Chưa duyệt";
+    } else if (number == 1) {
+      return "Đã duyệt";
+    } else {
+      return "Đơn bị hủy";
+    }
+  };
   return (
     <div>
       <Modal
@@ -67,13 +78,31 @@ function ModalUpdateBooking(drops) {
       >
         <div>
           <div>ID Đơn hàng: {itemUpdateBooking.id}</div>
-          <div>ID Đơn hàng: {itemUpdateBooking?.Customer?.email}</div>
+          <div className={cx("my-4")}></div>
+          <div>Email: {itemUpdateBooking?.Customer?.email}</div>
+          <div className={cx("my-4")}></div>
+
           <div>Tên Tour : {itemUpdateBooking?.Calendar?.Tour?.name}</div>
+          <div className={cx("my-4")}></div>
+          <div className={cx("row")}>
+            <div className={cx("col-lg")}>
+              Ngày bắt đầu :{" "}
+              {moment(itemUpdateBooking?.Calendar?.startDay).format(
+                "DD-MM-YYYY"
+              )}
+            </div>
+            <div className={cx("col-lg")}>
+              Ngày kết thúc :{" "}
+              {moment(itemUpdateBooking?.Calendar?.endDay).format("DD-MM-YYYY")}
+            </div>
+          </div>
+          <div className={cx("my-4")}></div>
+
           <div className={cx("row")}>
             <div className={cx("col-lg")}>Cập nhật trạng thái : </div>
             <div className={cx("col-lg")}>
               <Select
-                value={itemUpdateBooking?.status}
+                value={handleSelect(itemUpdateBooking?.status)}
                 style={{
                   width: 120,
                 }}
