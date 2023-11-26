@@ -6,6 +6,7 @@ import Form from "react-bootstrap/Form";
 import { IconAsterisk } from "@tabler/icons-react";
 import { Space, Table, Tag } from "antd";
 import { DatePicker } from "antd";
+import { message } from "antd";
 
 import moment from "moment";
 import { toast } from "react-toastify";
@@ -93,7 +94,7 @@ function CreateCalendar() {
       toast.warning("Chưa nhập giá vé trẻ em !!!!");
       return false;
     }
-    const regex = /^(\d{1,3}(\.\d{3})*|\d+)$/
+    const regex = /^(\d{1,3}(\.\d{3})*|\d+)$/;
     if (!regex.test(priceAdult)) {
       toast.warning("Nhập giá vé người lớn chưa đúng định dạng !!!!");
       return false;
@@ -161,8 +162,18 @@ function CreateCalendar() {
     }
   };
 
-  const handleDeleteCalendar = () => {
-    alert("Xoa");
+  const handleDeleteCalendar = async (data) => {
+    if (data.id) {
+      const deleted = await CalendarTourService.delete_Calendar({
+        idCalendar: data.id,
+      });
+      if (deleted && deleted.data.EC == 0) {
+        message.success(deleted.data.EM, 2);
+        fetchData();
+      } else {
+        message.error(deleted.data.EM, 2);
+      }
+    }
   };
 
   const handleUpdateCalendar = () => {
@@ -240,14 +251,14 @@ function CreateCalendar() {
               </div>
             </div>
             <div className={cx("")}>
-              <button
+              {/* <button
                 onClick={handleDeleteCalendar}
                 className={cx("btn border border-primary mx-2")}
               >
                 Update
-              </button>
+              </button> */}
               <button
-                onClick={handleUpdateCalendar}
+                onClick={() => handleDeleteCalendar(address)}
                 className={cx("btn border border-danger")}
               >
                 Delete
