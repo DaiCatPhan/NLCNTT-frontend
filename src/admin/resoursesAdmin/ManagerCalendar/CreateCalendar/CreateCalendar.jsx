@@ -214,7 +214,7 @@ function CreateCalendar() {
             </div>
 
             {/*  Gia ve */}
-            <div className={cx("border ")}>
+            <div>
               <div>
                 <b>
                   Giá người lớn :
