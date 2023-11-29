@@ -4,7 +4,7 @@ const cx = className.bind(styles);
 import moment from "moment";
 
 import { Modal } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Select, Space } from "antd";
 import { toast } from "react-toastify";
 
@@ -20,6 +20,10 @@ function ModalUpdateBooking(drops) {
 
   const [status, setStatus] = useState("");
   const [confirmLoading, setConfirmLoading] = useState(false);
+
+  useEffect(() => {
+    setStatus(itemUpdateBooking.status);
+  }, [itemUpdateBooking]);
 
   const validate = () => {
     if (!status || !itemUpdateBooking.id) {
@@ -102,7 +106,7 @@ function ModalUpdateBooking(drops) {
             <div className={cx("col-lg")}>Cập nhật trạng thái : </div>
             <div className={cx("col-lg")}>
               <Select
-                value={handleSelect(itemUpdateBooking?.status)}
+                value={status}
                 style={{
                   width: 120,
                 }}

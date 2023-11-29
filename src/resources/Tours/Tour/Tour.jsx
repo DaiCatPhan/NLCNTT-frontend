@@ -17,7 +17,7 @@ import {
 } from "@tabler/icons-react";
 import moment from "moment";
 import { useEffect, useMemo, useState } from "react";
-import { useParams , Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 
@@ -320,7 +320,11 @@ function Tour() {
                 <div>Người lớn : </div>
                 {selectedCalendar?.priceAdult && (
                   <div className={cx("text-warning ", "fs-3", "fw-600px")}>
-                    x {selectedCalendar?.priceAdult.replace(/(\d)(?=(\d{3})+$)/g, '$1.')}
+                    x{" "}
+                    {selectedCalendar?.priceAdult.replace(
+                      /(\d)(?=(\d{3})+$)/g,
+                      "$1."
+                    )}
                   </div>
                 )}
 
@@ -345,7 +349,11 @@ function Tour() {
                 <div className={cx("mx-3")}>Trẻ em : </div>
                 {selectedCalendar?.priceChild && (
                   <div className={cx("text-warning ", "fs-3", "fw-600px")}>
-                    x {selectedCalendar?.priceChild.replace(/(\d)(?=(\d{3})+$)/g, '$1.')}
+                    x{" "}
+                    {selectedCalendar?.priceChild.replace(
+                      /(\d)(?=(\d{3})+$)/g,
+                      "$1."
+                    )}
                   </div>
                 )}
                 <div>
@@ -378,7 +386,7 @@ function Tour() {
               >
                 <div className={cx("fs-3")}>Tổng cộng : </div>
                 <div className={cx("fs-1", "text-warning", "fw-600px")}>
-                  {countMoney?.toLocaleString("vi-VN")}
+                  {countMoney?.toLocaleString("vi-VN") || 0}
                 </div>
               </div>
 

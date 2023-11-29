@@ -43,10 +43,21 @@ function ListBookingTour() {
     },
 
     {
+      title: "Ngày đặt tour",
+      dataIndex: "createdAt",
+      key: "createdAt",
+      render: (createdAt) => (
+        <div>{moment(createdAt).format("DD-MM-YYYY")}</div>
+      ),
+    },
+
+    {
       title: "Tổng tiền đơn ",
       dataIndex: "money",
       key: "money",
-      render: (money) => <div>{parseFloat(money)?.toLocaleString("vi-VN")} đ</div>,
+      render: (money) => (
+        <div>{parseFloat(money)?.toLocaleString("vi-VN")} đ</div>
+      ),
     },
     {
       title: "Trạng thái",

@@ -9,7 +9,7 @@ import { Select } from "antd";
 
 function StaticsticalTour() {
   const [revenueList, setRevenueList] = useState([]);
-  const [month, setMonth] = useState(10);
+  const [month, setMonth] = useState(11);
 
   const fetchData = async () => {
     const res = await BookingTourService.revenue(`month=${month}`);
@@ -59,7 +59,7 @@ function StaticsticalTour() {
     },
   ];
 
-  const handleChangeTable = (value) => {
+  const handleChangeSelect = (value) => {
     setMonth(value);
   };
 
@@ -70,11 +70,11 @@ function StaticsticalTour() {
           <h3>Thống kê doanh thu theo tháng</h3>
           <div className={cx("mx-5")}>
             <Select
-              defaultValue="10"
+              value={`${month}`}
               style={{
                 width: 120,
               }}
-              onChange={handleChangeTable}
+              onChange={handleChangeSelect}
               options={[
                 {
                   label: "Tháng 1",
